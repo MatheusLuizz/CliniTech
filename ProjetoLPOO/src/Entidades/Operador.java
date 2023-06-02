@@ -4,7 +4,6 @@ public class Operador {
 	private String email;
 	private String senha;
 	
-	
 	public Operador(String email, String senha) {
 		this.email = email;
 		this.senha = senha;
