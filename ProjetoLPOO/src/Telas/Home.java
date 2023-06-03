@@ -20,6 +20,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+@SuppressWarnings("serial")
 public class Home extends JFrame implements ActionListener {
 
 	private JPanel contentPane;

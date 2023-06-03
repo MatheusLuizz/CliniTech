@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
+@SuppressWarnings("serial")
 public class Paciente extends JFrame {
 
 	private JPanel contentPane;

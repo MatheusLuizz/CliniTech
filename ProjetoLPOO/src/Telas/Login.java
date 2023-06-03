@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import Entidades.Operador;
 
+@SuppressWarnings("serial")
 public class Login extends JFrame implements ActionListener {
 	
 	
