@@ -8,12 +8,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class Paciente extends JFrame {
+public class Paciente extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -48,6 +52,16 @@ public class Paciente extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(115, 10, 125, 102);
 		contentPane.add(lblNewLabel);
+		
+		btnNewButton = new JButton("HOME");
+		btnNewButton.addActionListener(this);
+		btnNewButton.setBounds(10, 10, 59, 21);
+		contentPane.add(btnNewButton);
 	}
 
+	public void actionPerformed(ActionEvent e) {
+		Home h = new Home();
+		this.dispose();
+		h.setVisible(true);
+	}
 }

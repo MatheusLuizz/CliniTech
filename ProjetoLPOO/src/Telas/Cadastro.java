@@ -63,6 +63,7 @@ public class Cadastro extends JFrame implements ActionListener {
 	private JTextField txtNomePai;
 	private JButton btnNewButton;
 	ArmazenamentoPacientes armazenarPaciente = new ArmazenamentoPacientes();
+	private JButton btnHome;
 
 	/**
 	 * Launch the application.
@@ -280,7 +281,11 @@ public class Cadastro extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(this);
 		btnNewButton.setBounds(290, 218, 109, 21);
 		contentPane.add(btnNewButton);
-	
+		
+		btnHome = new JButton("HOME");
+		btnHome.addActionListener(this);
+		btnHome.setBounds(314, 170, 85, 21);
+		contentPane.add(btnHome);
 	}
 
 	@Override
@@ -326,5 +331,13 @@ public class Cadastro extends JFrame implements ActionListener {
 		} else {
 			JOptionPane.showMessageDialog(null,"Não foi possível realizar o cadastro");
 		}
+	
+	btnHome.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			Home h = new Home();
+			Cadastro.this.dispose();
+			h.setVisible(true);
+		}
+	});
 	}
 }
