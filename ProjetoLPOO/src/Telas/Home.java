@@ -66,12 +66,12 @@ public class Home extends JFrame implements ActionListener {
 		btnPaciente.addActionListener(this);
 		btnPaciente.setForeground(new Color(255, 255, 255));
 		btnPaciente.setBackground(new Color(255, 255, 255));
-		btnPaciente.setIcon(new ImageIcon("C:\\Users\\mathe\\Downloads\\paciente_resized.png"));
+		btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/Imagens/IconePaciente.png")));
 		
 		btnCadastro = new JToggleButton("");
 		btnCadastro.setBackground(new Color(255, 255, 255));
 		btnCadastro.setForeground(new Color(255, 255, 255));
-		btnCadastro.setIcon(new ImageIcon("C:\\Users\\mathe\\Downloads\\iconeCalendario_resized.png"));
+		btnCadastro.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeCalendario.png")));
 		
 		lblNewLabel = new JLabel("Pacientes");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
