@@ -20,7 +20,7 @@ import Entidades.ArmazenamentoPacientes;
 import Entidades.Paciente;
 
 @SuppressWarnings("serial")
-public class Cadastro extends JFrame {
+public class CadastroPaciente extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -72,7 +72,7 @@ public class Cadastro extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Cadastro frame = new Cadastro();
+					CadastroPaciente frame = new CadastroPaciente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,7 +85,7 @@ public class Cadastro extends JFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Cadastro() {
+	public CadastroPaciente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -330,7 +330,7 @@ public class Cadastro extends JFrame {
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Home h = new Home();
-				Cadastro.this.dispose();
+				CadastroPaciente.this.dispose();
 				h.setVisible(true);
 			}
 		});

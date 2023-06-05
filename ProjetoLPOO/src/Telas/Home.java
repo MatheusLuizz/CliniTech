@@ -21,14 +21,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
-public class Home extends JFrame implements ActionListener {
+public class Home extends JFrame {
 
 	private JPanel contentPane;
 	private JPanel painel;
 	private JToggleButton btnPaciente;
 	private JToggleButton btnCadastro;
 	private JLabel lblNewLabel;
+	private JToggleButton btnMedico;
 	private JLabel lblNewLabel_1;
+	private JLabel lblNewLabel_2;
 
 	/**
 	 * Launch the application.
@@ -59,16 +61,17 @@ public class Home extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 		
 		painel = new JPanel();
-		painel.setBounds(0, 10, 539, 76);
+		painel.setBounds(0, 10, 539, 106);
 		contentPane.add(painel);
 		
 		btnPaciente = new JToggleButton("");
-		btnPaciente.addActionListener(this);
+		btnPaciente.setToolTipText("Exibir os pacientes cadastrados");
 		btnPaciente.setForeground(new Color(255, 255, 255));
 		btnPaciente.setBackground(new Color(255, 255, 255));
-		btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/Imagens/IconePaciente.png")));
+		btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconePaciente.png")));
 		
 		btnCadastro = new JToggleButton("");
+		btnCadastro.setToolTipText("Cadastrar um novo Paciente");
 		btnCadastro.setBackground(new Color(255, 255, 255));
 		btnCadastro.setForeground(new Color(255, 255, 255));
 		btnCadastro.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeCalendario.png")));
@@ -76,57 +79,83 @@ public class Home extends JFrame implements ActionListener {
 		lblNewLabel = new JLabel("Pacientes");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
 		
-		lblNewLabel_1 = new JLabel("Cadastro");
+		btnMedico = new JToggleButton("");
+		btnMedico.setForeground(new Color(255, 255, 255));
+		btnMedico.setBackground(new Color(255, 255, 255));
+		btnMedico.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeMedico.png")));
+		
+		lblNewLabel_1 = new JLabel("Médicos");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
+		
+		lblNewLabel_2 = new JLabel("Cadastro");
+		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
 		GroupLayout gl_painel = new GroupLayout(painel);
 		gl_painel.setHorizontalGroup(
 			gl_painel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_painel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_painel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel))
-					.addGap(18)
 					.addGroup(gl_painel.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnCadastro)
+						.addGroup(gl_painel.createSequentialGroup()
+							.addGap(18)
+							.addComponent(lblNewLabel))
+						.addGroup(gl_painel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_painel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_painel.createSequentialGroup()
 							.addGap(10)
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(353, Short.MAX_VALUE))
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnMedico, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_painel.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(gl_painel.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnCadastro, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		gl_painel.setVerticalGroup(
 			gl_painel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_painel.createSequentialGroup()
-					.addGroup(gl_painel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnCadastro, 0, 0, Short.MAX_VALUE)
-						.addComponent(btnPaciente, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_painel.createSequentialGroup()
+					.addGroup(gl_painel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_painel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnCadastro, GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
+						.addGroup(gl_painel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_painel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnMedico, GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_painel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
-						.addComponent(lblNewLabel_1))
-					.addGap(12))
+						.addComponent(lblNewLabel_1)
+						.addComponent(lblNewLabel_2))
+					.addGap(26))
 		);
 		painel.setLayout(gl_painel);
 	
 	btnPaciente.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
-		Paciente p = new Paciente();
+		TelaPaciente p = new TelaPaciente();
 		Home.this.dispose();
 		p.setVisible(true);
 	}
 	});
 	btnCadastro.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			Cadastro c = new Cadastro();
+			EscolhaCadastro c = new EscolhaCadastro();
 			Home.this.dispose();
 			c.setVisible(true);
 		}
 		});
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+	btnMedico.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			TelaMedico m = new TelaMedico();
+			Home.this.dispose();
+			m.setVisible(true);
+		}
+	});
 	}
 }

@@ -1,23 +1,22 @@
 package Telas;
 
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-@SuppressWarnings("serial")
-public class Paciente extends JFrame implements ActionListener {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+public class TelaMedico extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
-	private JButton btnNewButton;
+	private JButton btnHome;
 
 	/**
 	 * Launch the application.
@@ -26,7 +25,7 @@ public class Paciente extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Paciente frame = new Paciente();
+					TelaMedico frame = new TelaMedico();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +37,7 @@ public class Paciente extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public Paciente() {
+	public TelaMedico() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -47,21 +46,23 @@ public class Paciente extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		lblNewLabel = new JLabel("Pacientes");
+		lblNewLabel = new JLabel("Médico");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(115, 10, 125, 102);
+		lblNewLabel.setBounds(111, 10, 170, 127);
 		contentPane.add(lblNewLabel);
 		
-		btnNewButton = new JButton("HOME");
-		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(10, 10, 59, 21);
-		contentPane.add(btnNewButton);
+		btnHome = new JButton("Home");
+		btnHome.setFont(new Font("Arial", Font.BOLD, 18));
+		btnHome.setBounds(10, 10, 105, 51);
+		contentPane.add(btnHome);
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Home h = new Home();
+				TelaMedico.this.dispose();
+				h.setVisible(true);
+			}
+		});
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		Home h = new Home();
-		this.dispose();
-		h.setVisible(true);
-	}
 }
