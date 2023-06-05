@@ -20,7 +20,7 @@ import Entidades.ArmazenamentoPacientes;
 import Entidades.Paciente;
 
 @SuppressWarnings("serial")
-public class Cadastro extends JFrame implements ActionListener {
+public class Cadastro extends JFrame {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -61,7 +61,7 @@ public class Cadastro extends JFrame implements ActionListener {
 	private JLabel lblNewLabel_16;
 	private JTextField txtNomeMae;
 	private JTextField txtNomePai;
-	private JButton btnNewButton;
+	private JButton btnCadastro;
 	ArmazenamentoPacientes armazenarPaciente = new ArmazenamentoPacientes();
 	private JButton btnHome;
 
@@ -277,67 +277,65 @@ public class Cadastro extends JFrame implements ActionListener {
 		contentPane.add(txtNomePai);
 		txtNomePai.setColumns(10);
 		
-		btnNewButton = new JButton("Cadastrar");
-		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(290, 218, 109, 21);
-		contentPane.add(btnNewButton);
+		btnCadastro = new JButton("Cadastrar");
+		btnCadastro.setBounds(290, 218, 109, 21);
+		contentPane.add(btnCadastro);
+		btnCadastro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Paciente paciente = new Paciente();
+				paciente.setNome(txtNome.getText());
+				paciente.setCpf(txtCpf.getText());
+				paciente.setRg(txtRg.getText());
+				paciente.setTelefone(txtTelefone.getText());
+				paciente.setEmail(txtEmail.getText());
+				paciente.setRua(txtRua.getText());
+				paciente.setComplemento(txtComplemento.getText());
+				paciente.setNum(txtNumero.getText());
+				paciente.setBairro(txtBairro.getText());
+				paciente.setCep(txtCep.getText());
+				paciente.setCidade(txtCidade.getText());
+				paciente.setUf(boxUf.getSelectedItem().toString());
+				paciente.setNascimento(txtNascimento.getText());
+				paciente.setSexo(boxSexo.getSelectedItem().toString());
+				paciente.setEstadoCivil(txtEstadoCivil.getText());
+				paciente.setNomePai(txtNomePai.getText());
+				paciente.setNomeMae(txtNomeMae.getText());
+				
+				if (armazenarPaciente.salvar(paciente)) {
+					JOptionPane.showMessageDialog(null, "Paciente cadastrado com sucesso");
+					txtNome.setText("");
+					txtCpf.setText("");
+					txtRg.setText("");
+					txtEmail.setText("");
+					txtTelefone.setText("");
+					txtRua.setText("");
+					txtComplemento.setText("");
+					txtNumero.setText("");
+					txtBairro.setText("");
+					txtCep.setText("");
+					txtCidade.setText("");
+					txtNascimento.setText("");
+					txtEstadoCivil.setText("");
+					txtNomePai.setText("");
+					txtNomeMae.setText("");
+					
+					txtNome.requestFocus();
+				} else {
+					JOptionPane.showMessageDialog(null,"Não foi possível realizar o cadastro");
+				}
+			}
+		});
 		
 		btnHome = new JButton("HOME");
-		btnHome.addActionListener(this);
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Home h = new Home();
+				Cadastro.this.dispose();
+				h.setVisible(true);
+			}
+		});
 		btnHome.setBounds(314, 170, 85, 21);
 		contentPane.add(btnHome);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Paciente paciente = new Paciente();
-		paciente.setNome(txtNome.getText());
-		paciente.setCpf(txtCpf.getText());
-		paciente.setRg(txtRg.getText());
-		paciente.setTelefone(txtTelefone.getText());
-		paciente.setEmail(txtEmail.getText());
-		paciente.setRua(txtRua.getText());
-		paciente.setComplemento(txtComplemento.getText());
-		paciente.setNum(txtNumero.getText());
-		paciente.setBairro(txtBairro.getText());
-		paciente.setCep(txtCep.getText());
-		paciente.setCidade(txtCidade.getText());
-		paciente.setUf(boxUf.getSelectedItem().toString());
-		paciente.setNascimento(txtNascimento.getText());
-		paciente.setSexo(boxSexo.getSelectedItem().toString());
-		paciente.setEstadoCivil(txtEstadoCivil.getText());
-		paciente.setNomePai(txtNomePai.getText());
-		paciente.setNomeMae(txtNomeMae.getText());
-		
-		if (armazenarPaciente.salvar(paciente)) {
-			JOptionPane.showMessageDialog(null, "Paciente cadastrado com sucesso");
-			txtNome.setText("");
-			txtCpf.setText("");
-			txtRg.setText("");
-			txtEmail.setText("");
-			txtTelefone.setText("");
-			txtRua.setText("");
-			txtComplemento.setText("");
-			txtNumero.setText("");
-			txtBairro.setText("");
-			txtCep.setText("");
-			txtCidade.setText("");
-			txtNascimento.setText("");
-			txtEstadoCivil.setText("");
-			txtNomePai.setText("");
-			txtNomeMae.setText("");
-			
-			txtNome.requestFocus();
-		} else {
-			JOptionPane.showMessageDialog(null,"Não foi possível realizar o cadastro");
-		}
-	
-	btnHome.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			Home h = new Home();
-			Cadastro.this.dispose();
-			h.setVisible(true);
-		}
-	});
-	}
 }
