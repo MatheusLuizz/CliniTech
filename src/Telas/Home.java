@@ -19,6 +19,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JList;
+import javax.swing.border.LineBorder;
+import javax.swing.JLayeredPane;
 
 @SuppressWarnings("serial")
 public class Home extends JFrame {
@@ -27,10 +31,9 @@ public class Home extends JFrame {
 	private JPanel painel;
 	private JToggleButton btnPaciente;
 	private JToggleButton btnCadastro;
-	private JLabel lblNewLabel;
 	private JToggleButton btnMedico;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
+	private JPanel panel;
+	private final JLayeredPane layeredPane = new JLayeredPane();
 
 	/**
 	 * Launch the application.
@@ -53,21 +56,20 @@ public class Home extends JFrame {
 	 */
 	public Home() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 553, 419);
+		setBounds(100, 100, 800, 498);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
 		painel = new JPanel();
-		painel.setBounds(0, 10, 539, 106);
-		contentPane.add(painel);
+		painel.setBounds(0, 0, 91, 468);
+		painel.setBackground(new Color(13, 73, 151));
 		
 		btnPaciente = new JToggleButton("");
 		btnPaciente.setToolTipText("Exibir os pacientes cadastrados");
 		btnPaciente.setForeground(new Color(255, 255, 255));
-		btnPaciente.setBackground(new Color(255, 255, 255));
+		btnPaciente.setBackground(new Color(13, 73, 151));
 		btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconePaciente.png")));
 		
 		btnCadastro = new JToggleButton("");
@@ -76,65 +78,44 @@ public class Home extends JFrame {
 		btnCadastro.setForeground(new Color(255, 255, 255));
 		btnCadastro.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeCalendario.png")));
 		
-		lblNewLabel = new JLabel("Pacientes");
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
-		
 		btnMedico = new JToggleButton("");
 		btnMedico.setForeground(new Color(255, 255, 255));
 		btnMedico.setBackground(new Color(255, 255, 255));
 		btnMedico.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeMedico.png")));
-		
-		lblNewLabel_1 = new JLabel("Médicos");
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
-		
-		lblNewLabel_2 = new JLabel("Cadastro");
-		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
 		GroupLayout gl_painel = new GroupLayout(painel);
 		gl_painel.setHorizontalGroup(
 			gl_painel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_painel.createSequentialGroup()
-					.addGroup(gl_painel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_painel.createSequentialGroup()
-							.addGap(18)
-							.addComponent(lblNewLabel))
-						.addGroup(gl_painel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_painel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_painel.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
-						.addComponent(btnMedico, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_painel.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_painel.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblNewLabel_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(btnCadastro, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+					.addContainerGap()
+					.addGroup(gl_painel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnCadastro, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, gl_painel.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(btnMedico, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+							.addComponent(btnPaciente, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)))
+					.addContainerGap(20, Short.MAX_VALUE))
 		);
 		gl_painel.setVerticalGroup(
-			gl_painel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_painel.createSequentialGroup()
-					.addGroup(gl_painel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_painel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnCadastro, GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-						.addGroup(gl_painel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_painel.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnMedico, GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)))
+			gl_painel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_painel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_painel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblNewLabel_2))
-					.addGap(26))
+					.addComponent(btnMedico, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnCadastro)
+					.addContainerGap(250, Short.MAX_VALUE))
 		);
 		painel.setLayout(gl_painel);
+		contentPane.setLayout(null);
+		
+		panel = new JPanel();
+		panel.setBounds(91, 0, 712, 65);
+		panel.setBackground(new Color(211, 211, 211));
+		panel.setLayout(null);
+		contentPane.add(panel);
+		contentPane.add(painel);
+		layeredPane.setBounds(-22, -38, 825, 578);
+		contentPane.add(layeredPane);
 	
 	btnPaciente.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
