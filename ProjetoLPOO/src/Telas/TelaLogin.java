@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 import Entidades.Operador;
 
 @SuppressWarnings("serial")
-public class Login extends JFrame implements ActionListener {
+public class TelaLogin extends JFrame {
 	
 	
 	Operador operador = new Operador("operador@gmail.com", "operador");
@@ -34,7 +34,7 @@ public class Login extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login frame = new Login();
+					TelaLogin frame = new TelaLogin();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +43,7 @@ public class Login extends JFrame implements ActionListener {
 		});
 	}
 
-	public Login() {
+	public TelaLogin() {
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,22 +81,23 @@ public class Login extends JFrame implements ActionListener {
 		contentPane.add(txtSenha);
 		
 		btnLogin = new JButton("Entrar");
-		btnLogin.addActionListener(this);
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String email = txtEmail.getText();
+				String senha = String.valueOf(txtSenha.getPassword());
+				
+				if (email.equals(operador.getEmail()) && senha.equals(operador.getSenha())) {
+					Home h = new Home();
+					TelaLogin.this.dispose();
+					h.setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "E-mail ou senha incorretos!");
+				}
+			}
+		});
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnLogin.setBounds(40, 301, 85, 21);
 		contentPane.add(btnLogin);
 	}
 	
-	public void actionPerformed(ActionEvent e) {
-		String email = txtEmail.getText();
-		String senha = String.valueOf(txtSenha.getPassword());
-		
-		if (email.equals(operador.getEmail()) && senha.equals(operador.getSenha())) {
-			Home h = new Home();
-			this.dispose();
-			h.setVisible(true);
-		} else {
-			JOptionPane.showMessageDialog(this, "Email ou senha incorretos!");
-		}
-	}
 }
