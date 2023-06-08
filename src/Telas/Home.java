@@ -33,7 +33,6 @@ public class Home extends JFrame {
 	private JToggleButton btnCadastro;
 	private JToggleButton btnMedico;
 	private JPanel panel;
-	private final JLayeredPane layeredPane = new JLayeredPane();
 
 	/**
 	 * Launch the application.
@@ -68,19 +67,22 @@ public class Home extends JFrame {
 		
 		btnPaciente = new JToggleButton("");
 		btnPaciente.setToolTipText("Exibir os pacientes cadastrados");
-		btnPaciente.setForeground(new Color(255, 255, 255));
+		btnPaciente.setForeground(new Color(13, 73, 151));
 		btnPaciente.setBackground(new Color(13, 73, 151));
+		btnPaciente.setBorderPainted(false);
 		btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconePaciente.png")));
 		
 		btnCadastro = new JToggleButton("");
 		btnCadastro.setToolTipText("Cadastrar um novo Paciente");
 		btnCadastro.setBackground(new Color(255, 255, 255));
 		btnCadastro.setForeground(new Color(255, 255, 255));
+		btnCadastro.setBorderPainted(false);
 		btnCadastro.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeCalendario.png")));
 		
 		btnMedico = new JToggleButton("");
 		btnMedico.setForeground(new Color(255, 255, 255));
 		btnMedico.setBackground(new Color(255, 255, 255));
+		btnMedico.setBorderPainted(false);
 		btnMedico.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeMedico.png")));
 		GroupLayout gl_painel = new GroupLayout(painel);
 		gl_painel.setHorizontalGroup(
@@ -114,8 +116,6 @@ public class Home extends JFrame {
 		panel.setLayout(null);
 		contentPane.add(panel);
 		contentPane.add(painel);
-		layeredPane.setBounds(-22, -38, 825, 578);
-		contentPane.add(layeredPane);
 	
 	btnPaciente.addActionListener(new ActionListener() {
 	public void actionPerformed(ActionEvent e) {
