@@ -81,6 +81,7 @@ public class TelaLogin extends JFrame {
 		contentPane.add(txtSenha);
 		
 		btnLogin = new JButton("Entrar");
+		btnLogin.setToolTipText("Realizar login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String email = txtEmail.getText();

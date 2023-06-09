@@ -87,7 +87,7 @@ public class CadastroPaciente extends JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastroPaciente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
