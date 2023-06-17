@@ -13,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import Entidades.ArmazenamentoMedicos;
 import Entidades.Medico;
 
 public class CadastroMedico extends JFrame {
@@ -32,7 +31,7 @@ public class CadastroMedico extends JFrame {
 	private JLabel lblNewLabel_5;
 	private JTextField txtEspecialidade;
 	private JButton btnCadastro;
-	ArmazenamentoMedicos armazenarMedico = new ArmazenamentoMedicos();
+	
 	private JButton btnHome;
 
 	/**
@@ -131,26 +130,7 @@ public class CadastroMedico extends JFrame {
 		
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Medico medico = new Medico();
-				medico.setCrm(txtCrm.getText());
-				medico.setNome(txtNome.getText());
-				medico.setCpf(txtCpf.getText());
-				medico.setRg(txtRg.getText());
-				medico.setTelefone(txtTelefone.getText());
-				medico.setEspecialidade(txtEspecialidade.getText());
-				
-				if (armazenarMedico.salvar(medico)) {
-					JOptionPane.showMessageDialog(null, "Médico cadastrado com sucesso!");
-					txtCrm.setText("");
-					txtNome.setText("");
-					txtCpf.setText("");
-					txtRg.setText("");
-					txtTelefone.setText("");
-					txtEspecialidade.setText("");
-					txtCrm.requestFocus();
-				} else {
-					JOptionPane.showMessageDialog(null, "Não foi possível realizar o cadastro");
-				}
+			dispose();
 			}
 		});
 		btnHome = new JButton("Home");

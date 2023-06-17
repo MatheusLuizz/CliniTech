@@ -6,8 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Connection;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,7 +18,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import Database.ConnectionBD;
-import Entidades.ArmazenamentoPacientes;
 
 @SuppressWarnings("serial")
 public class CadastroPaciente extends JFrame {
@@ -65,7 +62,6 @@ public class CadastroPaciente extends JFrame {
 	private JTextField txtNomeMae;
 	private JTextField txtNomePai;
 	private JButton btnCadastro;
-	ArmazenamentoPacientes armazenarPaciente = new ArmazenamentoPacientes();
 	private JButton btnHome;
 
 	/**
