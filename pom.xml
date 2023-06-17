@@ -3,6 +3,13 @@
   <groupId>Projeto-LPOO</groupId>
   <artifactId>Projeto-LPOO</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+   <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
+        </dependency>
+    </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
