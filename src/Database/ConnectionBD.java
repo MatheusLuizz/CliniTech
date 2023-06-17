@@ -2,13 +2,24 @@ package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 public class ConnectionBD {
-	public static Connection abrir() throws Exception {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection connection = DriverManager.getConnection("jdbc:mysql://aws.connect.psdb.cloud/lpoo?sslMode=VERIFY_IDENTITY",
-		  "l82ng7dorvijthxplqtt",
-		  "pscale_pw_Q0lB0Jl7p9VkyciIMp61pws8tCGpvPvNqbDlASHTQTb");
-		return connection;
-	}
+	public static Connection abrir() {
+        Connection connection = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3308/lpoo?serverTimezone=America/Sao_Paulo";
+            connection = DriverManager.getConnection(url, "root", "");
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "Driver JDBC não encontrado.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados.");
+            e.printStackTrace();
+        }
+        return connection;
+    }
 }
