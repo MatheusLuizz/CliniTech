@@ -3,3 +3,4 @@ bin/
 *.log
 .project
 /target/
+.settings/
