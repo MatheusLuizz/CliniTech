@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Connection;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -16,8 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import Database.ConnectionBD;
 import Entidades.ArmazenamentoPacientes;
-import Entidades.Paciente;
 
 @SuppressWarnings("serial")
 public class CadastroPaciente extends JFrame {
@@ -281,28 +284,23 @@ public class CadastroPaciente extends JFrame {
 		btnCadastro.setBounds(290, 218, 109, 21);
 		contentPane.add(btnCadastro);
 		btnCadastro.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
-				Paciente paciente = new Paciente();
-				paciente.setNome(txtNome.getText());
-				paciente.setCpf(txtCpf.getText());
-				paciente.setRg(txtRg.getText());
-				paciente.setTelefone(txtTelefone.getText());
-				paciente.setEmail(txtEmail.getText());
-				paciente.setRua(txtRua.getText());
-				paciente.setComplemento(txtComplemento.getText());
-				paciente.setNum(txtNumero.getText());
-				paciente.setBairro(txtBairro.getText());
-				paciente.setCep(txtCep.getText());
-				paciente.setCidade(txtCidade.getText());
-				paciente.setUf(boxUf.getSelectedItem().toString());
-				paciente.setNascimento(txtNascimento.getText());
-				paciente.setSexo(boxSexo.getSelectedItem().toString());
-				paciente.setEstadoCivil(txtEstadoCivil.getText());
-				paciente.setNomePai(txtNomePai.getText());
-				paciente.setNomeMae(txtNomeMae.getText());
-				
-				if (armazenarPaciente.salvar(paciente)) {
-					JOptionPane.showMessageDialog(null, "Paciente cadastrado com sucesso");
+				try {
+					ConnectionBD conn = new ConnectionBD();
+					Statement st;
+					st = conn.abrir().createStatement();
+					// Comando Insert 
+					String query = "INSERT INTO paciente (nome, cpf, rg, telefone, email, rua, num, complemento, bairro, cep, cidade, uf, nascimento, sexo, estadoCivil, nomePai, nomeMae) "
+							+ "VALUES ('" + txtNome.getText() + "', '" + txtCpf.getText() + "', '" + txtRg.getText() + "', '" + txtTelefone.getText() + "'"
+							+ ", '" + txtEmail.getText() + "', '" + txtRua.getText() + "', '" + txtNumero.getText() + "'"
+							+ ", '" + txtComplemento.getText() + "', '" + txtBairro.getText() + "', '" + txtCep.getText() + "'"
+							+ ", '" + txtCidade.getText() + "', '" + boxUf.getSelectedItem().toString() + "', '" + txtNascimento.getText() + "'"
+							+ ", '" + boxSexo.getSelectedItem().toString() + "', '" + txtEstadoCivil.getText() + "'"
+							+ ", '" + txtNomePai.getText() + "', '" + txtNomeMae.getText() + "')";
+					
+					st.executeUpdate(query);
+					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 					txtNome.setText("");
 					txtCpf.setText("");
 					txtRg.setText("");
@@ -320,8 +318,10 @@ public class CadastroPaciente extends JFrame {
 					txtNomeMae.setText("");
 					
 					txtNome.requestFocus();
-				} else {
-					JOptionPane.showMessageDialog(null,"Não foi possível realizar o cadastro");
+					
+				}  catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, "Erro nas operações no banco de dados.");
+					ex.printStackTrace();
 				}
 			}
 		});
