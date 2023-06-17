@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entidades.Paciente;
+import Entidades.Medico;
 
-public class PacienteDAO {
-	public List <Paciente> buscar (Paciente p) throws Exception {
+public class MedicoDAO {
+	public List <Medico> buscar (Medico m) throws Exception {
 		// Definindo o código SQL
 		String sql = "SELECT nome, telefone, email, nascimento, sexo " +
 	            "FROM paciente " +
@@ -21,16 +21,15 @@ public class PacienteDAO {
 		PreparedStatement comando = conn.prepareStatement(sql);
 		ResultSet resultado = comando.executeQuery();
 		
-		List <Paciente> lista = new ArrayList <Paciente> ();
+		List <Medico> lista = new ArrayList <Medico> ();
 		
 		// Percorrendo o resultado, armazenando os valores em uma lista
 		while (resultado.next()) {
-			Paciente linha = new Paciente();
+			Medico linha = new Medico();
 			linha.setNome(resultado.getString("nome"));
-			linha.setTelefone(resultado.getString("telefone_"));
-			linha.setEmail(resultado.getString("email"));
-			linha.setNascimento(resultado.getString("nascimento"));
-			linha.setSexo(resultado.getString("sexo"));
+			linha.setCrm(resultado.getString("crm"));
+			linha.setTelefone(resultado.getString("telefone"));
+			linha.setEspecialidade(resultado.getString("especialidade"));
 			
 			lista.add(linha);
 		}

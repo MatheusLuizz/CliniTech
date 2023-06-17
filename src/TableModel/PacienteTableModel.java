@@ -7,10 +7,14 @@ import javax.swing.table.AbstractTableModel;
 
 import Entidades.Paciente;
 
+@SuppressWarnings("serial")
 public class PacienteTableModel extends AbstractTableModel {
+	@SuppressWarnings("rawtypes")
 	private Vector colunas;
+	@SuppressWarnings("rawtypes")
 	private Vector linhas;
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PacienteTableModel() {
 		colunas = new Vector();
 		colunas.add("Nome");
@@ -41,6 +45,7 @@ public class PacienteTableModel extends AbstractTableModel {
 
 	public Object getValueAt(int linha, int coluna) {
 		// Captura o registro informado
+		@SuppressWarnings("rawtypes")
 		Vector registro = (Vector) linhas.get(linha);
 
 		// Dentro do registro captura a coluna selecionada
