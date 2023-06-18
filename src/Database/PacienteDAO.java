@@ -27,7 +27,7 @@ public class PacienteDAO {
 		while (resultado.next()) {
 			Paciente linha = new Paciente();
 			linha.setNome(resultado.getString("nome"));
-			linha.setTelefone(resultado.getString("telefone_"));
+			linha.setTelefone(resultado.getString("telefone"));
 			linha.setEmail(resultado.getString("email"));
 			linha.setNascimento(resultado.getString("nascimento"));
 			linha.setSexo(resultado.getString("sexo"));
