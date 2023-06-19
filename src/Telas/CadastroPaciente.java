@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.DefaultComboBoxModel;
@@ -284,18 +285,29 @@ public class CadastroPaciente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					ConnectionBD conn = new ConnectionBD();
-					Statement st;
-					st = conn.abrir().createStatement();
-					// Comando Insert 
-					String query = "INSERT INTO paciente (nome, cpf, rg, telefone, email, rua, num, complemento, bairro, cep, cidade, uf, nascimento, sexo, estadoCivil, nomePai, nomeMae) "
-							+ "VALUES ('" + txtNome.getText() + "', '" + txtCpf.getText() + "', '" + txtRg.getText() + "', '" + txtTelefone.getText() + "'"
-							+ ", '" + txtEmail.getText() + "', '" + txtRua.getText() + "', '" + txtNumero.getText() + "'"
-							+ ", '" + txtComplemento.getText() + "', '" + txtBairro.getText() + "', '" + txtCep.getText() + "'"
-							+ ", '" + txtCidade.getText() + "', '" + boxUf.getSelectedItem().toString() + "', '" + txtNascimento.getText() + "'"
-							+ ", '" + boxSexo.getSelectedItem().toString() + "', '" + txtEstadoCivil.getText() + "'"
-							+ ", '" + txtNomePai.getText() + "', '" + txtNomeMae.getText() + "')";
+					PreparedStatement st;
+						String query = "INSERT INTO paciente (nome, cpf, rg, telefone, email, rua, num, complemento, bairro, cep, "
+							+ "cidade, uf, nascimento, sexo, estadoCivil, nomePai, nomeMae) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+					st = conn.abrir().prepareStatement(query);
+					st.setString(1, txtNome.getText());
+					st.setString(2, txtCpf.getText());
+					st.setString(3, txtRg.getText());
+					st.setString(4, txtTelefone.getText());
+					st.setString(5, txtEmail.getText());
+					st.setString(6, txtRua.getText());
+					st.setString(7, txtNumero.getText());
+					st.setString(8, txtComplemento.getText());
+					st.setString(9, txtBairro.getText());
+					st.setString(10, txtCep.getText());
+					st.setString(11, txtCidade.getText());
+					st.setString(12, (String) boxUf.getSelectedItem());
+					st.setString(13, txtNascimento.getText());
+					st.setString(14, (String) boxSexo.getSelectedItem());
+					st.setString(15, txtEstadoCivil.getText());
+					st.setString(16, txtNomePai.getText());
+					st.setString(17, txtNomeMae.getText());
 					
-					st.executeUpdate(query);
+					st.executeUpdate();
 					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 					txtNome.setText("");
 					txtCpf.setText("");

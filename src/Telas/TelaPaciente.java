@@ -37,8 +37,8 @@ public class TelaPaciente extends JFrame {
             public void run() {
                 try {
                     TelaPaciente frame = new TelaPaciente();
-                    frame.setVisible(true);
                     frame.atualizar();
+                    frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -81,17 +81,17 @@ public class TelaPaciente extends JFrame {
 
     public void atualizar() {
         try {
-            /* Criação do modelo */
-            Paciente d = new Paciente();
-
             /* Criação do DAO */
             PacienteDAO dao = new PacienteDAO();
-            List<Paciente> lista = dao.buscar(d);
+            List<Paciente> lista = dao.buscar(new Paciente());
 
             /* Captura o modelo da tabela */
             PacienteTableModel modelo = (PacienteTableModel) tabela.getModel();
 
-            /* Copia os dados da consulta para a tabela */
+            /* Limpa o modelo existente */
+            modelo.limpar();
+
+            /* Adiciona os pacientes ao modelo */
             modelo.adicionar(lista);
 
         } catch (Exception ex) {

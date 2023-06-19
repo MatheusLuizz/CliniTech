@@ -54,7 +54,7 @@ public class PacienteTableModel extends AbstractTableModel {
 		// Retorna o valor capturado
 		return dado;
 	}
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void adicionar(List<Paciente> lista) {
         /* Reinicializa os dados da tabela */
         linhas = new Vector();
@@ -76,4 +76,12 @@ public class PacienteTableModel extends AbstractTableModel {
         /* Atualiza a tabela */
         fireTableDataChanged();
     }
+
+	public void limpar() {
+	    int rowCount = linhas.size();
+	    if (rowCount > 0) {
+	        linhas.clear();
+	        fireTableRowsDeleted(0, rowCount - 1);
+	    }
+	}
 }
