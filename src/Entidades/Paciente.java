@@ -18,6 +18,12 @@ public class Paciente {
 	private String estadoCivil;
 	private String nomePai;
 	private String nomeMae;
+	private String moradia;
+	private String rendaFamiliar;
+	private String escolaridade;
+	private String antecedentesPessoais;
+	private String antecedentesFamiliares;
+	
 	
 	public String getNome() {
 		return nome;
@@ -120,5 +126,35 @@ public class Paciente {
 	}
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
+	}
+	public String getMoradia() {
+		return moradia;
+	}
+	public void setMoradia(String moradia) {
+		this.moradia = moradia;
+	}
+	public String getRendaFamiliar() {
+		return rendaFamiliar;
+	}
+	public void setRendaFamiliar(String rendaFamiliar) {
+		this.rendaFamiliar = rendaFamiliar;
+	}
+	public String getEscolaridade() {
+		return escolaridade;
+	}
+	public void setEscolaridade(String escolaridade) {
+		this.escolaridade = escolaridade;
+	}
+	public String getAntecedentesPessoais() {
+		return antecedentesPessoais;
+	}
+	public void setAntecedentesPessoais(String antecedentesPessoais) {
+		this.antecedentesPessoais = antecedentesPessoais;
+	}
+	public String getAntecedentesFamiliares() {
+		return antecedentesFamiliares;
+	}
+	public void setAntecedentesFamiliares(String antecedentesFamiliares) {
+		this.antecedentesFamiliares = antecedentesFamiliares;
 	}
 }
