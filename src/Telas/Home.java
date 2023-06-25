@@ -121,6 +121,7 @@ public class Home extends JFrame {
 	public void actionPerformed(ActionEvent e) {
 		TelaPaciente p = new TelaPaciente();
 		Home.this.dispose();
+		p.atualizar();
 		p.setVisible(true);
 	}
 	});
