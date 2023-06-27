@@ -11,7 +11,7 @@ public class ConnectionBD {
         Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/lpoo?serverTimezone=America/Sao_Paulo";
+            String url = "jdbc:mysql://localhost:3306/clinicamedica?serverTimezone=America/Sao_Paulo";
             connection = DriverManager.getConnection(url, "root", "");
             connection.createStatement(0, 0);
         } catch (ClassNotFoundException e) {

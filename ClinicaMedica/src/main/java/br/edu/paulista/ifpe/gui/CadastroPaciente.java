@@ -326,12 +326,14 @@ public class CadastroPaciente extends JFrame {
 					txtNomeMae.setText("");
 					
 					txtNome.requestFocus();
+					st.close();
 					
 				}  catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, "Erro nas operações no banco de dados.");
 					ex.printStackTrace();
 				}
 			}
+			
 		});
 		
 		btnHome = new JButton("HOME");
