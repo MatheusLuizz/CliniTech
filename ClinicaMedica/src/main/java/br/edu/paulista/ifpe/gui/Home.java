@@ -60,20 +60,20 @@ public class Home extends JFrame {
 		btnPaciente.setForeground(new Color(13, 73, 151));
 		btnPaciente.setBackground(new Color(13, 73, 151));
 		btnPaciente.setBorderPainted(false);
-		btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconePaciente.png")));
+		btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconePaciente.png")));
 		
 		btnCadastro = new JToggleButton("");
 		btnCadastro.setToolTipText("Cadastrar um novo Paciente");
 		btnCadastro.setBackground(new Color(255, 255, 255));
 		btnCadastro.setForeground(new Color(255, 255, 255));
 		btnCadastro.setBorderPainted(false);
-		btnCadastro.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeCalendario.png")));
+		btnCadastro.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeCalendario.png")));
 		
 		btnMedico = new JToggleButton("");
 		btnMedico.setForeground(new Color(255, 255, 255));
 		btnMedico.setBackground(new Color(255, 255, 255));
 		btnMedico.setBorderPainted(false);
-		btnMedico.setIcon(new ImageIcon(Home.class.getResource("/Imagens/iconeMedico.png")));
+		btnMedico.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMedico.png")));
 		GroupLayout gl_painel = new GroupLayout(painel);
 		gl_painel.setHorizontalGroup(
 			gl_painel.createParallelGroup(Alignment.LEADING)
