@@ -16,7 +16,8 @@ public class MedicoDAO {
 	            "ORDER BY nome";
 		
 		//Abrindo a conexão (Retorno armazenado na variável conn)
-		Connection conn = ConnectionBD.abrir();
+		ConnectionBD connectionBD = new ConnectionBD();
+		Connection conn = connectionBD.abrir();
 		
 		PreparedStatement comando = conn.prepareStatement(sql);
 		ResultSet resultado = comando.executeQuery();
