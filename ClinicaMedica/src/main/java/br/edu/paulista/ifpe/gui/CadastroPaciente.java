@@ -6,10 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,7 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
+import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.data.ConnectionBD;
 
 @SuppressWarnings("serial")
@@ -86,6 +92,7 @@ public class CadastroPaciente extends JFrame {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastroPaciente() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
@@ -110,7 +117,14 @@ public class CadastroPaciente extends JFrame {
 		lblNewLabel_1.setBounds(256, 10, 45, 13);
 		contentPane.add(lblNewLabel_1);
 		
-		txtCpf = new JTextField();
+		
+		try {
+            MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
+            txtCpf = new JFormattedTextField(mascaraCpf);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro na formatação do CPF", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+		
 		txtCpf.setBounds(290, 7, 136, 19);
 		contentPane.add(txtCpf);
 		txtCpf.setColumns(10);
@@ -120,7 +134,12 @@ public class CadastroPaciente extends JFrame {
 		lblNewLabel_2.setBounds(10, 33, 26, 13);
 		contentPane.add(lblNewLabel_2);
 		
-		txtRg = new JTextField();
+		try {
+		    MaskFormatter mask = new MaskFormatter("########");  // Define a máscara para 7 ou 8 dígitos numéricos
+		    txtRg = new JFormattedTextField(mask);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro na formatação do RG", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
 		txtRg.setBounds(33, 30, 104, 19);
 		contentPane.add(txtRg);
 		txtRg.setColumns(10);
@@ -140,7 +159,12 @@ public class CadastroPaciente extends JFrame {
 		lblNewLabel_4.setBounds(213, 36, 45, 13);
 		contentPane.add(lblNewLabel_4);
 		
-		txtTelefone = new JTextField();
+		try {
+		    MaskFormatter mascaraTelefone = new MaskFormatter("(##) #####-####");
+		    txtTelefone = new JFormattedTextField(mascaraTelefone);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro na formatação do celular", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
 		txtTelefone.setBounds(266, 30, 119, 19);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
@@ -154,6 +178,7 @@ public class CadastroPaciente extends JFrame {
 		txtEmail.setBounds(49, 53, 128, 19);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
+		txtEmail.setInputVerifier(new VerificadorEmail());
 		
 		lblNewLabel_6 = new JLabel("Rua");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 12));
@@ -222,7 +247,12 @@ public class CadastroPaciente extends JFrame {
 		lblNewLabel_11.setBounds(213, 111, 26, 13);
 		contentPane.add(lblNewLabel_11);
 		
-		txtCep = new JTextField();
+		try {
+            MaskFormatter mascaraCep = new MaskFormatter("#####-###");
+            txtCep = new JFormattedTextField(mascaraCep);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro na formatação do CEP", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 		txtCep.setBounds(246, 108, 96, 19);
 		contentPane.add(txtCep);
 		txtCep.setColumns(10);
@@ -242,7 +272,12 @@ public class CadastroPaciente extends JFrame {
 		lblNewLabel_13.setBounds(246, 138, 73, 13);
 		contentPane.add(lblNewLabel_13);
 		
-		txtNascimento = new JTextField();
+		try {
+            MaskFormatter mascaraData = new MaskFormatter("####-##-##");
+            txtNascimento = new JFormattedTextField(mascaraData);
+        } catch (Exception e) {
+        	JOptionPane.showMessageDialog(null, "Erro na formatação da data de nascimento, o correto é: AAAA-MM-DD", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
 		txtNascimento.setBounds(329, 135, 96, 19);
 		contentPane.add(txtNascimento);
 		txtNascimento.setColumns(10);
@@ -276,6 +311,22 @@ public class CadastroPaciente extends JFrame {
 		txtNomePai.setBounds(98, 223, 148, 19);
 		contentPane.add(txtNomePai);
 		txtNomePai.setColumns(10);
+		
+		// Definindo limite de caracteres nos campos de texto
+        LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
+        limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtRg, 20);
+        limiteCaracteres.adicionarLimiteCaracteres(txtEmail, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtRua, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtNumero, 10);
+        limiteCaracteres.adicionarLimiteCaracteres(txtComplemento, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtBairro, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtCidade, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtEstadoCivil, 20);
+        limiteCaracteres.adicionarLimiteCaracteres(txtNomeMae, 100);
+        limiteCaracteres.adicionarLimiteCaracteres(txtNomePai, 100);
 		
 		btnCadastro = new JButton("Cadastrar");
 		btnCadastro.setBounds(290, 218, 109, 21);
@@ -347,5 +398,25 @@ public class CadastroPaciente extends JFrame {
 		btnHome.setBounds(314, 170, 85, 21);
 		contentPane.add(btnHome);
 	}
+	private class VerificadorEmail extends InputVerifier {
+	    private Pattern emailPattern;
 
+	    public VerificadorEmail() {
+	        emailPattern = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
+	    }
+
+	    @Override
+	    public boolean verify(JComponent input) {
+	        JTextField textField = (JTextField) input;
+	        String email = textField.getText().trim();
+
+	        if (emailPattern.matcher(email).matches()) {
+	            return true; // Formato do e-mail válido
+	        } else {
+	            // Formato do e-mail inválido, exibir uma mensagem de erro
+	            JOptionPane.showMessageDialog(null, "Formato de e-mail inválido", "Erro", JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	    }
+	}
 }
