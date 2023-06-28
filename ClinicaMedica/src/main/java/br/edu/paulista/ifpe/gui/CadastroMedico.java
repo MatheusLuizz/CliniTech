@@ -4,13 +4,17 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import br.edu.paulista.ifpe.data.ConnectionBD;
 
 @SuppressWarnings("serial")
 public class CadastroMedico extends JFrame {
@@ -127,8 +131,32 @@ public class CadastroMedico extends JFrame {
 		contentPane.add(btnCadastro);
 		
 		btnCadastro.addActionListener(new ActionListener() {
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
-			dispose();
+				try {
+					ConnectionBD conn = new ConnectionBD();
+					PreparedStatement st;
+					String query = "INSERT INTO medico (crm, nome, cpf, rg, telefone, especialidade) VALUES (?,?,?,?,?,?);";
+					st = conn.abrir().prepareStatement(query);
+					st.setString(1, txtCrm.getText());
+					st.setString(2, txtNome.getText());
+					st.setString(3, txtCpf.getText());
+					st.setString(4, txtRg.getText());
+					st.setString(5, txtTelefone.getText());
+					st.setString(6, txtEspecialidade.getText());
+					st.executeUpdate();
+					JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
+					txtCrm.setText("");
+					txtNome.setText("");
+					txtCpf.setText("");
+					txtRg.setText("");
+					txtTelefone.setText("");
+					txtEspecialidade.setText("");
+					txtCrm.requestFocus();
+					st.close();
+				} catch (Exception ex) {
+					// TODO: handle exception
+				}
 			}
 		});
 		btnHome = new JButton("Home");

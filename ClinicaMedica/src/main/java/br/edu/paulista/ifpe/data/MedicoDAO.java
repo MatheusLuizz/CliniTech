@@ -11,8 +11,8 @@ import br.edu.paulista.ifpe.model.user.Medico;
 public class MedicoDAO {
 	public List <Medico> buscar (Medico m) throws Exception {
 		// Definindo o código SQL
-		String sql = "SELECT nome, telefone, email, nascimento, sexo " +
-	            "FROM paciente " +
+		String sql = "SELECT crm, nome, cpf, telefone, especialidade " +
+	            "FROM medico " +
 	            "ORDER BY nome";
 		
 		//Abrindo a conexão (Retorno armazenado na variável conn)
@@ -26,8 +26,9 @@ public class MedicoDAO {
 		// Percorrendo o resultado, armazenando os valores em uma lista
 		while (resultado.next()) {
 			Medico linha = new Medico();
-			linha.setNome(resultado.getString("nome"));
 			linha.setCrm(resultado.getString("crm"));
+			linha.setNome(resultado.getString("nome"));
+			linha.setCpf(resultado.getString("cpf"));
 			linha.setTelefone(resultado.getString("telefone"));
 			linha.setEspecialidade(resultado.getString("especialidade"));
 			
