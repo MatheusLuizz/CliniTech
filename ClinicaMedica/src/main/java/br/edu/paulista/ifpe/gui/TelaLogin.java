@@ -20,7 +20,6 @@ import br.edu.paulista.ifpe.model.user.Operador;
 @SuppressWarnings("serial")
 public class TelaLogin extends JFrame {
 	
-	
 	Operador operador = new Operador("operador@gmail.com", "operador");
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -35,6 +34,7 @@ public class TelaLogin extends JFrame {
 			public void run() {
 				try {
 					TelaLogin frame = new TelaLogin();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,13 +44,12 @@ public class TelaLogin extends JFrame {
 	}
 
 	public TelaLogin() {
-		
-		
+		setResizable(false);
+		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 500);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -100,5 +99,4 @@ public class TelaLogin extends JFrame {
 		btnLogin.setBounds(40, 301, 85, 21);
 		contentPane.add(btnLogin);
 	}
-	
 }
