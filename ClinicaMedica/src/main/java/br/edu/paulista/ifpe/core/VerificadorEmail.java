@@ -1,4 +1,4 @@
-package br.edu.paulista.ifpe.core.cadastroPaciente;
+package br.edu.paulista.ifpe.core;
 
 import java.util.regex.Pattern;
 

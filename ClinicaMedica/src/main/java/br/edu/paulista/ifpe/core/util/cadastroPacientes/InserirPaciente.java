@@ -39,7 +39,6 @@ public class InserirPaciente {
 	
 	            st.executeUpdate();
 	            JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
-	            st.close();
 	        } catch (Exception e) {
 	        	JOptionPane.showMessageDialog(null, "Erro ao inserir os dados no banco de dados. Por favor, tente novamente.");
 	        } finally {

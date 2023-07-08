@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
-import br.edu.paulista.ifpe.core.cadastroPaciente.VerificadorEmail;
+import br.edu.paulista.ifpe.core.VerificadorEmail;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.InserirPaciente;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.LimparCamposPaciente;
 
@@ -66,8 +66,6 @@ public class CadastroPaciente extends JFrame {
 	private JTextField txtNomeMae;
 	private JTextField txtNomePai;
 	private JButton btnCadastro;
-	private JButton btnHome;
-
 	/**
 	 * Launch the application.
 	 */
@@ -76,6 +74,7 @@ public class CadastroPaciente extends JFrame {
 			public void run() {
 				try {
 					CadastroPaciente frame = new CadastroPaciente();
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -317,11 +316,8 @@ public class CadastroPaciente extends JFrame {
 		// Definindo limite de caracteres nos campos de texto
 		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
 		limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
-		limiteCaracteres.adicionarLimiteCaracteres(txtRg, 20);
 		limiteCaracteres.adicionarLimiteCaracteres(txtEmail, 100);
-		limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtRua, 100);
-		limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtNumero, 10);
 		limiteCaracteres.adicionarLimiteCaracteres(txtComplemento, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtBairro, 100);
@@ -331,6 +327,8 @@ public class CadastroPaciente extends JFrame {
 		limiteCaracteres.adicionarLimiteCaracteres(txtNomePai, 100);
 
 		btnCadastro = new JButton("Cadastrar");
+		btnCadastro.setToolTipText("Finalizar cadastro");
+		btnCadastro.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCadastro.setBounds(290, 218, 109, 21);
 		contentPane.add(btnCadastro);
 		btnCadastro.addActionListener(new ActionListener() {
@@ -363,8 +361,7 @@ public class CadastroPaciente extends JFrame {
 							JOptionPane.ERROR_MESSAGE);
 					txtCpf.requestFocus();
 				} else if (rg.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "O campo rg é obrigatório.", "Erro", 
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "O campo rg é obrigatório.", "Erro", JOptionPane.ERROR_MESSAGE);
 					txtRg.requestFocus();
 				} else if (telefone.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "O campo telefone é obrigatório.", "Erro",
@@ -408,33 +405,17 @@ public class CadastroPaciente extends JFrame {
 					txtNomeMae.requestFocus();
 				} else {
 
-					try {
-						InserirPaciente i = new InserirPaciente();
-						i.inserirDados(nome, cpf, rg, telefone, email, rua, numero, complemento, bairro, cep, cidade,
-								uf, nascimento, sexo, estadoCivil, nomePai, nomeMae);
-						JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
-						LimparCamposPaciente limpar = new LimparCamposPaciente();
-						limpar.limparCampos(txtNome, txtCpf, txtRg, txtEmail, txtTelefone, txtRua, txtComplemento,
-								txtNumero, txtBairro, txtCep, txtCidade, txtNascimento, txtEstadoCivil, txtNomePai,
-								txtNomeMae);
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, "Erro nas operações no banco de dados.");
-						ex.printStackTrace();
-					}
+					InserirPaciente i = new InserirPaciente();
+					i.inserirDados(nome, cpf, rg, telefone, email, rua, numero, complemento, bairro, cep, cidade, uf,
+							nascimento, sexo, estadoCivil, nomePai, nomeMae);
+					LimparCamposPaciente limpar = new LimparCamposPaciente();
+					limpar.limparCampos(txtNome, txtCpf, txtRg, txtEmail, txtTelefone, txtRua, txtComplemento,
+							txtNumero, txtBairro, txtCep, txtCidade, txtNascimento, txtEstadoCivil, txtNomePai,
+							txtNomeMae);
+					dispose();
 				}
 			}
 		});
-
-		btnHome = new JButton("HOME");
-		btnHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Home h = new Home();
-				CadastroPaciente.this.dispose();
-				h.setVisible(true);
-			}
-		});
-		btnHome.setBounds(314, 170, 85, 21);
-		contentPane.add(btnHome);
 	}
 
 }
