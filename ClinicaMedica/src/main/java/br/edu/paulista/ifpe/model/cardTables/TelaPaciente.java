@@ -1,20 +1,19 @@
-package br.edu.paulista.ifpe.gui;
+package br.edu.paulista.ifpe.model.cardTables;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import br.edu.paulista.ifpe.data.PacienteDAO;
@@ -22,10 +21,7 @@ import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
 import br.edu.paulista.ifpe.model.user.Paciente;
 
 @SuppressWarnings("serial")
-public class TelaPaciente extends JFrame {
-
-    private JPanel contentPane;
-    private JButton btnHome;
+public class TelaPaciente extends JPanel {
     private JScrollPane scrollPane;
     private JTable tabela;
 
@@ -38,7 +34,6 @@ public class TelaPaciente extends JFrame {
                 try {
                     TelaPaciente frame = new TelaPaciente();
                     frame.atualizar();
-                    frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -47,30 +42,43 @@ public class TelaPaciente extends JFrame {
     }
 
     /**
-     * Create the frame.
+     * Create the panel.
      */
     public TelaPaciente() {
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 500);
-        contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        setLayout(new BorderLayout());
 
-        setContentPane(contentPane);
-        contentPane.setLayout(new BorderLayout(0, 0));
+        JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        btnHome = new JButton("New button");
-        contentPane.add(btnHome, BorderLayout.WEST);
-        btnHome.addActionListener(new ActionListener() {
+        JButton btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Home h = new Home();
-                TelaPaciente.this.dispose();
-                h.setVisible(true);
+                // Lógica para adicionar um novo paciente
             }
         });
+        tabelaAcoes.add(btnAdicionar);
 
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Lógica para editar um paciente existente
+            }
+        });
+        tabelaAcoes.add(btnEditar);
+
+        JButton btnExcluir = new JButton("Excluir");
+        btnExcluir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Lógica para excluir um paciente
+            }
+        });
+        tabelaAcoes.add(btnExcluir);
+
+        add(tabelaAcoes, BorderLayout.NORTH);
+        
         scrollPane = new JScrollPane();
-        contentPane.add(scrollPane, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
 
         tabela = new JTable();
         tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
