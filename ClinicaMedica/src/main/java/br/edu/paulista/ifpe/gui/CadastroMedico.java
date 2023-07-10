@@ -192,14 +192,12 @@ public class CadastroMedico extends JFrame {
 							JOptionPane.ERROR_MESSAGE);
 					txtEspecialidade.requestFocus();
 				} else {
-
+					InserirMedico i = new InserirMedico();
+					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade);
+					LimparCamposMedico limpar = new LimparCamposMedico();
+					limpar.limparCampos(txtCrm, txtNome, txtCpf, txtRg, txtTelefone, txtEspecialidade);
+					dispose();
 				}
-
-				InserirMedico i = new InserirMedico();
-				i.inserirDados(crm, nome, cpf, rg, telefone, especialidade);
-				LimparCamposMedico limpar = new LimparCamposMedico();
-				limpar.limparCampos(txtCrm, txtNome, txtCpf, txtRg, txtTelefone, txtEspecialidade);
-				dispose();
 			}
 		});
 	}

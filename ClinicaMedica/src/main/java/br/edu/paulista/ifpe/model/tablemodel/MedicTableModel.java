@@ -7,6 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 import br.edu.paulista.ifpe.model.user.Medico;
 
+
 @SuppressWarnings("serial")
 public class MedicTableModel extends AbstractTableModel {
 	

@@ -351,7 +351,6 @@ public class CadastroPaciente extends JFrame {
 				final String estadoCivil = txtEstadoCivil.getText();
 				final String nomePai = txtNomePai.getText();
 				final String nomeMae = txtNomeMae.getText();
-
 				if (nome.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "O campo nome é obrigatório.", "Erro",
 							JOptionPane.ERROR_MESSAGE);
