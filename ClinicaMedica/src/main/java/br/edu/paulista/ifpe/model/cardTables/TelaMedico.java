@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.MedicoDAO;
 import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
@@ -86,6 +87,13 @@ public class TelaMedico extends JPanel {
         tabela.setModel(new MedicTableModel());
         tabela.setFont(new Font("Arial", Font.PLAIN, 12));
         scrollPane.setViewportView(tabela);
+    }
+    public JTable getTabela() {
+        return tabela;
+    }
+
+    public TableModel getModeloTabela() {
+        return tabela.getModel();
     }
 
     public void atualizar() {

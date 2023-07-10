@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
+import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.PacienteDAO;
 import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
@@ -23,7 +24,7 @@ import br.edu.paulista.ifpe.model.user.Paciente;
 @SuppressWarnings("serial")
 public class TelaPaciente extends JPanel {
     private JScrollPane scrollPane;
-    private JTable tabela;
+    protected JTable tabela;
 
     /**
      * Launch the application.
@@ -86,6 +87,13 @@ public class TelaPaciente extends JPanel {
         tabela.setModel(new PacienteTableModel());
         tabela.setFont(new Font("Arial", Font.PLAIN, 12));
         scrollPane.setViewportView(tabela);
+    }
+    public JTable getTabela() {
+        return tabela;
+    }
+
+    public TableModel getModeloTabela() {
+        return tabela.getModel();
     }
 
     public void atualizar() {
