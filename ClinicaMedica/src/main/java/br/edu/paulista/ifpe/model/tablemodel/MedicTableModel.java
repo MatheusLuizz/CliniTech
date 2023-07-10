@@ -55,6 +55,9 @@ public class MedicTableModel extends AbstractTableModel {
 		// Retorna o valor capturado
 		return dado;
 	}
+	public boolean isCellEditable(int row, int column) {
+        return false; // Define todas as células como não editáveis
+    }
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void adicionar(List<Medico> lista) {
         /* Reinicializa os dados da tabela */

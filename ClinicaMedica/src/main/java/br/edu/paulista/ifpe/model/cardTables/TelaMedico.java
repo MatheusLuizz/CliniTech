@@ -81,6 +81,7 @@ public class TelaMedico extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
 
         tabela = new JTable();
+        tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
         tabela.setModel(new MedicTableModel());
         tabela.setFont(new Font("Arial", Font.PLAIN, 12));
