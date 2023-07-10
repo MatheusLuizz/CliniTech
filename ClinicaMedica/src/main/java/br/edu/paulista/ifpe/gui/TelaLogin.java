@@ -56,7 +56,7 @@ public class TelaLogin extends JFrame {
 		lblNewLabel = new JLabel("Login");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
-		lblNewLabel.setBounds(218, 42, 97, 37);
+		lblNewLabel.setBounds(252, 45, 97, 37);
 		contentPane.add(lblNewLabel);
 		
 		lblNewLabel_1 = new JLabel("Email");

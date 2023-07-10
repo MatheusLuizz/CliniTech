@@ -18,6 +18,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.MedicoDAO;
+import br.edu.paulista.ifpe.gui.CadastroMedico;
 import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
 import br.edu.paulista.ifpe.model.user.Medico;
 
@@ -55,7 +56,8 @@ public class TelaMedico extends JPanel {
         JButton btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Lógica para adicionar um novo paciente
+                CadastroMedico cm = new CadastroMedico();
+                cm.setVisible(true);
             }
         });
         tabelaAcoes.add(btnAdicionar);

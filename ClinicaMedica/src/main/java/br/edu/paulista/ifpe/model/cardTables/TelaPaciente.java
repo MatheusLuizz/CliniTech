@@ -18,6 +18,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.PacienteDAO;
+import br.edu.paulista.ifpe.gui.CadastroPaciente;
 import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
 import br.edu.paulista.ifpe.model.user.Paciente;
 
@@ -55,7 +56,8 @@ public class TelaPaciente extends JPanel {
         JButton btnAdicionar = new JButton("Adicionar");
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Lógica para adicionar um novo paciente
+                CadastroPaciente cp = new CadastroPaciente();
+                cp.setVisible(true);
             }
         });
         tabelaAcoes.add(btnAdicionar);
