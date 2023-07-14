@@ -1,4 +1,4 @@
-package br.edu.paulista.ifpe.gui;
+package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import br.edu.paulista.ifpe.model.entidades.Exame;
 import br.edu.paulista.ifpe.model.tablemodel.ExameTableModel;
 
 @SuppressWarnings("serial")
-public class Exames extends JTable {
+public class TelaExame extends JTable {
 
 	private JScrollPane scrollPane;
     private JTable tabela;
@@ -34,7 +34,7 @@ public class Exames extends JTable {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Exames frame = new Exames();
+					TelaExame frame = new TelaExame();
 					frame.atualizar();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,13 +46,14 @@ public class Exames extends JTable {
 	/**
 	 * Create the frame.
 	 */
-	public Exames() {
+	public TelaExame() {
 		setBounds(100, 100, 800, 500);
         setLayout(new BorderLayout());
 
         JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -61,6 +62,7 @@ public class Exames extends JTable {
         tabelaAcoes.add(btnAdicionar);
 
         JButton btnEditar = new JButton("Editar");
+        btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -69,6 +71,7 @@ public class Exames extends JTable {
         tabelaAcoes.add(btnEditar);
 
         JButton btnExcluir = new JButton("Excluir");
+        btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
         btnExcluir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 

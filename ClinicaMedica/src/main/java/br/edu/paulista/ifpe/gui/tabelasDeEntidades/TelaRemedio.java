@@ -1,4 +1,4 @@
-package br.edu.paulista.ifpe.gui;
+package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,7 +22,7 @@ import br.edu.paulista.ifpe.model.entidades.Remedio;
 import br.edu.paulista.ifpe.model.tablemodel.RemedioTableModel;
 
 @SuppressWarnings("serial")
-public class Remedios extends JPanel {
+public class TelaRemedio extends JPanel {
 	
 	private JScrollPane scrollPane;
     private JTable tabela;
@@ -37,7 +37,7 @@ public class Remedios extends JPanel {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Remedios frame = new Remedios();
+					TelaRemedio frame = new TelaRemedio();
 					frame.atualizar();
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,13 +49,14 @@ public class Remedios extends JPanel {
 	/**
 	 * Create the frame.
 	 */
-	public Remedios() {
+	public TelaRemedio() {
 		setBounds(100, 100, 800, 500);
         setLayout(new BorderLayout());
 
         JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -64,6 +65,7 @@ public class Remedios extends JPanel {
         tabelaAcoes.add(btnAdicionar);
 
         JButton btnEditar = new JButton("Editar");
+        btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 
@@ -72,6 +74,7 @@ public class Remedios extends JPanel {
         tabelaAcoes.add(btnEditar);
 
         JButton btnExcluir = new JButton("Excluir");
+        btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
         btnExcluir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 

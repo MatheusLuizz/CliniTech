@@ -1,4 +1,4 @@
-package br.edu.paulista.ifpe.model.cardTables;
+package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -54,6 +54,7 @@ public class TelaPaciente extends JPanel {
         JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CadastroPaciente cp = new CadastroPaciente();
@@ -63,6 +64,7 @@ public class TelaPaciente extends JPanel {
         tabelaAcoes.add(btnAdicionar);
 
         JButton btnEditar = new JButton("Editar");
+        btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Lógica para editar um paciente existente
@@ -71,6 +73,7 @@ public class TelaPaciente extends JPanel {
         tabelaAcoes.add(btnEditar);
 
         JButton btnExcluir = new JButton("Excluir");
+        btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
         btnExcluir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Lógica para excluir um paciente
@@ -79,6 +82,10 @@ public class TelaPaciente extends JPanel {
         tabelaAcoes.add(btnExcluir);
 
         add(tabelaAcoes, BorderLayout.NORTH);
+        
+        JButton btnHistorico = new JButton("Historico");
+        btnHistorico.setFont(new Font("Arial", Font.PLAIN, 11));
+        tabelaAcoes.add(btnHistorico);
         
         scrollPane = new JScrollPane();
         add(scrollPane, BorderLayout.CENTER);

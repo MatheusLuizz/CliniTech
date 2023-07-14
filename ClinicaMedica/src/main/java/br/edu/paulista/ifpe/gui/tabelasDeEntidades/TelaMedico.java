@@ -1,4 +1,4 @@
-package br.edu.paulista.ifpe.model.cardTables;
+package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -54,6 +54,7 @@ public class TelaMedico extends JPanel {
         JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
         JButton btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CadastroMedico cm = new CadastroMedico();
@@ -63,6 +64,7 @@ public class TelaMedico extends JPanel {
         tabelaAcoes.add(btnAdicionar);
 
         JButton btnEditar = new JButton("Editar");
+        btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
         btnEditar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Lógica para editar um paciente existente
@@ -71,6 +73,7 @@ public class TelaMedico extends JPanel {
         tabelaAcoes.add(btnEditar);
 
         JButton btnExcluir = new JButton("Excluir");
+        btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
         btnExcluir.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Lógica para excluir um paciente
