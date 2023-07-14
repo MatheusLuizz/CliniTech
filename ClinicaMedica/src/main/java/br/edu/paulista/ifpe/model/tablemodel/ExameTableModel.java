@@ -5,11 +5,11 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.edu.paulista.ifpe.model.entidades.Medico;
+import br.edu.paulista.ifpe.model.entidades.Exame;
 
 
 @SuppressWarnings("serial")
-public class MedicTableModel extends AbstractTableModel {
+public class ExameTableModel extends AbstractTableModel {
 	
 	@SuppressWarnings("rawtypes")
 	private Vector colunas;
@@ -17,13 +17,9 @@ public class MedicTableModel extends AbstractTableModel {
 	private Vector linhas;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public MedicTableModel() {
+	public ExameTableModel() {
 		colunas = new Vector();
 		colunas.add("Nome");
-		colunas.add("CRM");
-		colunas.add("CPF");
-		colunas.add("Telefone");
-		colunas.add("Especialidade");
 		linhas = new Vector();
 	}
 
@@ -60,20 +56,16 @@ public class MedicTableModel extends AbstractTableModel {
         return false; // Define todas as células como não editáveis
     }
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void adicionar(List<Medico> lista) {
+	public void adicionar(List<Exame> lista) {
         /* Reinicializa os dados da tabela */
         linhas = new Vector();
 
         /* Percorre a lista copiando os dados para a tabela */
-        for (Medico p : lista) {
+        for (Exame p : lista) {
             
             /* Cria uma linha da tabela */
             Vector<Object> linha = new Vector();
-            linha.add(p.getNome());
-            linha.add(p.getCrm());
-            linha.add(p.getCpf());
-            linha.add(p.getTelefone());
-            linha.add(p.getEspecialidade());
+            linha.add(p.getTipoExame());
             /* Adiciona a linha a tabela */
             linhas.add(linha);
         }

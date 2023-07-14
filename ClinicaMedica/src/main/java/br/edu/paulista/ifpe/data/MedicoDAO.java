@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.edu.paulista.ifpe.model.user.Medico;
+import br.edu.paulista.ifpe.model.entidades.Medico;
 
 public class MedicoDAO {
 	public List <Medico> buscar (Medico m) throws Exception {

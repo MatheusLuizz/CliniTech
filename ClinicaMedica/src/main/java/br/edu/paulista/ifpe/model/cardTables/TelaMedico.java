@@ -19,8 +19,8 @@ import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.MedicoDAO;
 import br.edu.paulista.ifpe.gui.CadastroMedico;
+import br.edu.paulista.ifpe.model.entidades.Medico;
 import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
-import br.edu.paulista.ifpe.model.user.Medico;
 
 @SuppressWarnings("serial")
 public class TelaMedico extends JPanel {

@@ -19,8 +19,8 @@ import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.PacienteDAO;
 import br.edu.paulista.ifpe.gui.CadastroPaciente;
+import br.edu.paulista.ifpe.model.entidades.Paciente;
 import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
-import br.edu.paulista.ifpe.model.user.Paciente;
 
 @SuppressWarnings("serial")
 public class TelaPaciente extends JPanel {

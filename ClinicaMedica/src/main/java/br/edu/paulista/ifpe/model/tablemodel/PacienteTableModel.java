@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.edu.paulista.ifpe.model.user.Paciente;
+import br.edu.paulista.ifpe.model.entidades.Paciente;
 
 @SuppressWarnings("serial")
 public class PacienteTableModel extends AbstractTableModel {

@@ -1,4 +1,4 @@
-package br.edu.paulista.ifpe.model.user;
+package br.edu.paulista.ifpe.model.entidades;
 
 public class Login {
 	private String usuario, email, senha;

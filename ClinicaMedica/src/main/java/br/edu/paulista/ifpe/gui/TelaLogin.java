@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import br.edu.paulista.ifpe.model.user.Operador;
+import br.edu.paulista.ifpe.model.entidades.Operador;
 
 @SuppressWarnings("serial")
 public class TelaLogin extends JFrame {
