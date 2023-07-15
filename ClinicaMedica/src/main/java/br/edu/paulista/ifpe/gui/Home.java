@@ -87,6 +87,7 @@ public class Home extends JFrame {
 	 * Create the frame.
 	 */
 	public Home() {
+		setResizable(false);
 		tabelasExibidas = new ArrayList<JTable>();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
