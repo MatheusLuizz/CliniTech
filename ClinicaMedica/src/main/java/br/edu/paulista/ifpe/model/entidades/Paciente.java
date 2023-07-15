@@ -1,6 +1,7 @@
 package br.edu.paulista.ifpe.model.entidades;
 
 public class Paciente {
+	private String id;
 	private String nome;
 	private String cpf;
 	private String rg;
@@ -23,6 +24,45 @@ public class Paciente {
 	private String escolaridade;
 	private String antecedentesPessoais;
 	private String antecedentesFamiliares;
+	private String exameMarcadoData;
+	private String exameMarcadoHora;
+	private String consultaData;
+	private String consultaHora;
+	private String historicoRemedioId;
+	private String historicoObservacoes;
+	private String historicoProximosPassos;
+
+	public String getHistoricoRemedioId() {
+		return historicoRemedioId;
+	}
+
+	public void setHistoricoRemedioId(String historicoRemedioId) {
+		this.historicoRemedioId = historicoRemedioId;
+	}
+
+	public String getHistoricoObservacoes() {
+		return historicoObservacoes;
+	}
+
+	public void setHistoricoObservacoes(String historicoObservacoes) {
+		this.historicoObservacoes = historicoObservacoes;
+	}
+
+	public String getHistoricoProximosPassos() {
+		return historicoProximosPassos;
+	}
+
+	public void setHistoricoProximosPassos(String historicoProximosPassos) {
+		this.historicoProximosPassos = historicoProximosPassos;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getNome() {
 		return nome;
@@ -198,5 +238,37 @@ public class Paciente {
 
 	public void setAntecedentesFamiliares(String antecedentesFamiliares) {
 		this.antecedentesFamiliares = antecedentesFamiliares;
+	}
+
+	public String getExameMarcadoData() {
+		return exameMarcadoData;
+	}
+
+	public void setExameMarcadoData(String exameMarcadoData) {
+		this.exameMarcadoData = exameMarcadoData;
+	}
+
+	public String getExameMarcadoHora() {
+		return exameMarcadoHora;
+	}
+
+	public void setExameMarcadoHora(String exameMarcadoHora) {
+		this.exameMarcadoHora = exameMarcadoHora;
+	}
+
+	public String getConsultaData() {
+		return consultaData;
+	}
+
+	public void setConsultaData(String consultaData) {
+		this.consultaData = consultaData;
+	}
+
+	public String getConsultaHora() {
+		return consultaHora;
+	}
+
+	public void setConsultaHora(String consultaHora) {
+		this.consultaHora = consultaHora;
 	}
 }

@@ -19,103 +19,115 @@ import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.PacienteDAO;
 import br.edu.paulista.ifpe.gui.CadastroPaciente;
+import br.edu.paulista.ifpe.gui.Home;
 import br.edu.paulista.ifpe.model.entidades.Paciente;
 import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
 
 @SuppressWarnings("serial")
 public class TelaPaciente extends JPanel {
-	private JScrollPane scrollPane;
-	protected JTable tabela;
+    private JScrollPane scrollPane;
+    protected JTable tabela;
+    private Home home; // Referência para a classe Home
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TelaPaciente frame = new TelaPaciente();
-					frame.atualizar();
-				} catch (Exception e) {
-					JOptionPane.showMessageDialog(null, "Não foi possível exibir os pacientes", "Erro",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-	}
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    TelaPaciente frame = new TelaPaciente();
+                    frame.atualizar();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível exibir os pacientes", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
 
-	public TelaPaciente() {
+    public TelaPaciente() {
+        this.home = null; // Inicializa a referência para a classe Home
 
-		setBounds(100, 100, 800, 500);
-		setLayout(new BorderLayout());
+        setBounds(100, 100, 800, 500);
+        setLayout(new BorderLayout());
 
-		JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CadastroPaciente cp = new CadastroPaciente();
-				cp.setLocationRelativeTo(null);
-				cp.setVisible(true);
-			}
-		});
-		tabelaAcoes.add(btnAdicionar);
+        JButton btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
+        btnAdicionar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                CadastroPaciente cp = new CadastroPaciente();
+                cp.setLocationRelativeTo(null);
+                cp.setVisible(true);
+            }
+        });
+        tabelaAcoes.add(btnAdicionar);
 
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Editar um paciente existente
-			}
-		});
-		tabelaAcoes.add(btnEditar);
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
+        btnEditar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Editar um paciente existente
+            }
+        });
+        tabelaAcoes.add(btnEditar);
 
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Excluir um paciente
-			}
-		});
-		tabelaAcoes.add(btnExcluir);
+        JButton btnExcluir = new JButton("Excluir");
+        btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
+        btnExcluir.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Excluir um paciente
+            }
+        });
+        tabelaAcoes.add(btnExcluir);
 
-		add(tabelaAcoes, BorderLayout.NORTH);
+        JButton btnDetalhes = new JButton("Detalhes");
+        btnDetalhes.setFont(new Font("Arial", Font.PLAIN, 11));
+        tabelaAcoes.add(btnDetalhes);
+        btnDetalhes.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                if (home != null) {
+                    home.exibirDetalhesPaciente();
+                }
+            }
+        });
+        add(tabelaAcoes, BorderLayout.NORTH);
 
-		JButton btnHistorico = new JButton("Historico");
-		btnHistorico.setFont(new Font("Arial", Font.PLAIN, 11));
-		tabelaAcoes.add(btnHistorico);
+        scrollPane = new JScrollPane();
+        add(scrollPane, BorderLayout.CENTER);
 
-		scrollPane = new JScrollPane();
-		add(scrollPane, BorderLayout.CENTER);
+        tabela = new JTable();
+        tabela.getTableHeader().setReorderingAllowed(false);
+        tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
+        tabela.setModel(new PacienteTableModel());
+        tabela.setFont(new Font("Arial", Font.PLAIN, 12));
+        scrollPane.setViewportView(tabela);
+    }
 
-		tabela = new JTable();
-		tabela.getTableHeader().setReorderingAllowed(false);
-		tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
-		tabela.setModel(new PacienteTableModel());
-		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
-		scrollPane.setViewportView(tabela);
-	}
+    public JTable getTabela() {
+        return tabela;
+    }
 
-	public JTable getTabela() {
-		return tabela;
-	}
+    public TableModel getModeloTabela() {
+        return tabela.getModel();
+    }
 
-	public TableModel getModeloTabela() {
-		return tabela.getModel();
-	}
+    public void atualizar() {
+        try {
+            PacienteDAO dao = new PacienteDAO();
+            List<Paciente> lista = dao.buscar(new Paciente());
 
-	public void atualizar() {
-		try {
+            PacienteTableModel modelo = (PacienteTableModel) tabela.getModel();
 
-			PacienteDAO dao = new PacienteDAO();
-			List<Paciente> lista = dao.buscar(new Paciente());
+            modelo.limpar();
 
-			PacienteTableModel modelo = (PacienteTableModel) tabela.getModel();
+            modelo.adicionar(lista);
 
-			modelo.limpar();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Cliente");
+        }
+    }
 
-			modelo.adicionar(lista);
-
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Cliente");
-		}
-	}
+    public void setHome(Home home) {
+        this.home = home;
+    }
 }
