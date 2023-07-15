@@ -8,8 +8,8 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +24,7 @@ import br.edu.paulista.ifpe.core.util.cadastroPacientes.InserirPaciente;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.LimparCamposPaciente;
 
 @SuppressWarnings("serial")
-public class CadastroPaciente extends JFrame {
+public class CadastroPaciente extends JDialog {
 
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -66,6 +66,13 @@ public class CadastroPaciente extends JFrame {
 	private JTextField txtNomeMae;
 	private JTextField txtNomePai;
 	private JButton btnCadastro;
+
+	private boolean concluido = false;
+
+	public boolean isConcluido() {
+		return concluido;
+	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -74,7 +81,6 @@ public class CadastroPaciente extends JFrame {
 			public void run() {
 				try {
 					CadastroPaciente frame = new CadastroPaciente();
-					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,15 +90,17 @@ public class CadastroPaciente extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the dialog.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastroPaciente() {
+		super();
+	    setModal(true);
 		setType(Type.UTILITY);
 		setTitle("Cadastro de Pacientes");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 800, 500);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 500, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

@@ -58,6 +58,7 @@ public class TelaPaciente extends JPanel {
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CadastroPaciente cp = new CadastroPaciente();
+                cp.setLocationRelativeTo(null);
                 cp.setVisible(true);
             }
         });

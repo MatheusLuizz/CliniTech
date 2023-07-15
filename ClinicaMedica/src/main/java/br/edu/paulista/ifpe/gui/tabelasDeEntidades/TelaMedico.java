@@ -58,6 +58,7 @@ public class TelaMedico extends JPanel {
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CadastroMedico cm = new CadastroMedico();
+                cm.setLocationRelativeTo(null);
                 cm.setVisible(true);
             }
         });

@@ -183,9 +183,9 @@ public class Home extends JFrame {
 		lblBuscar.setBounds(624, 26, 47, 23);
 		painelBusca.add(lblBuscar);
 
-		btnTema = new JToggleButton("Dark Mode");
-		btnTema.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnTema.setBounds(10, 10, 115, 45);
+		btnTema = new JToggleButton("");
+		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeSol.png")));
+		btnTema.setBounds(10, 10, 32, 33);
 		painelBusca.add(btnTema);
 		contentPane.add(painelAtalhos);
 		lblBuscar.setVisible(false);
@@ -297,6 +297,10 @@ public class Home extends JFrame {
 		btnExame.setOpaque(false);
 		btnExame.setContentAreaFilled(false);
 		btnExame.setBorderPainted(false);
+		
+		btnTema.setOpaque(false);
+		btnTema.setContentAreaFilled(false);
+		btnTema.setBorderPainted(false);
 	}
 	
 
@@ -307,6 +311,7 @@ public class Home extends JFrame {
 		Color corBorda = new Color(68, 71, 90);
 		Color corBusca = new Color(59, 61, 76);
 		Color corSelecaoTabela = new Color(70, 130, 180);
+		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeLua.png")));
 
 		contentPane.setBackground(corDeFundo);
 		
@@ -331,7 +336,8 @@ public class Home extends JFrame {
 	}
 
 	private void aplicarTemaPadrao() {
-
+		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeSol.png")));
+		
 		contentPane.setBackground(null);
 		painelAtalhos.setColors(Color.decode("#1CB5E0"), Color.decode("#000046"));
 		painelBusca.setBackground(new Color(211, 211, 211));
