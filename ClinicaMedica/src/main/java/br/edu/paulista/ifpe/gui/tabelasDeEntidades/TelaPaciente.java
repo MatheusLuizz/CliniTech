@@ -24,106 +24,98 @@ import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
 
 @SuppressWarnings("serial")
 public class TelaPaciente extends JPanel {
-    private JScrollPane scrollPane;
-    protected JTable tabela;
+	private JScrollPane scrollPane;
+	protected JTable tabela;
 
-    /**
-     * Launch the application.
-     */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    TelaPaciente frame = new TelaPaciente();
-                    frame.atualizar();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TelaPaciente frame = new TelaPaciente();
+					frame.atualizar();
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Não foi possível exibir os pacientes", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+	}
 
-    /**
-     * Create the panel.
-     */
-    public TelaPaciente() {
+	public TelaPaciente() {
 
-        setBounds(100, 100, 800, 500);
-        setLayout(new BorderLayout());
+		setBounds(100, 100, 800, 500);
+		setLayout(new BorderLayout());
 
-        JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        JButton btnAdicionar = new JButton("Adicionar");
-        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
-        btnAdicionar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CadastroPaciente cp = new CadastroPaciente();
-                cp.setLocationRelativeTo(null);
-                cp.setVisible(true);
-            }
-        });
-        tabelaAcoes.add(btnAdicionar);
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CadastroPaciente cp = new CadastroPaciente();
+				cp.setLocationRelativeTo(null);
+				cp.setVisible(true);
+			}
+		});
+		tabelaAcoes.add(btnAdicionar);
 
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para editar um paciente existente
-            }
-        });
-        tabelaAcoes.add(btnEditar);
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Editar um paciente existente
+			}
+		});
+		tabelaAcoes.add(btnEditar);
 
-        JButton btnExcluir = new JButton("Excluir");
-        btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
-        btnExcluir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para excluir um paciente
-            }
-        });
-        tabelaAcoes.add(btnExcluir);
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Excluir um paciente
+			}
+		});
+		tabelaAcoes.add(btnExcluir);
 
-        add(tabelaAcoes, BorderLayout.NORTH);
-        
-        JButton btnHistorico = new JButton("Historico");
-        btnHistorico.setFont(new Font("Arial", Font.PLAIN, 11));
-        tabelaAcoes.add(btnHistorico);
-        
-        scrollPane = new JScrollPane();
-        add(scrollPane, BorderLayout.CENTER);
+		add(tabelaAcoes, BorderLayout.NORTH);
 
-        tabela = new JTable();
-        tabela.getTableHeader().setReorderingAllowed(false);
-        tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
-        tabela.setModel(new PacienteTableModel());
-        tabela.setFont(new Font("Arial", Font.PLAIN, 12));
-        scrollPane.setViewportView(tabela);
-    }
-    public JTable getTabela() {
-        return tabela;
-    }
+		JButton btnHistorico = new JButton("Historico");
+		btnHistorico.setFont(new Font("Arial", Font.PLAIN, 11));
+		tabelaAcoes.add(btnHistorico);
 
-    public TableModel getModeloTabela() {
-        return tabela.getModel();
-    }
+		scrollPane = new JScrollPane();
+		add(scrollPane, BorderLayout.CENTER);
 
-    public void atualizar() {
-        try {
-            /* Criação do DAO */
-            PacienteDAO dao = new PacienteDAO();
-            List<Paciente> lista = dao.buscar(new Paciente());
+		tabela = new JTable();
+		tabela.getTableHeader().setReorderingAllowed(false);
+		tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tabela.setModel(new PacienteTableModel());
+		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
+		scrollPane.setViewportView(tabela);
+	}
 
-            /* Captura o modelo da tabela */
-            PacienteTableModel modelo = (PacienteTableModel) tabela.getModel();
+	public JTable getTabela() {
+		return tabela;
+	}
 
-            /* Limpa o modelo existente */
-            modelo.limpar();
+	public TableModel getModeloTabela() {
+		return tabela.getModel();
+	}
 
-            /* Adiciona os pacientes ao modelo */
-            modelo.adicionar(lista);
+	public void atualizar() {
+		try {
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Cliente");
-        }
-    }
+			PacienteDAO dao = new PacienteDAO();
+			List<Paciente> lista = dao.buscar(new Paciente());
+
+			PacienteTableModel modelo = (PacienteTableModel) tabela.getModel();
+
+			modelo.limpar();
+
+			modelo.adicionar(lista);
+
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Cliente");
+		}
+	}
 }

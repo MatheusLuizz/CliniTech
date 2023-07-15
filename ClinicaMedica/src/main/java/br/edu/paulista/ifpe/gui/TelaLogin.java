@@ -19,7 +19,7 @@ import br.edu.paulista.ifpe.model.entidades.Operador;
 
 @SuppressWarnings("serial")
 public class TelaLogin extends JFrame {
-	
+
 	Operador operador = new Operador("operador@gmail.com", "operador");
 	private JPanel contentPane;
 	private JLabel lblNewLabel;
@@ -37,7 +37,8 @@ public class TelaLogin extends JFrame {
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Um erro crítico ocorreu, f no chat", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -52,40 +53,40 @@ public class TelaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		lblNewLabel = new JLabel("Login");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNewLabel.setBounds(252, 45, 97, 37);
 		contentPane.add(lblNewLabel);
-		
+
 		lblNewLabel_1 = new JLabel("Email");
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblNewLabel_1.setBounds(40, 143, 42, 39);
 		contentPane.add(lblNewLabel_1);
-		
+
 		lblNewLabel_2 = new JLabel("Senha");
 		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblNewLabel_2.setBounds(40, 217, 51, 39);
 		contentPane.add(lblNewLabel_2);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Arial", Font.PLAIN, 14));
 		txtEmail.setBounds(112, 148, 189, 25);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
-		
+
 		txtSenha = new JPasswordField();
 		txtSenha.setBounds(112, 224, 189, 25);
 		contentPane.add(txtSenha);
-		
+
 		btnLogin = new JButton("Entrar");
 		btnLogin.setToolTipText("Realizar login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String email = txtEmail.getText();
 				String senha = String.valueOf(txtSenha.getPassword());
-				
+
 				if (email.equals(operador.getEmail()) && senha.equals(operador.getSenha())) {
 					Home h = new Home();
 					TelaLogin.this.dispose();

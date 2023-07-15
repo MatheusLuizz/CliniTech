@@ -15,14 +15,13 @@ public class VerificadorEmail extends InputVerifier {
 	}
 
 	@Override
-	public boolean verify(JComponent input) {
-		JTextField textField = (JTextField) input;
-		String email = textField.getText().trim();
+	public boolean verify(JComponent entrada) {
+		JTextField campoTexto = (JTextField) entrada;
+		String email = campoTexto.getText().trim();
 
 		if (emailPattern.matcher(email).matches()) {
-			return true; // Formato do e-mail válido
+			return true;
 		} else {
-			// Formato do e-mail inválido, exibir uma mensagem de erro
 			JOptionPane.showMessageDialog(null, "Formato de e-mail inválido", "Erro", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}

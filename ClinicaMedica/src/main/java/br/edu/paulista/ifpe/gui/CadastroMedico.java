@@ -36,22 +36,16 @@ public class CadastroMedico extends JDialog {
 	private JTextField txtEspecialidade;
 	private JButton btnCadastro;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		try {
 			CadastroMedico dialog = new CadastroMedico();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Um erro crítico ocorreu :(", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public CadastroMedico() {
 		super();
 		setModal(true);

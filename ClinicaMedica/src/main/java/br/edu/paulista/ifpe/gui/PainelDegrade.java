@@ -21,9 +21,10 @@ public class PainelDegrade extends JPanel {
 		colorEnd = end;
 		repaint();
 	}
+
 	public Color getBackgroundColor() {
-        return getBackground();
-    }
+		return getBackground();
+	}
 
 	@Override
 	protected void paintComponent(Graphics g) {

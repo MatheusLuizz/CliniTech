@@ -73,9 +73,6 @@ public class CadastroPaciente extends JDialog {
 		return concluido;
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -83,19 +80,17 @@ public class CadastroPaciente extends JDialog {
 					CadastroPaciente frame = new CadastroPaciente();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Não foi possível exibir a tela de cadastro", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 	}
 
-	/**
-	 * Create the dialog.
-	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CadastroPaciente() {
 		super();
-	    setModal(true);
+		setModal(true);
 		setType(Type.UTILITY);
 		setTitle("Cadastro de Pacientes");
 		setResizable(false);

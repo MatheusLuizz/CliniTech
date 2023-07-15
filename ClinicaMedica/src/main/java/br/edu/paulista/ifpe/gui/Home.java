@@ -77,15 +77,13 @@ public class Home extends JFrame {
 					Home frame = new Home();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Não foi possível exibir a tela Home", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public Home() {
 		setResizable(false);
 		tabelasExibidas = new ArrayList<JTable>();
@@ -110,12 +108,14 @@ public class Home extends JFrame {
 				.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconePaciente.png")));
 
 		btnMedico = new JButton("");
+		btnMedico.setToolTipText("Exibir os médios cadastrados");
 		btnMedico.setForeground(new Color(13, 73, 151));
 		btnMedico.setBackground(new Color(13, 73, 151));
 		btnMedico.setBorderPainted(false);
 		btnMedico.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMedico.png")));
 
 		btnRemedio = new JButton("");
+		btnRemedio.setToolTipText("Exibir os remédios cadastrados");
 		btnRemedio.setForeground(new Color(13, 73, 151));
 		btnRemedio.setBackground(new Color(13, 73, 151));
 		btnRemedio.setBorderPainted(false);
@@ -123,6 +123,7 @@ public class Home extends JFrame {
 				.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeRemedio.png")));
 
 		btnExame = new JButton("");
+		btnExame.setToolTipText("Exibir exames");
 		btnExame.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeExame.png")));
 		btnExame.setForeground(new Color(13, 73, 151));
 		btnExame.setBackground(new Color(13, 73, 151));
@@ -185,6 +186,7 @@ public class Home extends JFrame {
 		painelBusca.add(lblBuscar);
 
 		btnTema = new JToggleButton("");
+		btnTema.setToolTipText("Tema escuro");
 		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeSol.png")));
 		btnTema.setBounds(10, 10, 32, 33);
 		painelBusca.add(btnTema);
@@ -277,8 +279,10 @@ public class Home extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (btnTema.isSelected()) {
 					aplicarTemaEscuro();
+					btnTema.setToolTipText("Tema claro");
 				} else {
 					aplicarTemaPadrao();
+					btnTema.setToolTipText("Tema escuro");
 				}
 				atualizarEstiloTabelas();
 			}
@@ -298,12 +302,11 @@ public class Home extends JFrame {
 		btnExame.setOpaque(false);
 		btnExame.setContentAreaFilled(false);
 		btnExame.setBorderPainted(false);
-		
+
 		btnTema.setOpaque(false);
 		btnTema.setContentAreaFilled(false);
 		btnTema.setBorderPainted(false);
 	}
-	
 
 	private void aplicarTemaEscuro() {
 		painelAtalhos.setColors(Color.decode("#16161D"), Color.decode("#211F4D"));
@@ -315,7 +318,7 @@ public class Home extends JFrame {
 		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeLua.png")));
 
 		contentPane.setBackground(corDeFundo);
-		
+
 		painelBusca.setBackground(corBusca);
 		painelPaciente.setBackground(corDeFundo);
 
@@ -330,7 +333,7 @@ public class Home extends JFrame {
 		UIManager.put("TableHeader.foreground", corTexto);
 		UIManager.put("Table.selectionBackground", corSelecaoTabela);
 		UIManager.put("Table.selectionForeground", corTexto);
-		
+
 		atualizarEstiloTabelas();
 
 		modoEscuroAtivado = true;
@@ -338,7 +341,7 @@ public class Home extends JFrame {
 
 	private void aplicarTemaPadrao() {
 		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeSol.png")));
-		
+
 		contentPane.setBackground(null);
 		painelAtalhos.setColors(Color.decode("#1CB5E0"), Color.decode("#000046"));
 		painelBusca.setBackground(new Color(211, 211, 211));
@@ -357,17 +360,17 @@ public class Home extends JFrame {
 		painelPaciente.setBorder(null);
 
 		Color corFundoTabela = UIManager.getColor("Table.background");
-	    Color corTextoTabela = UIManager.getColor("Table.foreground");
-	    Color corSelecaoTabela = UIManager.getColor("Table.selectionBackground");
+		Color corTextoTabela = UIManager.getColor("Table.foreground");
+		Color corSelecaoTabela = UIManager.getColor("Table.selectionBackground");
 
-	    UIManager.put("TableHeader.background", corFundoTabela);
-	    UIManager.put("TableHeader.foreground", corTextoTabela);
-	    UIManager.put("Table.selectionBackground", corSelecaoTabela);
-	    UIManager.put("Table.selectionForeground", corTextoTabela);
+		UIManager.put("TableHeader.background", corFundoTabela);
+		UIManager.put("TableHeader.foreground", corTextoTabela);
+		UIManager.put("Table.selectionBackground", corSelecaoTabela);
+		UIManager.put("Table.selectionForeground", corTextoTabela);
 
-	    atualizarEstiloTabelas();
+		atualizarEstiloTabelas();
 
-	    modoEscuroAtivado = false;
+		modoEscuroAtivado = false;
 	}
 
 	private void atualizarEstiloTabelas() {
@@ -396,7 +399,6 @@ public class Home extends JFrame {
 			header.setBackground(corFundoTabela);
 			header.setForeground(corTextoTabela);
 
-			// Configura o estilo do BorderLayout da tabela
 			Container container = tabela.getParent();
 			if (container instanceof JViewport) {
 				container = container.getParent();

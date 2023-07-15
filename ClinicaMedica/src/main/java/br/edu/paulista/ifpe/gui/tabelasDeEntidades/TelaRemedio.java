@@ -23,16 +23,10 @@ import br.edu.paulista.ifpe.model.tablemodel.RemedioTableModel;
 
 @SuppressWarnings("serial")
 public class TelaRemedio extends JPanel {
-	
-	private JScrollPane scrollPane;
-    private JTable tabela;
 
-	/**
-	 * 
-	 */
-	/**
-	 * Launch the application.
-	 */
+	private JScrollPane scrollPane;
+	private JTable tabela;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -40,87 +34,82 @@ public class TelaRemedio extends JPanel {
 					TelaRemedio frame = new TelaRemedio();
 					frame.atualizar();
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Não foi possível exibir os remédios", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public TelaRemedio() {
 		setBounds(100, 100, 800, 500);
-        setLayout(new BorderLayout());
+		setLayout(new BorderLayout());
 
-        JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        JButton btnAdicionar = new JButton("Adicionar");
-        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
-        btnAdicionar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-        tabelaAcoes.add(btnAdicionar);
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-        JButton btnEditar = new JButton("Editar");
-        btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
-        btnEditar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-        tabelaAcoes.add(btnEditar);
+			}
+		});
+		tabelaAcoes.add(btnAdicionar);
 
-        JButton btnExcluir = new JButton("Excluir");
-        btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
-        btnExcluir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                
-            }
-        });
-        tabelaAcoes.add(btnExcluir);
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-        add(tabelaAcoes, BorderLayout.NORTH);
+			}
+		});
+		tabelaAcoes.add(btnEditar);
 
-        scrollPane = new JScrollPane();
-        add(scrollPane, BorderLayout.CENTER);
+		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-        tabela = new JTable();
-        tabela.getTableHeader().setReorderingAllowed(false);
-        tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
-        tabela.setModel(new RemedioTableModel());
-        tabela.setFont(new Font("Arial", Font.PLAIN, 12));
-        scrollPane.setViewportView(tabela);
-    }
-    public JTable getTabela() {
-        return tabela;
-    }
+			}
+		});
+		tabelaAcoes.add(btnExcluir);
 
-    public TableModel getModeloTabela() {
-        return tabela.getModel();
-    }
-	
+		add(tabelaAcoes, BorderLayout.NORTH);
+
+		scrollPane = new JScrollPane();
+		add(scrollPane, BorderLayout.CENTER);
+
+		tabela = new JTable();
+		tabela.getTableHeader().setReorderingAllowed(false);
+		tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
+		tabela.setModel(new RemedioTableModel());
+		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
+		scrollPane.setViewportView(tabela);
+	}
+
+	public JTable getTabela() {
+		return tabela;
+	}
+
+	public TableModel getModeloTabela() {
+		return tabela.getModel();
+	}
+
 	public void atualizar() {
-        try {
-            /* Criação do DAO */
-            RemediosDAO dao = new RemediosDAO();
-            List<Remedio> lista = dao.buscar(new Remedio());
+		try {
 
-            /* Captura o modelo da tabela */
-            RemedioTableModel modelo = (RemedioTableModel) tabela.getModel();
+			RemediosDAO dao = new RemediosDAO();
+			List<Remedio> lista = dao.buscar(new Remedio());
 
-            /* Limpa o modelo existente */
-            modelo.limpar();
+			RemedioTableModel modelo = (RemedioTableModel) tabela.getModel();
 
-            /* Adiciona os médicos ao modelo */
-            modelo.adicionar(lista);
+			modelo.limpar();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Exame");
-        }
+			modelo.adicionar(lista);
+
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Exame");
+		}
 	}
 
 }

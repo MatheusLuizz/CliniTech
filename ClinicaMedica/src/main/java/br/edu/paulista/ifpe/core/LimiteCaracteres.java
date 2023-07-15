@@ -7,27 +7,27 @@ import javax.swing.text.DocumentFilter;
 import javax.swing.text.PlainDocument;
 
 public class LimiteCaracteres {
-    public void adicionarLimiteCaracteres(JTextField textField, final int maxCharacters) {
-        DocumentFilter documentFilter = new DocumentFilter() {
-            public void insertString(FilterBypass fb, int offset, String text, AttributeSet attrs)
-                    throws BadLocationException {
-                if ((fb.getDocument().getLength() + text.length()) <= maxCharacters) {
-                    super.insertString(fb, offset, text, attrs);
-                }
-            }
+	public void adicionarLimiteCaracteres(JTextField campoTexto, final int caracteresMaximos) {
+		DocumentFilter documentFilter = new DocumentFilter() {
+			public void insertString(FilterBypass fb, int offset, String texto, AttributeSet attrs)
+					throws BadLocationException {
+				if ((fb.getDocument().getLength() + texto.length()) <= caracteresMaximos) {
+					super.insertString(fb, offset, texto, attrs);
+				}
+			}
 
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
-                    throws BadLocationException {
-                int newLength = fb.getDocument().getLength() - length + text.length();
-                if (newLength <= maxCharacters) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-        };
+			public void replace(FilterBypass fb, int offset, int length, String texto, AttributeSet attrs)
+					throws BadLocationException {
+				int newLength = fb.getDocument().getLength() - length + texto.length();
+				if (newLength <= caracteresMaximos) {
+					super.replace(fb, offset, length, texto, attrs);
+				}
+			}
+		};
 
-        PlainDocument document = new PlainDocument();
-        document.setDocumentFilter(documentFilter);
+		PlainDocument documento = new PlainDocument();
+		documento.setDocumentFilter(documentFilter);
 
-        textField.setDocument(document);
-    }
+		campoTexto.setDocument(documento);
+	}
 }

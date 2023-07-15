@@ -10,5 +10,5 @@ public class Exame {
 	public void setTipoExame(String tipoExame) {
 		this.tipoExame = tipoExame;
 	}
-	
+
 }

@@ -3,7 +3,7 @@ package br.edu.paulista.ifpe.core.util.cadastroPacientes;
 import javax.swing.JTextField;
 
 public class LimparCamposPaciente {
-	public  void limparCampos(JTextField txtNome, JTextField txtCpf, JTextField txtRg, JTextField txtEmail,
+	public void limparCampos(JTextField txtNome, JTextField txtCpf, JTextField txtRg, JTextField txtEmail,
 			JTextField txtTelefone, JTextField txtRua, JTextField txtComplemento, JTextField txtNumero,
 			JTextField txtBairro, JTextField txtCep, JTextField txtCidade, JTextField txtNascimento,
 			JTextField txtEstadoCivil, JTextField txtNomePai, JTextField txtNomeMae) {
