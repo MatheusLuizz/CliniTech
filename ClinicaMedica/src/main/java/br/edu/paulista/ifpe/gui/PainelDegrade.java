@@ -8,17 +8,17 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class PainelDegrade extends JPanel {
-	private Color colorStart;
-	private Color colorEnd;
+	private Color corInicio;
+	private Color corFim;
 
 	public PainelDegrade() {
-		colorStart = Color.decode("#1CB5E0");
-		colorEnd = Color.decode("#000046");
+		corInicio = Color.decode("#1CB5E0");
+		corFim = Color.decode("#000046");
 	}
 
-	public void setColors(Color start, Color end) {
-		colorStart = start;
-		colorEnd = end;
+	public void setColors(Color inicio, Color fim) {
+		corInicio = inicio;
+		corFim = fim;
 		repaint();
 	}
 
@@ -37,7 +37,7 @@ public class PainelDegrade extends JPanel {
 		int endX = getWidth();
 		int endY = getHeight();
 
-		GradientPaint gradientPaint = new GradientPaint(startX, startY, colorStart, endX, endY, colorEnd);
+		GradientPaint gradientPaint = new GradientPaint(startX, startY, corInicio, endX, endY, corFim);
 
 		g2d.setPaint(gradientPaint);
 		g2d.fillRect(startX, startY, endX, endY);

@@ -22,7 +22,7 @@ import br.edu.paulista.ifpe.gui.PainelDegrade;
 public class Temas {
 	private static boolean modoEscuroAtivado = false;
 
-	public static void aplicarTemaEscuro(PainelDegrade painelAtalhos, JPanel painelBusca, JPanel painelPaciente,
+	public static void aplicarTemaEscuro(PainelDegrade painelAtalhos, PainelDegrade painelBusca, JPanel painelPaciente,
 			JToggleButton btnTema, List<JTable> tabelasExibidas) {
 		modoEscuroAtivado = true;
 
@@ -30,12 +30,13 @@ public class Temas {
 		Color corDeFundo = new Color(40, 42, 54);
 		Color corTexto = new Color(248, 248, 242);
 		Color corBorda = new Color(68, 71, 90);
+		painelBusca.setColors(Color.decode("#282a36"), Color.decode("#4e4c6d"));
 		Color corBusca = new Color(59, 61, 76);
 		Color corSelecaoTabela = new Color(70, 130, 180);
 		Color corTextoTabela = new Color(248, 248, 242);
 		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeLua.png")));
-
-		painelBusca.setBackground(corBusca);
+		
+		
 		painelPaciente.setBackground(corDeFundo);
 
 		painelBusca.setBorder(BorderFactory.createLineBorder(corBorda));
@@ -61,14 +62,14 @@ public class Temas {
 		}
 	}
 
-	public static void aplicarTemaPadrao(PainelDegrade painelAtalhos, JPanel painelBusca, JPanel painelPaciente,
+	public static void aplicarTemaPadrao(PainelDegrade painelAtalhos, PainelDegrade painelBusca, JPanel painelPaciente,
 			JToggleButton btnTema, List<JTable> tabelasExibidas) {
 		modoEscuroAtivado = false;
 
 		btnTema.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeSol.png")));
 
 		painelAtalhos.setColors(Color.decode("#1CB5E0"), Color.decode("#000046"));
-		painelBusca.setBackground(new Color(211, 211, 211));
+		painelBusca.setColors(Color.GRAY, new Color(220, 220, 220));
 		painelPaciente.setBackground(null);
 
 		painelBusca.setBorder(null);

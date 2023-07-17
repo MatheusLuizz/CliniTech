@@ -42,7 +42,7 @@ public class Home extends JFrame {
     private PainelDegrade painelAtalhos;
     private JButton btnPaciente;
     private JButton btnMedico;
-    private JPanel painelBusca;
+    private PainelDegrade painelBusca;
     private JPanel painelPaciente;
     private final JTextField txtBusca = new JTextField();
     private JLabel lblBuscar;
@@ -76,8 +76,8 @@ public class Home extends JFrame {
         setContentPane(contentPane);
 
         painelAtalhos = new PainelDegrade();
-        painelAtalhos.setBounds(0, 0, 91, 810);
-        painelAtalhos.setBackground(new Color(13, 73, 151));
+        painelAtalhos.setBounds(0, 0, 91, 865);
+        
 
         btnPaciente = new JButton("");
         btnPaciente.setToolTipText("Exibir os pacientes cadastrados");
@@ -137,9 +137,9 @@ public class Home extends JFrame {
         painelAtalhos.setLayout(gl_painelAtalhos);
         contentPane.setLayout(null);
 
-        painelBusca = new JPanel();
+        painelBusca = new PainelDegrade();
         painelBusca.setBounds(91, 0, 1473, 65);
-        painelBusca.setBackground(new Color(211, 211, 211));
+        painelBusca.setColors(Color.GRAY, new Color(220, 220, 220));
         painelBusca.setLayout(null);
         contentPane.add(painelBusca);
         txtBusca.setToolTipText("Digite o nome e pressione a tecla \"ENTER\"");
@@ -172,6 +172,7 @@ public class Home extends JFrame {
         txtBusca.setVisible(false);
 
         painelPaciente = new JPanel();
+        painelPaciente.setBackground(new Color(245, 245, 245));
         painelPaciente.setBounds(91, 67, 1459, 743);
         contentPane.add(painelPaciente);
         painelPaciente.setLayout(new CardLayout(0, 0));
@@ -192,7 +193,7 @@ public class Home extends JFrame {
 
                 tabelasExibidas = new ArrayList<JTable>();
                 tabelasExibidas.add(p.getTabela());
-                atualizarEstiloTabelas();
+                Temas.atualizarEstiloTabelas(tabelasExibidas);
                 p.setHome(Home.this);
             }
         });
@@ -212,7 +213,7 @@ public class Home extends JFrame {
 
                 tabelasExibidas = new ArrayList<JTable>();
                 tabelasExibidas.add(m.getTabela());
-                atualizarEstiloTabelas();
+                Temas.atualizarEstiloTabelas(tabelasExibidas);
             }
         });
         btnRemedio.addActionListener(new ActionListener() {
@@ -231,7 +232,7 @@ public class Home extends JFrame {
 
                 tabelasExibidas = new ArrayList<JTable>();
                 tabelasExibidas.add(r.getTabela());
-                atualizarEstiloTabelas();
+                Temas.atualizarEstiloTabelas(tabelasExibidas);
             }
         });
         btnExame.addActionListener(new ActionListener() {
@@ -250,19 +251,21 @@ public class Home extends JFrame {
 
                 tabelasExibidas = new ArrayList<JTable>();
                 tabelasExibidas.add(ex.getTabela());
-                atualizarEstiloTabelas();
+                Temas.atualizarEstiloTabelas(tabelasExibidas);
             }
         });
         btnTema.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (btnTema.isSelected()) {
-                    aplicarTemaEscuro();
+                	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, painelPaciente, btnTema, tabelasExibidas);
+                    lblBuscar.setForeground(new Color(255, 105, 180));
                     btnTema.setToolTipText("Tema claro");
                 } else {
-                    aplicarTemaPadrao();
+                	Temas.aplicarTemaPadrao(painelAtalhos, painelBusca, painelPaciente, btnTema, tabelasExibidas);
+                	lblBuscar.setForeground(Color.BLACK);
                     btnTema.setToolTipText("Tema escuro");
                 }
-                atualizarEstiloTabelas();
+                Temas.atualizarEstiloTabelas(tabelasExibidas);
             }
         });
         btnPaciente.setOpaque(false);
@@ -286,14 +289,6 @@ public class Home extends JFrame {
         btnTema.setBorderPainted(false);
     }
 
-    private void aplicarTemaEscuro() {
-    	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, painelPaciente, btnTema, tabelasExibidas);
-    }
-
-    private void aplicarTemaPadrao() {
-        Temas.aplicarTemaPadrao(painelAtalhos, painelBusca, painelPaciente, btnTema, tabelasExibidas);
-    }
-
     private void aplicarFiltroBusca(JTable tabela, TableModel modeloTabela, String textoBusca) {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloTabela);
         tabela.setRowSorter(sorter);
@@ -306,10 +301,6 @@ public class Home extends JFrame {
             sorter.setRowFilter(RowFilter.regexFilter(regex, 0)); // Assumindo que o nome está na primeira coluna
             // (índice 0)
         }
-    }
-
-    private void atualizarEstiloTabelas() {
-        Temas.atualizarEstiloTabelas(tabelasExibidas);
     }
     public void exibirDetalhesPaciente() {
     	txtBusca.setText("");
@@ -326,6 +317,6 @@ public class Home extends JFrame {
 
         tabelasExibidas = new ArrayList<JTable>();
         tabelasExibidas.add(dp.getTabela());
-        atualizarEstiloTabelas();
+        Temas.atualizarEstiloTabelas(tabelasExibidas);
     }
 }
