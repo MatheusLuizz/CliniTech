@@ -176,6 +176,7 @@ public class Home extends JFrame {
         painelPaciente.setBounds(91, 67, 1459, 743);
         contentPane.add(painelPaciente);
         painelPaciente.setLayout(new CardLayout(0, 0));
+        
 
         btnPaciente.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
