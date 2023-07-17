@@ -79,61 +79,54 @@ public class Home extends JFrame {
         painelAtalhos.setBounds(0, 0, 91, 865);
         
 
-        btnPaciente = new JButton("");
+        btnPaciente = new JButton();
         btnPaciente.setToolTipText("Exibir os pacientes cadastrados");
         btnPaciente.setForeground(new Color(13, 73, 151));
-        btnPaciente.setBackground(new Color(13, 73, 151));
         btnPaciente.setBorderPainted(false);
         btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconePaciente.png")));
 
-        btnMedico = new JButton("");
+        btnMedico = new JButton();
         btnMedico.setToolTipText("Exibir os médios cadastrados");
         btnMedico.setForeground(new Color(13, 73, 151));
-        btnMedico.setBackground(new Color(13, 73, 151));
         btnMedico.setBorderPainted(false);
         btnMedico.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMedico.png")));
 
-        btnRemedio = new JButton("");
+        btnRemedio = new JButton();
         btnRemedio.setToolTipText("Exibir os remédios cadastrados");
         btnRemedio.setForeground(new Color(13, 73, 151));
-        btnRemedio.setBackground(new Color(13, 73, 151));
         btnRemedio.setBorderPainted(false);
         btnRemedio.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeRemedio.png")));
 
-        btnExame = new JButton("");
+        btnExame = new JButton();
         btnExame.setToolTipText("Exibir exames");
         btnExame.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeExame.png")));
-        btnExame.setForeground(new Color(13, 73, 151));
-        btnExame.setBackground(new Color(13, 73, 151));
+        btnExame.setForeground(new Color(13, 73, 151));;
         btnExame.setBorderPainted(false);
 
         GroupLayout gl_painelAtalhos = new GroupLayout(painelAtalhos);
         gl_painelAtalhos.setHorizontalGroup(
-                gl_painelAtalhos.createParallelGroup(Alignment.LEADING)
-                        .addGroup(gl_painelAtalhos.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(gl_painelAtalhos.createParallelGroup(Alignment.LEADING)
-                                        .addGroup(gl_painelAtalhos.createSequentialGroup()
-                                                .addComponent(btnExame, GroupLayout.PREFERRED_SIZE, 71, Short.MAX_VALUE)
-                                                .addContainerGap())
-                                        .addGroup(gl_painelAtalhos.createSequentialGroup()
-                                                .addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 71, Short.MAX_VALUE)
-                                                .addContainerGap())
-                                        .addGroup(gl_painelAtalhos.createSequentialGroup()
-                                                .addComponent(btnRemedio, 0, 0, Short.MAX_VALUE)
-                                                .addContainerGap())
-                                        .addGroup(Alignment.TRAILING, gl_painelAtalhos.createSequentialGroup()
-                                                .addComponent(btnMedico, 0, 0, Short.MAX_VALUE).addGap(12)))));
-        gl_painelAtalhos.setVerticalGroup(gl_painelAtalhos.createParallelGroup(Alignment.LEADING)
-                .addGroup(gl_painelAtalhos.createSequentialGroup().addContainerGap()
-                        .addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(btnMedico, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(btnRemedio, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(btnExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(514, Short.MAX_VALUE)));
+        	gl_painelAtalhos.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_painelAtalhos.createSequentialGroup()
+        			.addGroup(gl_painelAtalhos.createParallelGroup(Alignment.TRAILING, false)
+        				.addComponent(btnExame, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+        				.addComponent(btnRemedio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnMedico, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnPaciente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        			.addContainerGap(20, Short.MAX_VALUE))
+        );
+        gl_painelAtalhos.setVerticalGroup(
+        	gl_painelAtalhos.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_painelAtalhos.createSequentialGroup()
+        			.addContainerGap()
+        			.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnMedico, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnRemedio, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(569, Short.MAX_VALUE))
+        );
         painelAtalhos.setLayout(gl_painelAtalhos);
         contentPane.setLayout(null);
 
