@@ -34,6 +34,7 @@ import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaMedico;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaPaciente;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaRemedio;
 import br.edu.paulista.ifpe.model.temas.Temas;
+import net.miginfocom.swing.MigLayout;
 
 @SuppressWarnings("serial")
 public class Home extends JFrame {
@@ -65,14 +66,15 @@ public class Home extends JFrame {
     }
 
     public Home() {
-        setResizable(false);
+        setResizable(true);
         tabelasExibidas = new ArrayList<JTable>();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setBounds(100, 100, 800, 500);
         contentPane = new JPanel();
-        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+        contentPane = new JPanel(new MigLayout("fill", "[15%][grow]", "[65!][grow]"));
         setContentPane(contentPane);
 
         painelAtalhos = new PainelDegrade();
@@ -281,6 +283,10 @@ public class Home extends JFrame {
         btnTema.setOpaque(false);
         btnTema.setContentAreaFilled(false);
         btnTema.setBorderPainted(false);
+        
+        contentPane.add(painelAtalhos, "width 15%, height 100%");
+        contentPane.add(painelBusca, "width 85%, height 65%, growx"); // Utilizamos "growx" para que ocupe todo o espaço horizontal disponível
+        contentPane.add(painelPaciente, "grow");
     }
 
     private void aplicarFiltroBusca(JTable tabela, TableModel modeloTabela, String textoBusca) {
