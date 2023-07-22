@@ -38,5 +38,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="src/main/resources/miglayout-4.0.jar"/>
 	<classpathentry kind="lib" path="src/main/resources/timingframework-1.0.jar"/>
+	<classpathentry kind="lib" path="src/main/resources/table-custom.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

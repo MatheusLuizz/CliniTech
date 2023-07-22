@@ -25,6 +25,8 @@ import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -141,13 +143,20 @@ public class Home extends JFrame {
         txtBusca.setFont(new Font("Arial", Font.PLAIN, 15));
         txtBusca.setBounds(681, 22, 322, 33);
         painelBusca.add(txtBusca);
-        txtBusca.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String textoBusca = txtBusca.getText();
-                for (JTable tabela : tabelasExibidas) {
-                    TableModel modelo = tabela.getModel();
-                    aplicarFiltroBusca(tabela, modelo, textoBusca);
-                }
+        txtBusca.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                realizarBusca();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                realizarBusca();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                realizarBusca();
             }
         });
         txtBusca.setColumns(10);
@@ -288,18 +297,23 @@ public class Home extends JFrame {
         contentPane.add(painelBusca, "width 85%, height 65%, growx"); // Utilizamos "growx" para que ocupe todo o espaço horizontal disponível
         contentPane.add(painelPaciente, "grow");
     }
+    private void realizarBusca() {
+        String textoBusca = txtBusca.getText();
+        for (JTable tabela : tabelasExibidas) {
+            TableModel modelo = tabela.getModel();
+            aplicarFiltroBusca(tabela, modelo, textoBusca);
+        }
+    }
 
     private void aplicarFiltroBusca(JTable tabela, TableModel modeloTabela, String textoBusca) {
-        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(modeloTabela);
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(modeloTabela);
         tabela.setRowSorter(sorter);
 
         if (textoBusca.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "O campo de busca está vazio");
             sorter.setRowFilter(null);
         } else {
             String regex = "(?i)" + Pattern.quote(textoBusca);
-            sorter.setRowFilter(RowFilter.regexFilter(regex, 0)); // Assumindo que o nome está na primeira coluna
-            // (índice 0)
+            sorter.setRowFilter(RowFilter.regexFilter(regex, 0)); // Assumindo que o nome está na primeira coluna (índice 0)
         }
     }
     public void exibirDetalhesPaciente() {

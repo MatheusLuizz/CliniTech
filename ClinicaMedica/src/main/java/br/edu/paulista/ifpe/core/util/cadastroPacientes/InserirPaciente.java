@@ -14,8 +14,8 @@ public class InserirPaciente {
 
 		ConnectionBD conn = new ConnectionBD();
 		PreparedStatement st;
-		String query = "INSERT INTO paciente (nome, cpf, rg, telefone, email, rua, num, complemento, bairro, cep, "
-				+ "cidade, uf, nascimento, sexo, estadoCivil, nomePai, nomeMae) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		String query = "INSERT INTO paciente (nome, cpf, rg, telefone, email, rua, numero, complemento, bairro, cep, "
+				+ "cidade, uf, nascimento, sexo, estado_civil, nome_pai, nome_mae) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 		try {
 			st = conn.abrir().prepareStatement(query);
@@ -42,6 +42,7 @@ public class InserirPaciente {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 					"Erro ao inserir os dados no banco de dados. Por favor, tente novamente.");
+			e.printStackTrace();
 		} finally {
 			conn.fechar();
 		}
