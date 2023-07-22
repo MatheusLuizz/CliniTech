@@ -59,24 +59,6 @@ public class TelaExame extends JTable {
 		});
 		tabelaAcoes.add(btnAdicionar);
 
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnEditar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		tabelaAcoes.add(btnEditar);
-
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnExcluir.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		tabelaAcoes.add(btnExcluir);
-
 		add(tabelaAcoes, BorderLayout.NORTH);
 
 		scrollPane = new JScrollPane();

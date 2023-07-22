@@ -45,6 +45,7 @@ public class Home extends JFrame {
     private PainelDegrade painelAtalhos;
     private JButton btnPaciente;
     private JButton btnMedico;
+    private JButton btnInicio;
     private PainelDegrade painelBusca;
     private JPanel painelPaciente;
     private final JTextField txtBusca = new JTextField();
@@ -70,6 +71,8 @@ public class Home extends JFrame {
     public Home() {
         setResizable(true);
         tabelasExibidas = new ArrayList<JTable>();
+        
+        
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -106,7 +109,15 @@ public class Home extends JFrame {
         btnExame.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeExame.png")));
         btnExame.setForeground(new Color(13, 73, 151));;
         btnExame.setBorderPainted(false);
-
+        
+        btnInicio = new JButton();
+        btnInicio.setToolTipText("Voltar a tela Inicial");
+        btnInicio.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMenu.png")));
+        btnInicio.setForeground(new Color(13, 73, 151));
+        btnInicio.setBackground(getBackground());
+        btnInicio.setBorderPainted(false);
+        
+        contentPane.setLayout(null);
         GroupLayout gl_painelAtalhos = new GroupLayout(painelAtalhos);
         gl_painelAtalhos.setHorizontalGroup(
         	gl_painelAtalhos.createParallelGroup(Alignment.LEADING)
@@ -115,13 +126,16 @@ public class Home extends JFrame {
         				.addComponent(btnExame, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
         				.addComponent(btnRemedio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(btnMedico, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(btnPaciente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        				.addComponent(btnPaciente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnInicio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         			.addContainerGap(20, Short.MAX_VALUE))
         );
         gl_painelAtalhos.setVerticalGroup(
         	gl_painelAtalhos.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_painelAtalhos.createSequentialGroup()
         			.addContainerGap()
+        			.addComponent(btnInicio, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(btnPaciente, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(btnMedico, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
@@ -132,7 +146,6 @@ public class Home extends JFrame {
         			.addContainerGap(569, Short.MAX_VALUE))
         );
         painelAtalhos.setLayout(gl_painelAtalhos);
-        contentPane.setLayout(null);
 
         painelBusca = new PainelDegrade();
         painelBusca.setBounds(91, 0, 1473, 65);
@@ -180,6 +193,31 @@ public class Home extends JFrame {
         painelPaciente.setBounds(91, 67, 1459, 743);
         contentPane.add(painelPaciente);
         painelPaciente.setLayout(new CardLayout(0, 0));
+        
+        txtBusca.setVisible(false);
+		lblBuscar.setVisible(false);
+		TelaInicio i = new TelaInicio();
+		//i.atualizar();
+		painelPaciente.removeAll();
+		painelPaciente.setLayout(new CardLayout(0, 0));
+		painelPaciente.add(i, BorderLayout.CENTER);
+		painelPaciente.revalidate();
+		painelPaciente.repaint();
+        
+        btnInicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtBusca.setVisible(false);
+				lblBuscar.setVisible(false);
+				TelaInicio i = new TelaInicio();
+				//i.atualizar();
+				painelPaciente.removeAll();
+				painelPaciente.setLayout(new CardLayout(0, 0));
+				painelPaciente.add(i, BorderLayout.CENTER);
+				painelPaciente.revalidate();
+				painelPaciente.repaint();
+			}
+		});
+        
         
 
         btnPaciente.addActionListener(new ActionListener() {
@@ -273,6 +311,11 @@ public class Home extends JFrame {
                 Temas.atualizarEstiloTabelas(tabelasExibidas);
             }
         });
+        
+        btnInicio.setOpaque(false);
+        btnInicio.setContentAreaFilled(false);
+        btnInicio.setBorderPainted(false);
+        
         btnPaciente.setOpaque(false);
         btnPaciente.setContentAreaFilled(false);
         btnPaciente.setBorderPainted(false);
