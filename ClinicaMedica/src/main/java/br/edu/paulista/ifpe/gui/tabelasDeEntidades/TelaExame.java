@@ -18,8 +18,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.data.ExamesDAO;
+import br.edu.paulista.ifpe.data.MedicoDAO;
 import br.edu.paulista.ifpe.model.entidades.Exame;
+import br.edu.paulista.ifpe.model.entidades.Medico;
 import br.edu.paulista.ifpe.model.tablemodel.ExameTableModel;
+import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
 
 @SuppressWarnings("serial")
 public class TelaExame extends JTable {
@@ -84,7 +87,58 @@ public class TelaExame extends JTable {
 		tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tabela.setModel(new ExameTableModel());
 		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
+		tabela.setRowHeight(40);
 		scrollPane.setViewportView(tabela);
+		ExamesDAO dao = new ExamesDAO();
+		TableActionEvent evento = new TableActionEvent() {
+			
+			@Override
+			public void onView(int linha) {
+				System.out.println("Visualizando linha: " + linha);
+				
+			}
+			
+			@Override
+			public void onEdit(int linha) {
+				System.out.println("Editando linha: " + linha);
+			}
+			
+			@Override
+			public void onDelete(int linha) {
+			    int selectedRow = tabela.getSelectedRow();
+			    if (selectedRow >= 0) {
+			        ExameTableModel model = (ExameTableModel) tabela.getModel();
+			        Exame exame = model.getExame(selectedRow);
+
+			        try {
+			            int i = JOptionPane.showConfirmDialog(null, "Deseja excluir o exame selecionado?");
+			            if (i == JOptionPane.YES_OPTION) {
+			                boolean exclusaoBemSucedida = dao.excluir(exame);
+			                if (exclusaoBemSucedida) {
+			                	JOptionPane.showMessageDialog(null, "Você excluiu o paciente com sucesso");
+			                    model.removeExameAt(selectedRow);
+			                    // Atualizar a tabela
+			                    model.fireTableDataChanged();
+			                }
+			            } else if (i == JOptionPane.NO_OPTION) {
+			                JOptionPane.showMessageDialog(null, "Você cancelou a exclusão com sucesso");
+			            }
+
+			        } catch (Exception ex) {
+			            JOptionPane.showMessageDialog(null, "Erro ao excluir o exame", "Erro",
+			                    JOptionPane.ERROR_MESSAGE);
+			            ex.printStackTrace();
+			        }
+			    } else {
+			        JOptionPane.showMessageDialog(null, "Selecione um exame antes de excluir.");
+			    }
+			}
+	        
+	    };
+		tabela.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
+		tabela.getColumnModel().getColumn(2).setCellEditor(new TabelaAcaoCellEditor(tabela, evento));
+		
+		
 	}
 
 	public JTable getTabela() {

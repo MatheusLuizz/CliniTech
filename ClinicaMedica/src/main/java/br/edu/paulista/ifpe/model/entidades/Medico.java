@@ -1,6 +1,16 @@
 package br.edu.paulista.ifpe.model.entidades;
 
 public class Medico {
+	private String id;
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+
 	private String crm;
 	private String nome;
 	private String cpf;

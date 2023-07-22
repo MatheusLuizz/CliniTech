@@ -47,6 +47,8 @@ public class TelaMedico extends JPanel {
 		setLayout(new BorderLayout());
 
 		JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		
+		
 
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -87,8 +89,62 @@ public class TelaMedico extends JPanel {
 		tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
 		tabela.setModel(new MedicTableModel());
 		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
+		tabela.setRowHeight(40);
 		scrollPane.setViewportView(tabela);
+		MedicoDAO dao = new MedicoDAO();
+		TableActionEvent evento = new TableActionEvent() {
+			
+			@Override
+			public void onView(int linha) {
+				System.out.println("Visualizando linha: " + linha);
+				
+			}
+			
+			@Override
+			public void onEdit(int linha) {
+				System.out.println("Editando linha: " + linha);
+			}
+			
+			@Override
+			public void onDelete(int linha) {
+			    int selectedRow = tabela.getSelectedRow();
+			    if (selectedRow >= 0) {
+			        MedicTableModel model = (MedicTableModel) tabela.getModel();
+			        Medico medico = model.getMedico(selectedRow);
+
+			        try {
+			            int i = JOptionPane.showConfirmDialog(null, "Deseja excluir o médico selecionado?");
+			            if (i == JOptionPane.YES_OPTION) {
+			                boolean exclusaoBemSucedida = dao.excluir(medico);
+			                if (exclusaoBemSucedida) {
+			                	JOptionPane.showMessageDialog(null, "Você excluiu o médico com sucesso");
+			                    model.removeMedicoAt(selectedRow);
+			                    // Atualizar a tabela
+			                    model.fireTableDataChanged();
+			                }
+			            } else if (i == JOptionPane.NO_OPTION) {
+			                JOptionPane.showMessageDialog(null, "Você cancelou a exclusão com sucesso");
+			            }
+
+			        } catch (Exception ex) {
+			            JOptionPane.showMessageDialog(null, "Erro ao excluir o médico", "Erro",
+			                    JOptionPane.ERROR_MESSAGE);
+			            ex.printStackTrace();
+			        }
+			    } else {
+			        JOptionPane.showMessageDialog(null, "Selecione um médico antes de excluir.");
+			    }
+			}
+	        
+	    };
+		tabela.getColumnModel().getColumn(6).setCellRenderer(new TableActionCellRender());
+		tabela.getColumnModel().getColumn(6).setCellEditor(new TabelaAcaoCellEditor(tabela, evento));
+		
+		
 	}
+
+
+
 
 	public JTable getTabela() {
 		return tabela;
@@ -98,19 +154,25 @@ public class TelaMedico extends JPanel {
 		return tabela.getModel();
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void atualizar() {
-		try {
-			MedicoDAO dao = new MedicoDAO();
-			List<Medico> lista = dao.buscar(new Medico());
+	    try {
+	        MedicoDAO dao = new MedicoDAO();
+	        List<Medico> lista = dao.buscar(new Medico());
 
-			MedicTableModel modelo = (MedicTableModel) tabela.getModel();
+	        MedicTableModel modelo = (MedicTableModel) tabela.getModel();
+	        modelo.limpar();
+	        modelo.adicionar(lista);
 
-			modelo.limpar();
-
-			modelo.adicionar(lista);
-
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Médico");
-		}
+	        // Crie um novo painel de ações para cada célula da coluna de ações
+	        for (int i = 0; i < modelo.getRowCount(); i++) {
+	            PainelAcao painelAcao = new PainelAcao();
+	            Medico medico = lista.get(i);
+	            painelAcao.setIdMedico(medico.getId());
+	            modelo.setValueAt(painelAcao, i, 6); // Defina o valor correto para a coluna de ações
+	        }
+	    } catch (Exception ex) {
+	        JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Médico");
+	    }
 	}
 }

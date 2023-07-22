@@ -139,7 +139,7 @@ public class Home extends JFrame {
         painelBusca.setColors(Color.GRAY, new Color(220, 220, 220));
         painelBusca.setLayout(null);
         contentPane.add(painelBusca);
-        txtBusca.setToolTipText("Digite o nome e pressione a tecla \"ENTER\"");
+        txtBusca.setToolTipText("Filtre pelo nome");
         txtBusca.setFont(new Font("Arial", Font.PLAIN, 15));
         txtBusca.setBounds(681, 22, 322, 33);
         painelBusca.add(txtBusca);
@@ -313,7 +313,7 @@ public class Home extends JFrame {
             sorter.setRowFilter(null);
         } else {
             String regex = "(?i)" + Pattern.quote(textoBusca);
-            sorter.setRowFilter(RowFilter.regexFilter(regex, 0)); // Assumindo que o nome está na primeira coluna (índice 0)
+            sorter.setRowFilter(RowFilter.regexFilter(regex, 1)); // Assumindo que o nome está na primeira coluna (índice 0)
         }
     }
     public void exibirDetalhesPaciente() {
