@@ -25,7 +25,7 @@ import br.edu.paulista.ifpe.model.tablemodel.ExameTableModel;
 import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
 
 @SuppressWarnings("serial")
-public class TelaExame extends JTable {
+public class TelaExame extends JTable implements CadastroExameListener {
 
 	private JScrollPane scrollPane;
 	private JTable tabela;
@@ -54,7 +54,10 @@ public class TelaExame extends JTable {
 		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				CadastroExames ce = new CadastroExames();
+				ce.setListener(TelaExame.this);
+				ce.setLocationRelativeTo(null);
+				ce.setVisible(true);
 			}
 		});
 		tabelaAcoes.add(btnAdicionar);
@@ -97,7 +100,7 @@ public class TelaExame extends JTable {
 			            if (i == JOptionPane.YES_OPTION) {
 			                boolean exclusaoBemSucedida = dao.excluir(exame);
 			                if (exclusaoBemSucedida) {
-			                	JOptionPane.showMessageDialog(null, "Você excluiu o paciente com sucesso");
+			                	JOptionPane.showMessageDialog(null, "Você excluiu o exame com sucesso");
 			                    model.removeExameAt(selectedRow);
 			                    // Atualizar a tabela
 			                    model.fireTableDataChanged();
@@ -145,5 +148,10 @@ public class TelaExame extends JTable {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Exame");
 		}
+	}
+
+	@Override
+	public void exameCadastrado() {
+		atualizar();		
 	}
 }

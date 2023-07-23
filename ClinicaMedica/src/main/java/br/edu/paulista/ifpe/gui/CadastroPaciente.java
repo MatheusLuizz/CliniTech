@@ -22,6 +22,7 @@ import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.VerificadorEmail;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.InserirPaciente;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.LimparCamposPaciente;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroPacienteListener;
 
 @SuppressWarnings("serial")
 public class CadastroPaciente extends JDialog {
@@ -66,6 +67,11 @@ public class CadastroPaciente extends JDialog {
 	private JTextField txtNomeMae;
 	private JTextField txtNomePai;
 	private JButton btnCadastro;
+	private CadastroPacienteListener listener;
+
+    public void setListener(CadastroPacienteListener listener) {
+        this.listener = listener;
+    }
 
 	private boolean concluido = false;
 
@@ -416,6 +422,9 @@ public class CadastroPaciente extends JDialog {
 					limpar.limparCampos(txtNome, txtCpf, txtRg, txtEmail, txtTelefone, txtRua, txtComplemento,
 							txtNumero, txtBairro, txtCep, txtCidade, txtNascimento, txtEstadoCivil, txtNomePai,
 							txtNomeMae);
+					if (listener != null) {
+		                listener.pacienteCadastrado();
+		            }
 					dispose();
 				}
 			}

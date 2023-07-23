@@ -17,15 +17,13 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 
-import br.edu.paulista.ifpe.data.MedicoDAO;
 import br.edu.paulista.ifpe.data.RemediosDAO;
-import br.edu.paulista.ifpe.model.entidades.Medico;
+import br.edu.paulista.ifpe.gui.CadastroRemedios;
 import br.edu.paulista.ifpe.model.entidades.Remedio;
-import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
 import br.edu.paulista.ifpe.model.tablemodel.RemedioTableModel;
 
 @SuppressWarnings("serial")
-public class TelaRemedio extends JPanel {
+public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 
 	private JScrollPane scrollPane;
 	private JTable tabela;
@@ -54,7 +52,10 @@ public class TelaRemedio extends JPanel {
 		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				CadastroRemedios cr = new CadastroRemedios();
+				cr.setListener(TelaRemedio.this);
+				cr.setLocationRelativeTo(null);
+				cr.setVisible(true);
 			}
 		});
 		tabelaAcoes.add(btnAdicionar);
@@ -122,6 +123,9 @@ public class TelaRemedio extends JPanel {
 		
 		
 	}
+	public void remedioCadastrado() {
+        atualizar();
+    }
 
 	public JTable getTabela() {
 		return tabela;

@@ -53,8 +53,11 @@ public class PacienteDAO {
 	        comando.close();
 	        conn.close();
 	        return true;
+	    } catch (SQLIntegrityConstraintViolationException e) {
+	        JOptionPane.showMessageDialog(null, "Você não pode excluir um paciente com consultas marcadas");
 	    } catch (Exception ex) {
 	    	JOptionPane.showMessageDialog(null, "Erro ao excluir o paciente");
+	    	ex.printStackTrace();
 	    }
 	    return false;
 	}

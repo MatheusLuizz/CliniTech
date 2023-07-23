@@ -27,7 +27,7 @@ import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
 import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
 
 @SuppressWarnings("serial")
-public class TelaPaciente extends JPanel {
+public class TelaPaciente extends JPanel implements CadastroPacienteListener {
     private JScrollPane scrollPane;
     protected JTable tabela;
     private Home home; // Referência para a classe Home
@@ -59,6 +59,7 @@ public class TelaPaciente extends JPanel {
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CadastroPaciente cp = new CadastroPaciente();
+                cp.setListener(TelaPaciente.this);
                 cp.setLocationRelativeTo(null);
                 cp.setVisible(true);
             }
@@ -125,6 +126,7 @@ public class TelaPaciente extends JPanel {
 			        } catch (Exception ex) {
 			            JOptionPane.showMessageDialog(null, "Erro ao excluir o Paciente", "Erro",
 			                    JOptionPane.ERROR_MESSAGE);
+			            ex.printStackTrace();
 			            
 			        }
 			    } else {
@@ -165,6 +167,10 @@ public class TelaPaciente extends JPanel {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Paciente");
         }
+    }
+    @Override
+    public void pacienteCadastrado() {
+        atualizar();
     }
     
 

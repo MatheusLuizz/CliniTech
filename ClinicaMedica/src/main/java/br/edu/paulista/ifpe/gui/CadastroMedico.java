@@ -17,6 +17,9 @@ import javax.swing.text.MaskFormatter;
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.LimparCamposMedico;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirMedico;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroMedicoListener;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroPacienteListener;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaMedico;
 
 @SuppressWarnings("serial")
 public class CadastroMedico extends JDialog {
@@ -35,6 +38,10 @@ public class CadastroMedico extends JDialog {
 	private JLabel lblNewLabel_5;
 	private JTextField txtEspecialidade;
 	private JButton btnCadastro;
+	private CadastroMedicoListener listener;
+	public void setListener(CadastroMedicoListener listener) {
+        this.listener = listener;
+    }
 
 	public static void main(String[] args) {
 		try {
@@ -188,6 +195,9 @@ public class CadastroMedico extends JDialog {
 					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade);
 					LimparCamposMedico limpar = new LimparCamposMedico();
 					limpar.limparCampos(txtCrm, txtNome, txtCpf, txtRg, txtTelefone, txtEspecialidade);
+					if (listener != null) {
+		                listener.medicoCadastrado();
+		            }
 					dispose();
 				}
 			}

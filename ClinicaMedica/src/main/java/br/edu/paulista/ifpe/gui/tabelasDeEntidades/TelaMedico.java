@@ -23,7 +23,7 @@ import br.edu.paulista.ifpe.model.entidades.Medico;
 import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
 
 @SuppressWarnings("serial")
-public class TelaMedico extends JPanel {
+public class TelaMedico extends JPanel implements CadastroMedicoListener {
 
 	private JScrollPane scrollPane;
 	private JTable tabela;
@@ -55,6 +55,7 @@ public class TelaMedico extends JPanel {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CadastroMedico cm = new CadastroMedico();
+				cm.setListener(TelaMedico.this);
 				cm.setLocationRelativeTo(null);
 				cm.setVisible(true);
 			}
@@ -125,7 +126,9 @@ public class TelaMedico extends JPanel {
 		
 	}
 
-
+	public void medicoCadastrado() {
+        atualizar();
+    }
 
 
 	public JTable getTabela() {
