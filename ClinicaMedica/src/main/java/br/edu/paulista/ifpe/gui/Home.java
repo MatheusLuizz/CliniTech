@@ -70,7 +70,8 @@ public class Home extends JFrame {
     }
 
     public Home() {
-        setResizable(true);
+    	setTitle("Tela Home");
+        setResizable(false);
         tabelasExibidas = new ArrayList<JTable>();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -52,7 +52,7 @@ public class TelaInicio extends JPanel {
         setLayout(null);
 
         panel_1 = new JPanel();
-        panel_1.setBounds(10, 60, 555, 240);
+        panel_1.setBounds(0, 57, 555, 240);
         panel_1.setLayout(null);
 
         lblNewLabel_1 = new JLabel("Pacientes Agendados");
@@ -86,7 +86,7 @@ public class TelaInicio extends JPanel {
         add(panel_1);
 
         panel = new PainelDegrade();
-        panel.setBounds(0, 0, 1124, 50);
+        panel.setBounds(0, 0, 1179, 50);
         add(panel);
         panel.setLayout(null);
 
@@ -97,7 +97,7 @@ public class TelaInicio extends JPanel {
         panel.add(lblNewLabel);
         
         panel_2 = new JPanel();
-        panel_2.setBounds(10, 307, 555, 258);
+        panel_2.setBounds(0, 307, 555, 258);
         add(panel_2);
         panel_2.setLayout(null);
         
@@ -133,7 +133,7 @@ public class TelaInicio extends JPanel {
         table_1.setPreferredSize(new Dimension(scrollPane_2.getWidth(), table_1.getPreferredSize().height));
         
         panel_3 = new PainelRedondo();
-        panel_3.setBounds(575, 60, 539, 325);
+        panel_3.setBounds(565, 60, 572, 385);
         add(panel_3);
     }
 }

@@ -17,7 +17,7 @@ public class PainelRedondo extends JPanel {
 		setOpaque(false);
 		setLayout(null);
 		graficoCurvo = new GraficoCurvas();
-		graficoCurvo.setBounds(0, 21, 600, 351);
+		graficoCurvo.setBounds(0, 0, 557, 382);
 		add(graficoCurvo);
 		init();
 	}
@@ -26,9 +26,9 @@ public class PainelRedondo extends JPanel {
 		graficoCurvo.adicionarLegenda("Lucro", new Color(54,4,143), new Color(104,49,200));
 		graficoCurvo.adicionarLegenda("Despesas", new Color(5,125,0), new Color(95,209,69));
 		graficoCurvo.adicionarLegenda("Custos", new Color(186,37,37), new Color(241,100,120));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Janeiro", new double[] {500, 200, 80, 89}));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Fevereiro", new double[] {1000, 750, 90, 150}));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Março", new double[] {200, 350, 460, 900}));
+		graficoCurvo.adicionarDado(new ModeloGrafico("Janeiro", new double[] {500, 100, 1600, 80}));
+		graficoCurvo.adicionarDado(new ModeloGrafico("Fevereiro", new double[] {2500, 750, 90, 1100}));
+		graficoCurvo.adicionarDado(new ModeloGrafico("Março", new double[] {200, 800, 2000, 900}));
 		graficoCurvo.adicionarDado(new ModeloGrafico("Abril", new double[] {480, 150, 750, 700}));
 		graficoCurvo.adicionarDado(new ModeloGrafico("Maio", new double[] {350, 540, 3000, 150}));
 		graficoCurvo.adicionarDado(new ModeloGrafico("Junho", new double[] {190, 280, 81, 200}));
