@@ -16,9 +16,9 @@ import javax.swing.text.MaskFormatter;
 
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.LimparCamposMedico;
+import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroMedicoListener;
+import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroPacienteListener;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirMedico;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroMedicoListener;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroPacienteListener;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaMedico;
 
 @SuppressWarnings("serial")

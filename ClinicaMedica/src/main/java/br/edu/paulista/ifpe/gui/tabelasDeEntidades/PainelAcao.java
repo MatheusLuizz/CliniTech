@@ -8,6 +8,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+import br.edu.paulista.ifpe.core.BotaoAcao;
+
 @SuppressWarnings("serial")
 public class PainelAcao<T> extends JPanel {
     private BotaoAcao btnVisualizar;

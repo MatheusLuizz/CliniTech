@@ -1,4 +1,4 @@
-package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
+package br.edu.paulista.ifpe.core;
 
 import java.awt.Color;
 import java.awt.Graphics;

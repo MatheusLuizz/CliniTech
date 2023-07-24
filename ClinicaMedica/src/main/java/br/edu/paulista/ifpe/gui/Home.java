@@ -63,6 +63,7 @@ public class Home extends JFrame {
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Não foi possível exibir a tela Home", "Erro",
                             JOptionPane.ERROR_MESSAGE);
+                    e.printStackTrace();
                 }
             }
         });
@@ -71,8 +72,6 @@ public class Home extends JFrame {
     public Home() {
         setResizable(true);
         tabelasExibidas = new ArrayList<JTable>();
-        
-        
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);

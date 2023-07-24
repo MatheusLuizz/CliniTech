@@ -20,9 +20,9 @@ import javax.swing.text.MaskFormatter;
 
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.VerificadorEmail;
+import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroPacienteListener;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.InserirPaciente;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.LimparCamposPaciente;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroPacienteListener;
 
 @SuppressWarnings("serial")
 public class CadastroPaciente extends JDialog {

@@ -32,7 +32,7 @@ public class TelaInicio extends JPanel {
 	private JTextField textField_1;
 	private JScrollPane scrollPane_2;
 	private JTable table_1;
-	private JLabel lblNewLabel_3;
+	private JPanel panel_3;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -97,7 +97,7 @@ public class TelaInicio extends JPanel {
         panel.add(lblNewLabel);
         
         panel_2 = new JPanel();
-        panel_2.setBounds(10, 307, 555, 240);
+        panel_2.setBounds(10, 307, 555, 258);
         add(panel_2);
         panel_2.setLayout(null);
         
@@ -112,7 +112,7 @@ public class TelaInicio extends JPanel {
         textField_1.setColumns(10);
         
         scrollPane_2 = new JScrollPane();
-        scrollPane_2.setBounds(10, 52, 535, 191);
+        scrollPane_2.setBounds(10, 52, 535, 206);
         panel_2.add(scrollPane_2);
         
         table_1 = new JTable();
@@ -132,10 +132,8 @@ public class TelaInicio extends JPanel {
         // Definir o tamanho preferido da tabela_1 para que ela preencha o espaço disponível no scrollPane_2
         table_1.setPreferredSize(new Dimension(scrollPane_2.getWidth(), table_1.getPreferredSize().height));
         
-        lblNewLabel_3 = new JLabel("Gráfico ou histórico de atendimentos do dia");
-        lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 18));
-        lblNewLabel_3.setBounds(575, 60, 539, 240);
-        add(lblNewLabel_3);
+        panel_3 = new PainelRedondo();
+        panel_3.setBounds(575, 60, 539, 325);
+        add(panel_3);
     }
 }

@@ -14,6 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
+import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroExameListener;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirExames;
 
 public class CadastroExames extends JDialog {

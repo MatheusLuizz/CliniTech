@@ -14,8 +14,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
+import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroRemedioListener;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirRemedios;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroRemedioListener;
 
 @SuppressWarnings("serial")
 public class CadastroRemedios extends JDialog {

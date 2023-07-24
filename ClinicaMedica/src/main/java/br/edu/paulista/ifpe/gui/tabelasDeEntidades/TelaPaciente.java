@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 
+import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroPacienteListener;
 import br.edu.paulista.ifpe.data.MedicoDAO;
 import br.edu.paulista.ifpe.data.PacienteDAO;
 import br.edu.paulista.ifpe.gui.CadastroPaciente;

@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 
+import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroRemedioListener;
 import br.edu.paulista.ifpe.data.RemediosDAO;
 import br.edu.paulista.ifpe.gui.CadastroRemedios;
 import br.edu.paulista.ifpe.model.entidades.Remedio;
