@@ -115,7 +115,7 @@ public class Home extends JFrame {
         
         btnInicio = new JButton();
         btnInicio.setToolTipText("Inicio");
-        btnInicio.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMenu.png")));
+        btnInicio.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeClinitech.png")));
         btnInicio.setForeground(new Color(13, 73, 151));
         btnInicio.setBackground(getBackground());
         btnInicio.setBorderPainted(false);
@@ -322,6 +322,8 @@ public class Home extends JFrame {
                     btnTema.setToolTipText("Tema escuro");
                 }
                 Temas.atualizarEstiloTabelas(tabelasExibidas);
+                btnTema.setFocusPainted(false);
+                
             }
         });
         btnConsultas.addActionListener(new ActionListener() {
@@ -363,28 +365,37 @@ public class Home extends JFrame {
         
         btnInicio.setOpaque(false);
         btnInicio.setContentAreaFilled(false);
+        btnInicio.setFocusPainted(false);
         
         btnPaciente.setOpaque(false);
         btnPaciente.setContentAreaFilled(false);
+        btnPaciente.setFocusPainted(false);
 
         btnMedico.setOpaque(false);
         btnMedico.setContentAreaFilled(false);
+        btnMedico.setFocusPainted(false);
 
         btnRemedio.setOpaque(false);
         btnRemedio.setContentAreaFilled(false);
+        btnRemedio.setFocusPainted(false);
 
         btnExame.setOpaque(false);
         btnExame.setContentAreaFilled(false);
+        btnExame.setFocusPainted(false);
 
         btnTema.setOpaque(false);
         btnTema.setContentAreaFilled(false);
+        btnTema.setFocusPainted(false);
+        btnTema.setFocusable(false);
         
         btnConsultas.setOpaque(false);
         btnConsultas.setContentAreaFilled(false);
+        btnConsultas.setFocusPainted(false);
+        
         
         contentPane.add(painelAtalhos, "width 15%, height 100%");
         contentPane.add(painelBusca, "width 85%, height 65%, growx"); // Utilizamos "growx" para que ocupe todo o espaço horizontal disponível
-        contentPane.add(painelPaciente, "grow");
+        contentPane.add(painelPaciente, "growx");
     }
     private void realizarBusca() {
         String textoBusca = txtBusca.getText();

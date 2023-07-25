@@ -5,10 +5,12 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -32,8 +34,6 @@ public class CadastroPaciente extends JDialog {
 	private CampoTextoFormatadoRedondo txtCpf;
 	private JLabel lblNewLabel_2;
 	private CampoTextoFormatadoRedondo txtRg;
-	private JLabel lblNewLabel_3;
-	private CampoTextoRedondo txtDdd;
 	private JLabel lblNewLabel_4;
 	private CampoTextoFormatadoRedondo txtTelefone;
 	private JLabel lblNewLabel_5;
@@ -47,11 +47,11 @@ public class CadastroPaciente extends JDialog {
 	private JLabel lblNewLabel_9;
 	private CampoTextoRedondo txtBairro;
 	@SuppressWarnings("rawtypes")
-	private JComboBox boxUf;
+	private ComboBoxModerna boxUf;
 	private JLabel lblNewLabel_7;
 	private JLabel lblNewLabel_10;
 	@SuppressWarnings("rawtypes")
-	private JComboBox boxSexo;
+	private ComboBoxModerna boxSexo;
 	private JLabel lblNewLabel_11;
 	private CampoTextoFormatadoRedondo txtCep;
 	private JLabel lblNewLabel_12;
@@ -86,6 +86,7 @@ public class CadastroPaciente extends JDialog {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Não foi possível exibir a tela de cadastro", "Erro",
 							JOptionPane.ERROR_MESSAGE);
+					e.printStackTrace();
 				}
 			}
 		});
@@ -150,19 +151,9 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(txtRg);
 		txtRg.setColumns(10);
 
-		lblNewLabel_3 = new JLabel("DDD");
-		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_3.setBounds(147, 36, 26, 13);
-		contentPane.add(lblNewLabel_3);
-
-		txtDdd = new CampoTextoRedondo(10);
-		txtDdd.setBounds(177, 30, 26, 19);
-		contentPane.add(txtDdd);
-		txtDdd.setColumns(10);
-
 		lblNewLabel_4 = new JLabel("Celular");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_4.setBounds(213, 36, 45, 13);
+		lblNewLabel_4.setBounds(147, 33, 45, 13);
 		contentPane.add(lblNewLabel_4);
 
 		try {
@@ -171,7 +162,7 @@ public class CadastroPaciente extends JDialog {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do celular", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtTelefone.setBounds(266, 30, 119, 19);
+		txtTelefone.setBounds(200, 30, 119, 19);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
 
@@ -198,11 +189,11 @@ public class CadastroPaciente extends JDialog {
 
 		lblNumero = new JLabel("Nº");
 		lblNumero.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNumero.setBounds(329, 59, 13, 13);
+		lblNumero.setBounds(233, 170, 13, 13);
 		contentPane.add(lblNumero);
 
 		txtNumero = new CampoTextoRedondo(10);
-		txtNumero.setBounds(352, 53, 33, 19);
+		txtNumero.setBounds(256, 167, 33, 19);
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
 
@@ -226,7 +217,7 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(txtBairro);
 		txtBairro.setColumns(10);
 
-		boxUf = new JComboBox();
+		boxUf = new ComboBoxModerna();
 		boxUf.setFont(new Font("Arial", Font.PLAIN, 10));
 		boxUf.setModel(new DefaultComboBoxModel(new String[] { "Acre (AC)", "Alagoas (AL)", "Amapá (AP)",
 				"Amazonas (AM)", "Bahia (BA)", "Ceará (CE)", "Distrito Federal (DF)", "Espírito Santo (ES)",
@@ -247,7 +238,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_10.setBounds(163, 138, 45, 13);
 		contentPane.add(lblNewLabel_10);
 
-		boxSexo = new JComboBox();
+		boxSexo = new ComboBoxModerna();
 		boxSexo.setFont(new Font("Arial", Font.PLAIN, 10));
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] { "M", "F" }));
 		boxSexo.setBounds(197, 134, 41, 21);
@@ -284,11 +275,44 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_13);
 
 		try {
-			MaskFormatter mascaraData = new MaskFormatter("####-##-##");
-			txtNascimento = new CampoTextoFormatadoRedondo(mascaraData, 10);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Erro na formatação da data de nascimento, o correto é: AAAA-MM-DD",
-					"Erro", JOptionPane.ERROR_MESSAGE);
+		    MaskFormatter mascaraData = new MaskFormatter("##/##/####");
+		    txtNascimento = new CampoTextoFormatadoRedondo(mascaraData, 10);
+
+		    txtNascimento.setInputVerifier(new InputVerifier() {
+		        @Override
+		        public boolean verify(JComponent input) {
+		            CampoTextoFormatadoRedondo campoTexto = (CampoTextoFormatadoRedondo) input;
+		            String text = campoTexto.getText();
+		            String[] parts = text.split("/");
+		            
+		            if (parts.length != 3) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. O correto é: DD/MM/AAAA",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            int day, month;
+		            try {
+		                day = Integer.parseInt(parts[0]);
+		                month = Integer.parseInt(parts[1]);
+		            } catch (NumberFormatException e) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. O correto é: DD/MM/AAAA",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            if (month < 1 || month > 12 || day < 1 || day > 31) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. Digite um mês de 01 a 12 e um dia de 01 a 31",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            return true;
+		        }
+		    });
+		} catch (ParseException e) {
+		    JOptionPane.showMessageDialog(null, "Erro na formatação da data de nascimento. O correto é: DD/MM/AAAA",
+		        "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 		txtNascimento.setBounds(329, 135, 96, 19);
 		contentPane.add(txtNascimento);
@@ -414,10 +438,13 @@ public class CadastroPaciente extends JDialog {
 							JOptionPane.ERROR_MESSAGE);
 					txtNomeMae.requestFocus();
 				} else {
+					String dataNascimentoDigitada = txtNascimento.getText();
+				    String[] partesData = dataNascimentoDigitada.split("/");
+				    String nascimentoSQL = partesData[2] + "-" + partesData[1] + "-" + partesData[0];
 
 					InserirPaciente i = new InserirPaciente();
 					i.inserirDados(nome, cpf, rg, telefone, email, rua, numero, complemento, bairro, cep, cidade, uf,
-							nascimento, sexo, estadoCivil, nomePai, nomeMae);
+							nascimentoSQL, sexo, estadoCivil, nomePai, nomeMae);
 					
 					if (listener != null) {
 		                listener.pacienteCadastrado();

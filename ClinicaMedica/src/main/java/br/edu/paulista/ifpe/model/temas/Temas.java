@@ -120,7 +120,8 @@ public class Temas {
         animarBotaoTema(btnTema, false);
     }
 
-    public static void atualizarEstiloTabelas(List<JTable> tabelas) {
+    @SuppressWarnings("serial")
+	public static void atualizarEstiloTabelas(List<JTable> tabelas) {
         Color corFundoTabela;
         Color corTextoTabela;
         Color corSelecaoTabela;
@@ -139,14 +140,16 @@ public class Temas {
             tabela.setBackground(corFundoTabela);
             tabela.setForeground(corTextoTabela);
             tabela.setSelectionBackground(corSelecaoTabela);
+            tabela.setSelectionForeground(corTextoTabela);
 
-            @SuppressWarnings("serial")
-			DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+            JTableHeader header = tabela.getTableHeader();
+            header.setBackground(new Color(189, 147, 240));
+            header.setForeground(corTextoTabela);
+            header.setDefaultRenderer(new DefaultTableCellRenderer() {
                 @Override
                 public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                         boolean hasFocus, int row, int column) {
-                    Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row,
-                            column);
+                    Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
                     if (isSelected) {
                         component.setForeground(Color.WHITE);
@@ -156,13 +159,11 @@ public class Temas {
 
                     return component;
                 }
-            };
-
-            tabela.setDefaultRenderer(Object.class, renderer);
-
-            JTableHeader header = tabela.getTableHeader();
-            header.setBackground(corFundoTabela);
-            header.setForeground(corTextoTabela);
+            });
+            DefaultTableCellRenderer cellRenderer = new DefaultTableCellRenderer();
+            cellRenderer.setBackground(corFundoTabela);
+            cellRenderer.setForeground(corTextoTabela);
+            tabela.setDefaultRenderer(Object.class, cellRenderer);
 
             Container container = tabela.getParent();
             if (container instanceof JViewport) {
