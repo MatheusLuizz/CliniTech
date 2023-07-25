@@ -1,5 +1,6 @@
 package br.edu.paulista.ifpe.gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,22 +10,18 @@ import javax.swing.JDialog;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
-import br.edu.paulista.ifpe.core.LimparCamposMedico;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroMedicoListener;
-import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroPacienteListener;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirMedico;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaMedico;
 
 @SuppressWarnings("serial")
 public class CadastroMedico extends JDialog {
 
-	private JPanel contentPane;
+	private PainelDegrade contentPane;
 	private JLabel lblNewLabel;
 	private JTextField txtCrm;
 	private JLabel lblNewLabel_1;
@@ -60,7 +57,9 @@ public class CadastroMedico extends JDialog {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new PainelDegrade();
+		contentPane.setColors(new Color(0, 128, 255), new Color(50, 205, 50));
+        contentPane.repaint();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -157,7 +156,6 @@ public class CadastroMedico extends JDialog {
 		contentPane.add(btnCadastro);
 
 		btnCadastro.addActionListener(new ActionListener() {
-			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 
 				final String crm = txtCrm.getText();
@@ -193,8 +191,6 @@ public class CadastroMedico extends JDialog {
 				} else {
 					InserirMedico i = new InserirMedico();
 					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade);
-					LimparCamposMedico limpar = new LimparCamposMedico();
-					limpar.limparCampos(txtCrm, txtNome, txtCpf, txtRg, txtTelefone, txtEspecialidade);
 					if (listener != null) {
 		                listener.medicoCadastrado();
 		            }

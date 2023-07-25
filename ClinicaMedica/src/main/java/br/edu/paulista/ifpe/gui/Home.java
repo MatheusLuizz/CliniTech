@@ -31,6 +31,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.DetalhesPaciente;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.MarcarConsulta;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaConsulta;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaExame;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaMedico;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaPaciente;
@@ -45,6 +47,7 @@ public class Home extends JFrame {
     private PainelDegrade painelAtalhos;
     private JButton btnPaciente;
     private JButton btnMedico;
+    private JButton btnConsultas;
     private JButton btnInicio;
     private PainelDegrade painelBusca;
     private JPanel painelPaciente;
@@ -87,35 +90,42 @@ public class Home extends JFrame {
         
 
         btnPaciente = new JButton();
-        btnPaciente.setToolTipText("Exibir os pacientes cadastrados");
+        btnPaciente.setToolTipText("Pacientes");
         btnPaciente.setForeground(new Color(13, 73, 151));
         btnPaciente.setBorderPainted(false);
         btnPaciente.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconePaciente.png")));
 
         btnMedico = new JButton();
-        btnMedico.setToolTipText("Exibir os médios cadastrados");
+        btnMedico.setToolTipText("<html>Médicos</html>");
         btnMedico.setForeground(new Color(13, 73, 151));
         btnMedico.setBorderPainted(false);
         btnMedico.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMedico.png")));
 
         btnRemedio = new JButton();
-        btnRemedio.setToolTipText("Exibir os remédios cadastrados");
+        btnRemedio.setToolTipText("<html>Remédios</html>");
         btnRemedio.setForeground(new Color(13, 73, 151));
         btnRemedio.setBorderPainted(false);
         btnRemedio.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeRemedio.png")));
 
         btnExame = new JButton();
-        btnExame.setToolTipText("Exibir exames");
+        btnExame.setToolTipText("Exames");
         btnExame.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeExame.png")));
         btnExame.setForeground(new Color(13, 73, 151));;
         btnExame.setBorderPainted(false);
         
         btnInicio = new JButton();
-        btnInicio.setToolTipText("Voltar a tela Inicial");
+        btnInicio.setToolTipText("Inicio");
         btnInicio.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMenu.png")));
         btnInicio.setForeground(new Color(13, 73, 151));
         btnInicio.setBackground(getBackground());
         btnInicio.setBorderPainted(false);
+        
+        btnConsultas = new JButton();
+        btnConsultas.setToolTipText("Consultas");
+        btnConsultas.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeConsulta.png")));
+        btnConsultas.setForeground(new Color(13,73,151));
+        btnConsultas.setBackground(getBackground());
+        btnConsultas.setBorderPainted(false);
         
         contentPane.setLayout(null);
         GroupLayout gl_painelAtalhos = new GroupLayout(painelAtalhos);
@@ -127,7 +137,8 @@ public class Home extends JFrame {
         				.addComponent(btnRemedio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(btnMedico, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(btnPaciente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(btnInicio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        				.addComponent(btnInicio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnConsultas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         			.addContainerGap(20, Short.MAX_VALUE))
         );
         gl_painelAtalhos.setVerticalGroup(
@@ -143,6 +154,8 @@ public class Home extends JFrame {
         			.addComponent(btnRemedio, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(btnExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(btnConsultas, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addContainerGap(569, Short.MAX_VALUE))
         );
         painelAtalhos.setLayout(gl_painelAtalhos);
@@ -311,30 +324,63 @@ public class Home extends JFrame {
                 Temas.atualizarEstiloTabelas(tabelasExibidas);
             }
         });
+        btnConsultas.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int opcao = JOptionPane.showOptionDialog(
+                        null,
+                        "Escolha uma opção:",
+                        "Consultas",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Visualizar todas", "Marcar"},
+                        "Visualizar"
+                );
+
+                if (opcao == JOptionPane.YES_OPTION) {
+                	txtBusca.setText("");
+                    TelaConsulta telaConsulta = new TelaConsulta();
+                    telaConsulta.atualizar();
+                    
+                    lblBuscar.setVisible(true);
+                    txtBusca.setVisible(true);
+                    painelPaciente.removeAll();
+                    painelPaciente.setLayout(new CardLayout(0, 0));
+                    painelPaciente.add(telaConsulta, BorderLayout.CENTER);
+                    painelPaciente.revalidate();
+                    painelPaciente.repaint();
+
+                    tabelasExibidas = new ArrayList<JTable>();
+                    tabelasExibidas.add(telaConsulta.getTabela());
+                    Temas.atualizarEstiloTabelas(tabelasExibidas);
+                } else if (opcao == JOptionPane.NO_OPTION) {
+                    MarcarConsulta mc = new MarcarConsulta();
+                    mc.setLocationRelativeTo(null);
+                    mc.setVisible(true);
+                }
+            }
+        });
         
         btnInicio.setOpaque(false);
         btnInicio.setContentAreaFilled(false);
-        btnInicio.setBorderPainted(false);
         
         btnPaciente.setOpaque(false);
         btnPaciente.setContentAreaFilled(false);
-        btnPaciente.setBorderPainted(false);
 
         btnMedico.setOpaque(false);
         btnMedico.setContentAreaFilled(false);
-        btnMedico.setBorderPainted(false);
 
         btnRemedio.setOpaque(false);
         btnRemedio.setContentAreaFilled(false);
-        btnRemedio.setBorderPainted(false);
 
         btnExame.setOpaque(false);
         btnExame.setContentAreaFilled(false);
-        btnExame.setBorderPainted(false);
 
         btnTema.setOpaque(false);
         btnTema.setContentAreaFilled(false);
-        btnTema.setBorderPainted(false);
+        
+        btnConsultas.setOpaque(false);
+        btnConsultas.setContentAreaFilled(false);
         
         contentPane.add(painelAtalhos, "width 15%, height 100%");
         contentPane.add(painelBusca, "width 85%, height 65%, growx"); // Utilizamos "growx" para que ocupe todo o espaço horizontal disponível

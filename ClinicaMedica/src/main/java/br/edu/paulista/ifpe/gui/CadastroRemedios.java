@@ -1,5 +1,6 @@
 package br.edu.paulista.ifpe.gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +21,7 @@ import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirRemedios;
 @SuppressWarnings("serial")
 public class CadastroRemedios extends JDialog {
 	
-	private JPanel contentPane;
+	private PainelDegrade contentPane;
 	private JLabel lblNewLabel;
 	private JTextField txtNome;
 	private JLabel lblNewLabel_1;
@@ -49,7 +50,9 @@ public class CadastroRemedios extends JDialog {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new PainelDegrade();
+		contentPane.setColors(new Color(0, 128, 255), new Color(50, 205, 50));
+        contentPane.repaint();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

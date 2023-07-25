@@ -1,5 +1,6 @@
 package br.edu.paulista.ifpe.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,11 +10,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
@@ -22,32 +20,32 @@ import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.VerificadorEmail;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroPacienteListener;
 import br.edu.paulista.ifpe.core.util.cadastroPacientes.InserirPaciente;
-import br.edu.paulista.ifpe.core.util.cadastroPacientes.LimparCamposPaciente;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CampoTextoRedondo;
 
 @SuppressWarnings("serial")
 public class CadastroPaciente extends JDialog {
 
-	private JPanel contentPane;
+	private PainelDegrade contentPane;
 	private JLabel lblNewLabel;
-	private JTextField txtNome;
+	private CampoTextoRedondo txtNome;
 	private JLabel lblNewLabel_1;
-	private JTextField txtCpf;
+	private CampoTextoFormatadoRedondo txtCpf;
 	private JLabel lblNewLabel_2;
-	private JTextField txtRg;
+	private CampoTextoFormatadoRedondo txtRg;
 	private JLabel lblNewLabel_3;
-	private JTextField txtDdd;
+	private CampoTextoRedondo txtDdd;
 	private JLabel lblNewLabel_4;
-	private JTextField txtTelefone;
+	private CampoTextoFormatadoRedondo txtTelefone;
 	private JLabel lblNewLabel_5;
-	private JTextField txtEmail;
+	private CampoTextoRedondo txtEmail;
 	private JLabel lblNewLabel_6;
-	private JTextField txtRua;
+	private CampoTextoRedondo txtRua;
 	private JLabel lblNumero;
-	private JTextField txtNumero;
+	private CampoTextoRedondo txtNumero;
 	private JLabel lblNewLabel_8;
-	private JTextField txtComplemento;
+	private CampoTextoRedondo txtComplemento;
 	private JLabel lblNewLabel_9;
-	private JTextField txtBairro;
+	private CampoTextoRedondo txtBairro;
 	@SuppressWarnings("rawtypes")
 	private JComboBox boxUf;
 	private JLabel lblNewLabel_7;
@@ -55,17 +53,17 @@ public class CadastroPaciente extends JDialog {
 	@SuppressWarnings("rawtypes")
 	private JComboBox boxSexo;
 	private JLabel lblNewLabel_11;
-	private JTextField txtCep;
+	private CampoTextoFormatadoRedondo txtCep;
 	private JLabel lblNewLabel_12;
-	private JTextField txtCidade;
+	private CampoTextoRedondo txtCidade;
 	private JLabel lblNewLabel_13;
-	private JTextField txtNascimento;
+	private CampoTextoFormatadoRedondo txtNascimento;
 	private JLabel lblNewLabel_14;
-	private JTextField txtEstadoCivil;
+	private CampoTextoRedondo txtEstadoCivil;
 	private JLabel lblNewLabel_15;
 	private JLabel lblNewLabel_16;
-	private JTextField txtNomeMae;
-	private JTextField txtNomePai;
+	private CampoTextoRedondo txtNomeMae;
+	private CampoTextoRedondo txtNomePai;
 	private JButton btnCadastro;
 	private CadastroPacienteListener listener;
 
@@ -102,7 +100,9 @@ public class CadastroPaciente extends JDialog {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 300);
-		contentPane = new JPanel();
+		contentPane = new PainelDegrade();
+		contentPane.setColors(new Color(0, 128, 255), new Color(50, 205, 50));
+        contentPane.repaint();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -113,7 +113,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel.setBounds(10, 10, 33, 13);
 		contentPane.add(lblNewLabel);
 
-		txtNome = new JTextField();
+		txtNome = new CampoTextoRedondo(10);
 		txtNome.setBounds(49, 7, 197, 19);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
@@ -126,7 +126,7 @@ public class CadastroPaciente extends JDialog {
 
 		try {
 			MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
-			txtCpf = new JFormattedTextField(mascaraCpf);
+			txtCpf = new CampoTextoFormatadoRedondo(mascaraCpf, 15);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do CPF", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -141,8 +141,8 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_2);
 
 		try {
-			MaskFormatter mask = new MaskFormatter("########"); // Define a máscara para 7 ou 8 dígitos numéricos
-			txtRg = new JFormattedTextField(mask);
+			MaskFormatter mascaraRg = new MaskFormatter("########"); // Define a máscara para 7 ou 8 dígitos numéricos
+			txtRg = new CampoTextoFormatadoRedondo(mascaraRg, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do RG", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -155,7 +155,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_3.setBounds(147, 36, 26, 13);
 		contentPane.add(lblNewLabel_3);
 
-		txtDdd = new JTextField();
+		txtDdd = new CampoTextoRedondo(10);
 		txtDdd.setBounds(177, 30, 26, 19);
 		contentPane.add(txtDdd);
 		txtDdd.setColumns(10);
@@ -167,7 +167,7 @@ public class CadastroPaciente extends JDialog {
 
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##) #####-####");
-			txtTelefone = new JFormattedTextField(mascaraTelefone);
+			txtTelefone = new CampoTextoFormatadoRedondo(mascaraTelefone, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do celular", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -180,7 +180,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_5.setBounds(10, 56, 45, 13);
 		contentPane.add(lblNewLabel_5);
 
-		txtEmail = new JTextField();
+		txtEmail = new CampoTextoRedondo(10);
 		txtEmail.setBounds(49, 53, 128, 19);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
@@ -191,7 +191,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_6.setBounds(187, 56, 26, 13);
 		contentPane.add(lblNewLabel_6);
 
-		txtRua = new JTextField();
+		txtRua = new CampoTextoRedondo(10);
 		txtRua.setBounds(223, 53, 96, 19);
 		contentPane.add(txtRua);
 		txtRua.setColumns(10);
@@ -201,7 +201,7 @@ public class CadastroPaciente extends JDialog {
 		lblNumero.setBounds(329, 59, 13, 13);
 		contentPane.add(lblNumero);
 
-		txtNumero = new JTextField();
+		txtNumero = new CampoTextoRedondo(10);
 		txtNumero.setBounds(352, 53, 33, 19);
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
@@ -211,7 +211,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_8.setBounds(10, 88, 78, 13);
 		contentPane.add(lblNewLabel_8);
 
-		txtComplemento = new JTextField();
+		txtComplemento = new CampoTextoRedondo(10);
 		txtComplemento.setBounds(98, 85, 78, 19);
 		contentPane.add(txtComplemento);
 		txtComplemento.setColumns(10);
@@ -221,7 +221,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_9.setBounds(197, 88, 45, 13);
 		contentPane.add(lblNewLabel_9);
 
-		txtBairro = new JTextField();
+		txtBairro = new CampoTextoRedondo(10);
 		txtBairro.setBounds(246, 85, 96, 19);
 		contentPane.add(txtBairro);
 		txtBairro.setColumns(10);
@@ -260,7 +260,7 @@ public class CadastroPaciente extends JDialog {
 
 		try {
 			MaskFormatter mascaraCep = new MaskFormatter("#####-###");
-			txtCep = new JFormattedTextField(mascaraCep);
+			txtCep = new CampoTextoFormatadoRedondo(mascaraCep, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do CEP", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -273,7 +273,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_12.setBounds(10, 138, 45, 13);
 		contentPane.add(lblNewLabel_12);
 
-		txtCidade = new JTextField();
+		txtCidade = new CampoTextoRedondo(10);
 		txtCidade.setBounds(57, 135, 96, 19);
 		contentPane.add(txtCidade);
 		txtCidade.setColumns(10);
@@ -285,7 +285,7 @@ public class CadastroPaciente extends JDialog {
 
 		try {
 			MaskFormatter mascaraData = new MaskFormatter("####-##-##");
-			txtNascimento = new JFormattedTextField(mascaraData);
+			txtNascimento = new CampoTextoFormatadoRedondo(mascaraData, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação da data de nascimento, o correto é: AAAA-MM-DD",
 					"Erro", JOptionPane.ERROR_MESSAGE);
@@ -299,7 +299,7 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_14.setBounds(10, 170, 78, 13);
 		contentPane.add(lblNewLabel_14);
 
-		txtEstadoCivil = new JTextField();
+		txtEstadoCivil = new CampoTextoRedondo(10);
 		txtEstadoCivil.setBounds(84, 167, 119, 19);
 		contentPane.add(txtEstadoCivil);
 		txtEstadoCivil.setColumns(10);
@@ -314,12 +314,12 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_16.setBounds(10, 226, 78, 13);
 		contentPane.add(lblNewLabel_16);
 
-		txtNomeMae = new JTextField();
+		txtNomeMae = new CampoTextoRedondo(10);
 		txtNomeMae.setBounds(98, 196, 148, 19);
 		contentPane.add(txtNomeMae);
 		txtNomeMae.setColumns(10);
 
-		txtNomePai = new JTextField();
+		txtNomePai = new CampoTextoRedondo(10);
 		txtNomePai.setBounds(98, 223, 148, 19);
 		contentPane.add(txtNomePai);
 		txtNomePai.setColumns(10);
@@ -418,10 +418,7 @@ public class CadastroPaciente extends JDialog {
 					InserirPaciente i = new InserirPaciente();
 					i.inserirDados(nome, cpf, rg, telefone, email, rua, numero, complemento, bairro, cep, cidade, uf,
 							nascimento, sexo, estadoCivil, nomePai, nomeMae);
-					LimparCamposPaciente limpar = new LimparCamposPaciente();
-					limpar.limparCampos(txtNome, txtCpf, txtRg, txtEmail, txtTelefone, txtRua, txtComplemento,
-							txtNumero, txtBairro, txtCep, txtCidade, txtNascimento, txtEstadoCivil, txtNomePai,
-							txtNomeMae);
+					
 					if (listener != null) {
 		                listener.pacienteCadastrado();
 		            }

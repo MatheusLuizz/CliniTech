@@ -1,5 +1,6 @@
 package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -16,9 +16,11 @@ import javax.swing.border.EmptyBorder;
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroExameListener;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirExames;
+import br.edu.paulista.ifpe.gui.PainelDegrade;
 
+@SuppressWarnings("serial")
 public class CadastroExames extends JDialog {
-	private JPanel contentPane;
+	private PainelDegrade contentPane;
 	private JLabel lblNewLabel;
 	private JTextField txtNome;
 	private JButton btnCadastro;
@@ -45,7 +47,9 @@ public class CadastroExames extends JDialog {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		contentPane = new PainelDegrade();
+		contentPane.setColors(new Color(0, 128, 255), new Color(50, 205, 50));
+        contentPane.repaint();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);

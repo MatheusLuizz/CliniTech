@@ -7,23 +7,26 @@ import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.PainelAcao;
-import br.edu.paulista.ifpe.model.entidades.Exame;
+import br.edu.paulista.ifpe.model.entidades.Consulta;
 
 @SuppressWarnings("serial")
-public class ExameTableModel extends AbstractTableModel {
+public class ConsultasTableModel extends AbstractTableModel {
 
 	private Vector<String> colunas;
     private Vector<Vector<Object>> linhas;
-    private List<Exame> exames;
+    private List<Consulta> consultas;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public ExameTableModel() {
+	public ConsultasTableModel() {
 		colunas = new Vector();
 		colunas.add("ID");
-		colunas.add("Nome");
+		colunas.add("Paciente");
+		colunas.add("Medico");
+		colunas.add("Data");
+		colunas.add("<html>Horário</html>");
 		colunas.add("Ações");
 		linhas = new Vector();
-		exames = new ArrayList<>();
+		consultas = new ArrayList<>();
 	}
 
 	public int getRowCount() {
@@ -44,14 +47,14 @@ public class ExameTableModel extends AbstractTableModel {
 		return nomeColuna;
 	}
 	public Class<?> getColumnClass(int coluna) {
-        if (coluna == 2) { // Coluna de Ações
+        if (coluna == 5) { // Coluna de Ações
             return PainelAcao.class;
         }
         return String.class;
     }
 
 	public Object getValueAt(int linha, int coluna) {
-        if (coluna == 2) { // Coluna de Ações
+        if (coluna == 5) { // Coluna de Ações
             return null; // Retorna null para a coluna de ações
         }
         // Retorne os valores das outras colunas da tabela
@@ -59,21 +62,24 @@ public class ExameTableModel extends AbstractTableModel {
     }
 
 	public boolean isCellEditable(int row, int column) {
-        return column == 2; // Permite a edição somente na coluna de ações
+        return column == 5; // Permite a edição somente na coluna de ações
     }
 
 	@SuppressWarnings({ })
-	public void adicionar(List<Exame> lista) {
+	public void adicionar(List<Consulta> lista) {
 		// Reinicializa os dados da tabela
 		linhas = new Vector<>();
-        exames = new ArrayList<>(lista);
+        consultas = new ArrayList<>(lista);
 		// Percorre a lista copiando os dados para a tabela
-        for (Exame e : lista) {
+        for (Consulta c : lista) {
 
             // Cria uma linha da tabela
             Vector<Object> linha = new Vector<>();
-            linha.add(e.getId());
-            linha.add(e.getNome());
+            linha.add(c.getId());
+            linha.add(c.getNomePaciente());
+            linha.add(c.getNomeMedico());
+            linha.add(c.getData());
+            linha.add(c.getHorario());
             
             // A coluna de Ações não receberá dados do banco, por isso não é adicionado nada aqui
             linhas.add(linha);
@@ -89,25 +95,25 @@ public class ExameTableModel extends AbstractTableModel {
 			fireTableRowsDeleted(0, rowCount - 1);
 		}
 	}
-	public List<Exame> getExames() {
-        return exames;
+	public List<Consulta> getConsultas() {
+        return consultas;
     }
-	public Exame getExame(int row) {
+	public Consulta getConsulta(int row) {
         // Obter o objeto Medico correspondente à linha selecionada (row)
         if (row >= 0 && row < linhas.size()) {
             Vector<Object> linha = linhas.get(row);
-            if (linha != null && linha.size() > 1) {
-                String idExame = (String) linha.get(0);
-                for (Exame exame : exames) {
-                    if (exame.getId().equals(idExame)) {
-                        return exame;
+            if (linha != null && linha.size() > 3) {
+                String idConsulta = (String) linha.get(0);
+                for (Consulta consulta : consultas) {
+                    if (consulta.getId().equals(idConsulta)) {
+                        return consulta;
                     }
                 }
             }
         }
         return null;
     }
-	public void removeExameAt(int row) {
+	public void removeConsultaAt(int row) {
         // Remover o objeto Medico da lista de médicos
         if (row >= 0 && row < linhas.size()) {
             linhas.remove(row);
