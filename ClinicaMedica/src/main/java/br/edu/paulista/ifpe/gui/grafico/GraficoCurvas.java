@@ -8,16 +8,22 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Path2D;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
+import br.edu.paulista.ifpe.data.ConnectionBD;
 import br.edu.paulista.ifpe.gui.grafico.graficoBlank.GraficoEmBranco;
 import br.edu.paulista.ifpe.gui.grafico.graficoBlank.RenderizarGraficoEmBranco;
 import br.edu.paulista.ifpe.gui.grafico.graficoBlank.SeriesSize;
@@ -130,14 +136,96 @@ public class GraficoCurvas extends JPanel {
 		painelLegenda.revalidate();
 	}
 
-	public void adicionarDado(ModeloGrafico dado) {
-		modelo.add(dado);
-		graficoEmBranco.setContagemLabel(modelo.size());
-		double max = dado.getValoresMaximos();
-		if (max > graficoEmBranco.getValoresMaximos()) {
-			graficoEmBranco.setValoresMaximos(max);
-		}
+	public void adicionarDados() {
+		adicionarCurvaGanhos();
+	    //List<ModeloGrafico> dadosLucro = consultarDadosLucro();
+	    //List<ModeloGrafico> dadosDespesas = consultarDadosDespesas();
+        
+        //modelo.addAll(dadosGanhos);
+        //modelo.addAll(dadosLucro);
+        //modelo.addAll(dadosDespesas);
+    }
+	private void adicionarCurvaGanhos() {
+	    // Implementar a consulta SQL para recuperar os dados de ganhos da clínica
+	    String sql = "SELECT MONTH(data) AS mes, YEAR(data) AS ano, " +
+	            "IFNULL((SELECT SUM(preco) FROM `consulta` WHERE MONTH(`data`) = MONTH(c.`data`) AND YEAR(`data`) = YEAR(c.`data`)), 0) AS total_consultas, " +
+	            "IFNULL((SELECT SUM(preco) FROM `exame_marcado` em INNER JOIN `exame` e ON em.`id_exame` = e.`id` WHERE MONTH(em.`data`) = MONTH(c.`data`) AND YEAR(em.`data`) = YEAR(c.`data`)), 0) AS total_exames, " +
+	            "IFNULL((SELECT SUM(preco) FROM `consulta` WHERE MONTH(`data`) = MONTH(c.`data`) AND YEAR(`data`) = YEAR(c.`data`)), 0) + " +
+	            "IFNULL((SELECT SUM(preco) FROM `exame_marcado` em INNER JOIN `exame` e ON em.`id_exame` = e.`id` WHERE MONTH(em.`data`) = MONTH(c.`data`) AND YEAR(em.`data`) = YEAR(c.`data`)), 0) AS total_geral " +
+	            "FROM `consulta` c " +
+	            "WHERE YEAR(`data`) = 2023 " +
+	            "GROUP BY mes, ano " +
+	            "ORDER BY ano, mes";
+
+	    adicionarCurvaNoGrafico(sql, "Ganhos");
 	}
+	/*private void adicionarCurvaLucro() {
+        // Implementar a consulta SQL para recuperar os dados de lucro da clínica
+        String sql = "SELECT MONTH(data) AS mes, YEAR(data) AS ano, " +
+                "(SELECT SUM(lucro) FROM tabela_lucro WHERE MONTH(data) = MONTH(c.data) AND YEAR(data) = YEAR(c.data)) AS total_lucro " +
+                "FROM tabela_lucro c " +
+                "WHERE YEAR(data) = 2023 " +
+                "GROUP BY mes, ano " +
+                "ORDER BY ano, mes";
+
+        adicionarCurvaNoGrafico(sql, "Lucro");
+    } 
+
+    private void adicionarCurvaDespesas() {
+        // Implementar a consulta SQL para recuperar os dados de despesas da clínica
+        String sql = "SELECT MONTH(data) AS mes, YEAR(data) AS ano, " +
+                "(SELECT SUM(despesas) FROM tabela_despesas WHERE MONTH(data) = MONTH(c.data) AND YEAR(data) = YEAR(c.data)) AS total_despesas " +
+                "FROM tabela_despesas c " +
+                "WHERE YEAR(data) = 2023 " +
+                "GROUP BY mes, ano " +
+                "ORDER BY ano, mes";
+
+        adicionarCurvaNoGrafico(sql, "Despesas");
+    } */
+	private void adicionarCurvaNoGrafico(String sql, String nomeCurva) {
+	    ConnectionBD connectionBD = new ConnectionBD();
+	    Connection connection = connectionBD.abrir();
+
+	    if (connection != null) {
+	        try {
+	            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+	            ResultSet resultSet = preparedStatement.executeQuery();
+
+	            List<ModeloGrafico> dadosGrafico = new ArrayList<>();
+
+	            while (resultSet.next()) {
+	                String mes = resultSet.getString("mes");
+	                double total = resultSet.getDouble("total_geral");
+
+	                ModeloGrafico dado = new ModeloGrafico(mes, new double[]{total});
+	                dadosGrafico.add(dado);
+	            }
+
+	            resultSet.close();
+	            preparedStatement.close();
+	            connectionBD.fechar();
+
+	            for (ModeloGrafico dado : dadosGrafico) {
+	                adicionarDado(dado); // Adiciona os dados no gráfico usando o método adicionarDado()
+	            }
+
+	        } catch (SQLException e) {
+	            JOptionPane.showMessageDialog(null, "Erro ao acessar o banco de dados!");
+	        }
+	    } else {
+	    	JOptionPane.showMessageDialog(null, "Erro ao acessar o banco de dados!");
+	    }
+	}
+	public void adicionarDado(ModeloGrafico dado) {
+        modelo.add(dado);
+        graficoEmBranco.setContagemLabel(modelo.size());
+        double max = dado.getValoresMaximos();
+        if (max > graficoEmBranco.getValoresMaximos()) {
+            graficoEmBranco.setValoresMaximos(max);
+        }
+        graficoEmBranco.repaint(); // Adicionamos essa chamada para redesenhar o gráfico
+    }
+
 
 	public void clear() {
 		animar = 0;

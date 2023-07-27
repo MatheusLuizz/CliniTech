@@ -4,9 +4,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -36,6 +41,12 @@ public class CadastroMedico extends JDialog {
 	private JTextField txtEspecialidade;
 	private JButton btnCadastro;
 	private CadastroMedicoListener listener;
+	private JLabel lblNewLabel_6;
+	private JButton btnUpload;
+	private byte[] fileData;
+	private JLabel lblNewLabel_7;
+	private JTextField txtSalario;
+	
 	public void setListener(CadastroMedicoListener listener) {
         this.listener = listener;
     }
@@ -81,17 +92,17 @@ public class CadastroMedico extends JDialog {
 
 		lblNewLabel_1 = new JLabel("Nome");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(10, 40, 44, 20);
+		lblNewLabel_1.setBounds(182, 10, 44, 20);
 		contentPane.add(lblNewLabel_1);
 
 		txtNome = new JTextField();
-		txtNome.setBounds(64, 40, 96, 19);
+		txtNome.setBounds(246, 12, 96, 19);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 
 		lblNewLabel_2 = new JLabel("CPF");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(10, 70, 35, 20);
+		lblNewLabel_2.setBounds(10, 40, 35, 20);
 		contentPane.add(lblNewLabel_2);
 
 		try {
@@ -100,13 +111,13 @@ public class CadastroMedico extends JDialog {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do CPF", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtCpf.setBounds(64, 70, 96, 19);
+		txtCpf.setBounds(64, 39, 96, 19);
 		contentPane.add(txtCpf);
 		txtCpf.setColumns(10);
 
 		lblNewLabel_3 = new JLabel("RG");
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(10, 100, 45, 13);
+		lblNewLabel_3.setBounds(9, 70, 45, 13);
 		contentPane.add(lblNewLabel_3);
 
 		try {
@@ -115,13 +126,13 @@ public class CadastroMedico extends JDialog {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do RG", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtRg.setBounds(64, 100, 96, 19);
+		txtRg.setBounds(64, 68, 96, 19);
 		contentPane.add(txtRg);
 		txtRg.setColumns(10);
 
 		lblNewLabel_4 = new JLabel("Telefone");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_4.setBounds(10, 130, 64, 13);
+		lblNewLabel_4.setBounds(10, 99, 64, 13);
 		contentPane.add(lblNewLabel_4);
 
 		try {
@@ -130,17 +141,17 @@ public class CadastroMedico extends JDialog {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do celular", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtTelefone.setBounds(85, 130, 96, 19);
+		txtTelefone.setBounds(85, 97, 96, 19);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
 
 		lblNewLabel_5 = new JLabel("Especialidade");
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_5.setBounds(10, 160, 111, 13);
+		lblNewLabel_5.setBounds(10, 128, 111, 13);
 		contentPane.add(lblNewLabel_5);
 
 		txtEspecialidade = new JTextField();
-		txtEspecialidade.setBounds(120, 160, 96, 19);
+		txtEspecialidade.setBounds(131, 126, 96, 19);
 		contentPane.add(txtEspecialidade);
 		txtEspecialidade.setColumns(10);
 
@@ -154,6 +165,37 @@ public class CadastroMedico extends JDialog {
 		btnCadastro.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCadastro.setBounds(160, 200, 120, 30);
 		contentPane.add(btnCadastro);
+		
+		lblNewLabel_6 = new JLabel("Assinatura Eletrênica");
+		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 14));
+		lblNewLabel_6.setBounds(10, 164, 154, 13);
+		contentPane.add(lblNewLabel_6);
+		
+		btnUpload = new JButton("Upload");
+		btnUpload.setFont(new Font("Arial", Font.BOLD, 14));
+		btnUpload.setBounds(189, 159, 85, 21);
+		btnUpload.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int result = fileChooser.showOpenDialog(CadastroMedico.this);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File selectedFile = fileChooser.getSelectedFile();
+                    fileData = readFileContent(selectedFile);
+                }
+            }
+        });
+		
+		contentPane.add(btnUpload);
+		
+		lblNewLabel_7 = new JLabel("Salário");
+		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 14));
+		lblNewLabel_7.setBounds(182, 58, 54, 13);
+		contentPane.add(lblNewLabel_7);
+		
+		txtSalario = new JTextField();
+		txtSalario.setBounds(246, 56, 96, 19);
+		contentPane.add(txtSalario);
+		txtSalario.setColumns(10);
 
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -164,6 +206,12 @@ public class CadastroMedico extends JDialog {
 				final String rg = txtRg.getText();
 				final String telefone = txtTelefone.getText();
 				final String especialidade = txtEspecialidade.getText();
+				
+				if (fileData == null) {
+                    JOptionPane.showMessageDialog(null, "Selecione um arquivo antes de cadastrar.", "Erro",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
 				if (crm.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "O campo CRM é obrigatório.", "Erro",
@@ -190,7 +238,7 @@ public class CadastroMedico extends JDialog {
 					txtEspecialidade.requestFocus();
 				} else {
 					InserirMedico i = new InserirMedico();
-					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade);
+					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade, fileData);
 					if (listener != null) {
 		                listener.medicoCadastrado();
 		            }
@@ -198,5 +246,20 @@ public class CadastroMedico extends JDialog {
 				}
 			}
 		});
+	}
+	private byte[] readFileContent(File file) {
+	    try (FileInputStream fis = new FileInputStream(file);
+	         ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+
+	        byte[] buffer = new byte[1024];
+	        int bytesRead;
+	        while ((bytesRead = fis.read(buffer)) != -1) {
+	            bos.write(buffer, 0, bytesRead);
+	        }
+	        return bos.toByteArray();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
 	}
 }

@@ -395,7 +395,7 @@ public class Home extends JFrame {
         
         contentPane.add(painelAtalhos, "width 15%, height 100%");
         contentPane.add(painelBusca, "width 85%, height 65%, growx"); // Utilizamos "growx" para que ocupe todo o espaço horizontal disponível
-        contentPane.add(painelPaciente, "growx");
+        contentPane.add(painelPaciente, "grow");
     }
     private void realizarBusca() {
         String textoBusca = txtBusca.getText();

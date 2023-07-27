@@ -24,7 +24,7 @@ public class RemedioTableModel extends AbstractTableModel {
 		colunas.add("id");
 		colunas.add("Nome");
 		colunas.add("Apresentação");
-		colunas.add("Ações");
+		//colunas.add("Ações");
 		linhas = new Vector();
 		remedios = new ArrayList<>();
 	}

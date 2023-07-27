@@ -3,18 +3,16 @@ package br.edu.paulista.ifpe.data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.edu.paulista.ifpe.model.entidades.Medico;
 import br.edu.paulista.ifpe.model.entidades.Remedio;
 
 public class RemediosDAO {
 	public List<Remedio> buscar(Remedio r) throws Exception {
-		String sql = "SELECT id, nome_remedio, apresentacao " + "FROM remedio " + "ORDER BY nome_remedio";
+		String sql = "SELECT id, nome, apresentacao " + "FROM remedio " + "ORDER BY nome";
 		ConnectionBD connectionBD = new ConnectionBD();
 		Connection conn = connectionBD.abrir();
 
@@ -26,7 +24,7 @@ public class RemediosDAO {
 		while (resultado.next()) {
 			Remedio linha = new Remedio();
 			linha.setId(resultado.getString("id"));
-			linha.setNome(resultado.getString("nome_remedio"));
+			linha.setNome(resultado.getString("nome"));
 			linha.setApresentacao(resultado.getString("apresentacao"));
 
 			lista.add(linha);

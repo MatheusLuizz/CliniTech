@@ -17,23 +17,18 @@ public class PainelRedondo extends JPanel {
 		setOpaque(false);
 		setLayout(null);
 		graficoCurvo = new GraficoCurvas();
-		graficoCurvo.setBounds(0, 0, 557, 382);
+		graficoCurvo.setBounds(0, 0, 1149, 382);
 		add(graficoCurvo);
-		init();
+
+        init();
 	}
 	private void init() {
-		graficoCurvo.adicionarLegenda("Entradas", new Color(12,84,175), new Color(0,108,247));
-		graficoCurvo.adicionarLegenda("Lucro", new Color(54,4,143), new Color(104,49,200));
-		graficoCurvo.adicionarLegenda("Despesas", new Color(5,125,0), new Color(95,209,69));
-		graficoCurvo.adicionarLegenda("Custos", new Color(186,37,37), new Color(241,100,120));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Janeiro", new double[] {500, 100, 1600, 80}));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Fevereiro", new double[] {2500, 750, 90, 1100}));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Março", new double[] {200, 800, 2000, 900}));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Abril", new double[] {480, 150, 750, 700}));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Maio", new double[] {350, 540, 3000, 150}));
-		graficoCurvo.adicionarDado(new ModeloGrafico("Junho", new double[] {190, 280, 81, 200}));
-		graficoCurvo.start();
-	}
+        graficoCurvo.adicionarLegenda("Total Ganhos", new Color(0, 108, 247), new Color(12, 84, 175));
+
+        graficoCurvo.adicionarDados();
+        graficoCurvo.start();
+    }
+	
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g.create();
@@ -45,9 +40,16 @@ public class PainelRedondo extends JPanel {
 		g2.dispose();
 		super.paint(g);
 	}
+	private boolean atualizacaoEmAndamento = false;
+
 	public void updateChartData() {
-        graficoCurvo.clear(); // Limpa os dados anteriores
-        init(); // Adiciona os novos dados ao gráfico
-        repaint(); // Repinta o painel para exibir os dados atualizados
-    }
+	    if (!atualizacaoEmAndamento) {
+	        atualizacaoEmAndamento = true;
+	        graficoCurvo.clear();
+	        graficoCurvo.adicionarDados();
+	        graficoCurvo.start();
+	        atualizacaoEmAndamento = false;
+	        repaint();
+	    }
+	}
 }

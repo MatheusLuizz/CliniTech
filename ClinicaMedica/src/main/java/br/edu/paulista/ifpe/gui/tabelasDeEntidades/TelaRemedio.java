@@ -47,7 +47,7 @@ public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 		setBounds(100, 100, 800, 500);
 		setLayout(new BorderLayout());
 
-		JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		/*JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
@@ -61,7 +61,7 @@ public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 		});
 		tabelaAcoes.add(btnAdicionar);
 
-		add(tabelaAcoes, BorderLayout.NORTH);
+		add(tabelaAcoes, BorderLayout.NORTH); */
 
 		scrollPane = new JScrollPane();
 		add(scrollPane, BorderLayout.CENTER);
@@ -74,7 +74,7 @@ public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 		tabela.setRowHeight(40);
 		scrollPane.setViewportView(tabela);
 		RemediosDAO dao = new RemediosDAO();
-		TableActionEvent evento = new TableActionEvent() {
+		/*TableActionEvent evento = new TableActionEvent() {
 			
 			@Override
 			public void onView(int linha) {
@@ -118,9 +118,9 @@ public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 			    }
 			}
 	        
-	    };
-		tabela.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
-		tabela.getColumnModel().getColumn(3).setCellEditor(new TabelaAcaoCellEditor(tabela, evento));
+	    }; */
+		//tabela.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
+		//tabela.getColumnModel().getColumn(3).setCellEditor(new TabelaAcaoCellEditor(tabela, evento));
 		
 		
 	}
