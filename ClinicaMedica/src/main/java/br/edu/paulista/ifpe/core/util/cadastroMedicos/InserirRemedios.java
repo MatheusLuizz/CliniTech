@@ -10,7 +10,7 @@ public class InserirRemedios {
 	public void inserirDados(String nome, String apresentacao) {
 		ConnectionBD conn = new ConnectionBD();
 		PreparedStatement st;
-		String query = "INSERT INTO remedio (nome_remedio, apresentacao) VALUES (?,?);";
+		String query = "INSERT INTO remedio (nome, apresentacao) VALUES (?,?);";
 		try {
 			st = conn.abrir().prepareStatement(query);
 			st.setString(1, nome);
@@ -21,6 +21,7 @@ public class InserirRemedios {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 					"Erro ao inserir os dados no banco de dados. Por favor, tente novamente.");
+			e.printStackTrace();
 			
 		} finally {
 			conn.fechar();
