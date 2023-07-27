@@ -2,6 +2,7 @@ package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -47,23 +48,8 @@ public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 		setBounds(100, 100, 800, 500);
 		setLayout(new BorderLayout());
 
-		/*JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CadastroRemedios cr = new CadastroRemedios();
-				cr.setListener(TelaRemedio.this);
-				cr.setLocationRelativeTo(null);
-				cr.setVisible(true);
-			}
-		});
-		tabelaAcoes.add(btnAdicionar);
-
-		add(tabelaAcoes, BorderLayout.NORTH); */
-
 		scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(800, 500));
 		add(scrollPane, BorderLayout.CENTER);
 
 		tabela = new JTable();
@@ -73,7 +59,7 @@ public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
 		tabela.setRowHeight(40);
 		scrollPane.setViewportView(tabela);
-		RemediosDAO dao = new RemediosDAO();
+		//RemediosDAO dao = new RemediosDAO();
 		/*TableActionEvent evento = new TableActionEvent() {
 			
 			@Override

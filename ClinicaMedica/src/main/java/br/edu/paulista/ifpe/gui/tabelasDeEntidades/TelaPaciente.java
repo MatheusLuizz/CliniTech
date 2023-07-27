@@ -2,6 +2,7 @@ package br.edu.paulista.ifpe.gui.tabelasDeEntidades;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -53,33 +54,8 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
         setBounds(100, 100, 800, 500);
         setLayout(new BorderLayout());
 
-        JPanel tabelaAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        JButton btnAdicionar = new JButton("Adicionar");
-        btnAdicionar.setFont(new Font("Arial", Font.PLAIN, 11));
-        btnAdicionar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CadastroPaciente cp = new CadastroPaciente();
-                cp.setListener(TelaPaciente.this);
-                cp.setLocationRelativeTo(null);
-                cp.setVisible(true);
-            }
-        });
-        tabelaAcoes.add(btnAdicionar);
-
-        JButton btnDetalhes = new JButton("Detalhes");
-        btnDetalhes.setFont(new Font("Arial", Font.PLAIN, 11));
-        tabelaAcoes.add(btnDetalhes);
-        btnDetalhes.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (home != null) {
-                    home.exibirDetalhesPaciente();
-                }
-            }
-        });
-        add(tabelaAcoes, BorderLayout.NORTH);
-
         scrollPane = new JScrollPane();
+        scrollPane.setPreferredSize(new Dimension(800, 500));
         add(scrollPane, BorderLayout.CENTER);
 
         tabela = new JTable();

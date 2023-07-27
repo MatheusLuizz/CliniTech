@@ -30,6 +30,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroExames;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.DetalhesPaciente;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.MarcarConsulta;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaConsulta;
@@ -234,80 +235,147 @@ public class Home extends JFrame {
         
 
         btnPaciente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                txtBusca.setText("");
-                TelaPaciente p = new TelaPaciente();
-                p.atualizar();
-                
-                lblBuscar.setVisible(true);
-                txtBusca.setVisible(true);
-                painelPaciente.removeAll();
-                painelPaciente.setLayout(new CardLayout(0, 0));
-                painelPaciente.add(p, BorderLayout.CENTER);
-                painelPaciente.revalidate();
-                painelPaciente.repaint();
+        	public void actionPerformed(ActionEvent e) {
+                int opcao = JOptionPane.showOptionDialog(
+                        null,
+                        "Escolha uma opção:",
+                        "Pacientes",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Visualizar todos", "Adicionar"},
+                        "Visualizar"
+                );
 
-                tabelasExibidas = new ArrayList<JTable>();
-                tabelasExibidas.add(p.getTabela());
-                Temas.atualizarEstiloTabelas(tabelasExibidas);
-                p.setHome(Home.this);
+                if (opcao == JOptionPane.YES_OPTION) {
+                	txtBusca.setText("");
+                    TelaPaciente telaPaciente = new TelaPaciente();
+                    telaPaciente.atualizar();
+                    
+                    lblBuscar.setVisible(true);
+                    txtBusca.setVisible(true);
+                    painelPaciente.removeAll();
+                    painelPaciente.setLayout(new CardLayout(0, 0));
+                    painelPaciente.add(telaPaciente);
+                    painelPaciente.revalidate();
+                    painelPaciente.repaint();
+
+                    tabelasExibidas = new ArrayList<JTable>();
+                    tabelasExibidas.add(telaPaciente.getTabela());
+                    Temas.atualizarEstiloTabelas(tabelasExibidas);
+                } else if (opcao == JOptionPane.NO_OPTION) {
+                    CadastroPaciente cp = new CadastroPaciente();
+                    cp.setLocationRelativeTo(null);
+                    cp.setVisible(true);
+                }
             }
         });
         btnMedico.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                txtBusca.setText("");
-                TelaMedico m = new TelaMedico();
-                m.atualizar();
-                
-                lblBuscar.setVisible(true);
-                txtBusca.setVisible(true);
-                painelPaciente.removeAll();
-                painelPaciente.setLayout(new CardLayout(0, 0));
-                painelPaciente.add(m, BorderLayout.CENTER);
-                painelPaciente.revalidate();
-                painelPaciente.repaint();
+        	public void actionPerformed(ActionEvent e) {
+                int opcao = JOptionPane.showOptionDialog(
+                        null,
+                        "Escolha uma opção:",
+                        "Medicos",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Visualizar todos", "Adicionar"},
+                        "Visualizar"
+                );
 
-                tabelasExibidas = new ArrayList<JTable>();
-                tabelasExibidas.add(m.getTabela());
-                Temas.atualizarEstiloTabelas(tabelasExibidas);
+                if (opcao == JOptionPane.YES_OPTION) {
+                	txtBusca.setText("");
+                    TelaMedico telaMedico = new TelaMedico();
+                    telaMedico.atualizar();
+                    
+                    lblBuscar.setVisible(true);
+                    txtBusca.setVisible(true);
+                    painelPaciente.removeAll();
+                    painelPaciente.setLayout(new CardLayout(0, 0));
+                    painelPaciente.add(telaMedico);
+                    painelPaciente.revalidate();
+                    painelPaciente.repaint();
+
+                    tabelasExibidas = new ArrayList<JTable>();
+                    tabelasExibidas.add(telaMedico.getTabela());
+                    Temas.atualizarEstiloTabelas(tabelasExibidas);
+                } else if (opcao == JOptionPane.NO_OPTION) {
+                    CadastroMedico cr = new CadastroMedico();
+                    cr.setLocationRelativeTo(null);
+                    cr.setVisible(true);
+                }
             }
         });
         btnRemedio.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                txtBusca.setText("");
-                TelaRemedio r = new TelaRemedio();
-                r.atualizar();
-                
-                lblBuscar.setVisible(true);
-                txtBusca.setVisible(true);
-                painelPaciente.removeAll();
-                painelPaciente.setLayout(new CardLayout(0, 0));
-                painelPaciente.add(r, BorderLayout.CENTER);
-                painelPaciente.revalidate();
-                painelPaciente.repaint();
+        	public void actionPerformed(ActionEvent e) {
+                int opcao = JOptionPane.showOptionDialog(
+                        null,
+                        "Escolha uma opção:",
+                        "Remedios",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Visualizar todos", "Adicionar"},
+                        "Visualizar"
+                );
 
-                tabelasExibidas = new ArrayList<JTable>();
-                tabelasExibidas.add(r.getTabela());
-                Temas.atualizarEstiloTabelas(tabelasExibidas);
+                if (opcao == JOptionPane.YES_OPTION) {
+                	txtBusca.setText("");
+                    TelaRemedio telaRemedio = new TelaRemedio();
+                    telaRemedio.atualizar();
+                    
+                    lblBuscar.setVisible(true);
+                    txtBusca.setVisible(true);
+                    painelPaciente.removeAll();
+                    painelPaciente.setLayout(new CardLayout(0, 0));
+                    painelPaciente.add(telaRemedio);
+                    painelPaciente.revalidate();
+                    painelPaciente.repaint();
+
+                    tabelasExibidas = new ArrayList<JTable>();
+                    tabelasExibidas.add(telaRemedio.getTabela());
+                    Temas.atualizarEstiloTabelas(tabelasExibidas);
+                } else if (opcao == JOptionPane.NO_OPTION) {
+                    CadastroRemedios cr = new CadastroRemedios();
+                    cr.setLocationRelativeTo(null);
+                    cr.setVisible(true);
+                }
             }
         });
         btnExame.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                txtBusca.setText("");
-                TelaExame ex = new TelaExame();
-                ex.atualizar();
-                
-                lblBuscar.setVisible(true);
-                txtBusca.setVisible(true);
-                painelPaciente.removeAll();
-                painelPaciente.setLayout(new CardLayout(0, 0));
-                painelPaciente.add(ex, BorderLayout.CENTER);
-                painelPaciente.revalidate();
-                painelPaciente.repaint();
+        	public void actionPerformed(ActionEvent e) {
+                int opcao = JOptionPane.showOptionDialog(
+                        null,
+                        "Escolha uma opção:",
+                        "Exames",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Visualizar todos", "Adicionar"},
+                        "Visualizar"
+                );
 
-                tabelasExibidas = new ArrayList<JTable>();
-                tabelasExibidas.add(ex.getTabela());
-                Temas.atualizarEstiloTabelas(tabelasExibidas);
+                if (opcao == JOptionPane.YES_OPTION) {
+                	txtBusca.setText("");
+                    TelaExame telaExame = new TelaExame();
+                    telaExame.atualizar();
+                    
+                    lblBuscar.setVisible(true);
+                    txtBusca.setVisible(true);
+                    painelPaciente.removeAll();
+                    painelPaciente.setLayout(new CardLayout(0, 0));
+                    painelPaciente.add(telaExame);
+                    painelPaciente.revalidate();
+                    painelPaciente.repaint();
+
+                    tabelasExibidas = new ArrayList<JTable>();
+                    tabelasExibidas.add(telaExame.getTabela());
+                    Temas.atualizarEstiloTabelas(tabelasExibidas);
+                } else if (opcao == JOptionPane.NO_OPTION) {
+                    CadastroExames ce = new CadastroExames();
+                    ce.setLocationRelativeTo(null);
+                    ce.setVisible(true);
+                }
             }
         });
         btnTema.addActionListener(new ActionListener() {
