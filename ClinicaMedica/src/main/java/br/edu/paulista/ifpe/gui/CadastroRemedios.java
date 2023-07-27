@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroRemedioListener;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirRemedios;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CampoTextoRedondo;
 
 @SuppressWarnings("serial")
 public class CadastroRemedios extends JDialog {
@@ -63,7 +64,7 @@ public class CadastroRemedios extends JDialog {
 		lblNewLabel.setBounds(10, 13, 71, 36);
 		contentPane.add(lblNewLabel);
 		
-		txtNome = new JTextField();
+		txtNome = new CampoTextoRedondo(10);
 		txtNome.setBounds(117, 20, 158, 26);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
@@ -74,7 +75,7 @@ public class CadastroRemedios extends JDialog {
 		lblNewLabel_1.setBounds(10, 82, 90, 13);
 		contentPane.add(lblNewLabel_1);
 		
-		txtApresentacao = new JTextField();
+		txtApresentacao = new CampoTextoRedondo(10);
 		txtApresentacao.setBounds(117, 77, 158, 26);
 		contentPane.add(txtApresentacao);
 		txtApresentacao.setColumns(10);

@@ -60,7 +60,7 @@ public class CadastroExames extends JDialog {
 		lblNewLabel.setBounds(45, 43, 71, 36);
 		contentPane.add(lblNewLabel);
 		
-		txtNome = new JTextField();
+		txtNome = new CampoTextoRedondo(10);
 		txtNome.setBounds(145, 50, 158, 26);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);

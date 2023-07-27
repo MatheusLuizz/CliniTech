@@ -22,6 +22,7 @@ import javax.swing.text.MaskFormatter;
 import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroMedicoListener;
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.InserirMedico;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CampoTextoRedondo;
 
 @SuppressWarnings("serial")
 public class CadastroMedico extends JDialog {
@@ -44,8 +45,6 @@ public class CadastroMedico extends JDialog {
 	private JLabel lblNewLabel_6;
 	private JButton btnUpload;
 	private byte[] fileData;
-	private JLabel lblNewLabel_7;
-	private JTextField txtSalario;
 	
 	public void setListener(CadastroMedicoListener listener) {
         this.listener = listener;
@@ -77,81 +76,81 @@ public class CadastroMedico extends JDialog {
 
 		lblNewLabel = new JLabel("CRM");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel.setBounds(10, 10, 44, 20);
+		lblNewLabel.setBounds(10, 49, 44, 20);
 		contentPane.add(lblNewLabel);
 
 		try {
 			MaskFormatter mascaraCrm = new MaskFormatter("######CRM/??");
-			txtCrm = new JFormattedTextField(mascaraCrm);
+			txtCrm = new CampoTextoFormatadoRedondo(mascaraCrm, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do CRM", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtCrm.setBounds(64, 10, 96, 19);
+		txtCrm.setBounds(64, 51, 96, 19);
 		contentPane.add(txtCrm);
 		txtCrm.setColumns(10);
 
 		lblNewLabel_1 = new JLabel("Nome");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(182, 10, 44, 20);
+		lblNewLabel_1.setBounds(10, 20, 44, 20);
 		contentPane.add(lblNewLabel_1);
 
-		txtNome = new JTextField();
-		txtNome.setBounds(246, 12, 96, 19);
+		txtNome = new CampoTextoRedondo(10);
+		txtNome.setBounds(64, 22, 96, 19);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
 
 		lblNewLabel_2 = new JLabel("CPF");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(10, 40, 35, 20);
+		lblNewLabel_2.setBounds(10, 78, 35, 20);
 		contentPane.add(lblNewLabel_2);
 
 		try {
 			MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
-			txtCpf = new JFormattedTextField(mascaraCpf);
+			txtCpf = new CampoTextoFormatadoRedondo(mascaraCpf, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do CPF", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtCpf.setBounds(64, 39, 96, 19);
+		txtCpf.setBounds(64, 80, 96, 19);
 		contentPane.add(txtCpf);
 		txtCpf.setColumns(10);
 
 		lblNewLabel_3 = new JLabel("RG");
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(9, 70, 45, 13);
+		lblNewLabel_3.setBounds(9, 111, 45, 13);
 		contentPane.add(lblNewLabel_3);
 
 		try {
 			MaskFormatter mask = new MaskFormatter("########"); // Define a máscara para 7 ou 8 dígitos numéricos
-			txtRg = new JFormattedTextField(mask);
+			txtRg = new CampoTextoFormatadoRedondo(mask, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do RG", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtRg.setBounds(64, 68, 96, 19);
+		txtRg.setBounds(64, 109, 96, 19);
 		contentPane.add(txtRg);
 		txtRg.setColumns(10);
 
 		lblNewLabel_4 = new JLabel("Telefone");
 		lblNewLabel_4.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_4.setBounds(10, 99, 64, 13);
+		lblNewLabel_4.setBounds(10, 138, 64, 13);
 		contentPane.add(lblNewLabel_4);
 
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##) #####-####");
-			txtTelefone = new JFormattedTextField(mascaraTelefone);
+			txtTelefone = new CampoTextoFormatadoRedondo(mascaraTelefone, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do celular", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
-		txtTelefone.setBounds(85, 97, 96, 19);
+		txtTelefone.setBounds(82, 136, 96, 19);
 		contentPane.add(txtTelefone);
 		txtTelefone.setColumns(10);
 
 		lblNewLabel_5 = new JLabel("Especialidade");
 		lblNewLabel_5.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_5.setBounds(10, 128, 111, 13);
+		lblNewLabel_5.setBounds(10, 165, 111, 13);
 		contentPane.add(lblNewLabel_5);
 
-		txtEspecialidade = new JTextField();
-		txtEspecialidade.setBounds(131, 126, 96, 19);
+		txtEspecialidade = new CampoTextoRedondo(10);
+		txtEspecialidade.setBounds(137, 163, 96, 19);
 		contentPane.add(txtEspecialidade);
 		txtEspecialidade.setColumns(10);
 
@@ -163,17 +162,17 @@ public class CadastroMedico extends JDialog {
 		btnCadastro = new JButton("Cadastrar");
 		btnCadastro.setToolTipText("Finalizar cadastro");
 		btnCadastro.setFont(new Font("Arial", Font.BOLD, 16));
-		btnCadastro.setBounds(160, 200, 120, 30);
+		btnCadastro.setBounds(165, 223, 120, 30);
 		contentPane.add(btnCadastro);
 		
 		lblNewLabel_6 = new JLabel("Assinatura Eletrênica");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_6.setBounds(10, 164, 154, 13);
+		lblNewLabel_6.setBounds(6, 196, 154, 13);
 		contentPane.add(lblNewLabel_6);
 		
 		btnUpload = new JButton("Upload");
 		btnUpload.setFont(new Font("Arial", Font.BOLD, 14));
-		btnUpload.setBounds(189, 159, 85, 21);
+		btnUpload.setBounds(200, 192, 85, 21);
 		btnUpload.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
@@ -186,16 +185,6 @@ public class CadastroMedico extends JDialog {
         });
 		
 		contentPane.add(btnUpload);
-		
-		lblNewLabel_7 = new JLabel("Salário");
-		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 14));
-		lblNewLabel_7.setBounds(182, 58, 54, 13);
-		contentPane.add(lblNewLabel_7);
-		
-		txtSalario = new JTextField();
-		txtSalario.setBounds(246, 56, 96, 19);
-		contentPane.add(txtSalario);
-		txtSalario.setColumns(10);
 
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

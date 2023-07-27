@@ -59,7 +59,8 @@ public class CadastroPaciente extends JDialog {
 	private JLabel lblNewLabel_13;
 	private CampoTextoFormatadoRedondo txtNascimento;
 	private JLabel lblNewLabel_14;
-	private CampoTextoRedondo txtEstadoCivil;
+	@SuppressWarnings("rawtypes")
+	private ComboBoxModerna boxEstadoCivil;
 	private JLabel lblNewLabel_15;
 	private JLabel lblNewLabel_16;
 	private CampoTextoRedondo txtNomeMae;
@@ -115,6 +116,7 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel);
 
 		txtNome = new CampoTextoRedondo(10);
+		txtNome.setFont(new Font("Arial", Font.BOLD, 12));
 		txtNome.setBounds(49, 7, 197, 19);
 		contentPane.add(txtNome);
 		txtNome.setColumns(10);
@@ -128,6 +130,7 @@ public class CadastroPaciente extends JDialog {
 		try {
 			MaskFormatter mascaraCpf = new MaskFormatter("###.###.###-##");
 			txtCpf = new CampoTextoFormatadoRedondo(mascaraCpf, 15);
+			txtCpf.setFont(new Font("Arial", Font.BOLD, 12));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do CPF", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -144,6 +147,7 @@ public class CadastroPaciente extends JDialog {
 		try {
 			MaskFormatter mascaraRg = new MaskFormatter("########"); // Define a máscara para 7 ou 8 dígitos numéricos
 			txtRg = new CampoTextoFormatadoRedondo(mascaraRg, 10);
+			txtRg.setFont(new Font("Arial", Font.BOLD, 12));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do RG", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -159,6 +163,7 @@ public class CadastroPaciente extends JDialog {
 		try {
 			MaskFormatter mascaraTelefone = new MaskFormatter("(##) #####-####");
 			txtTelefone = new CampoTextoFormatadoRedondo(mascaraTelefone, 10);
+			txtTelefone.setFont(new Font("Arial", Font.BOLD, 12));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do celular", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -172,6 +177,7 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_5);
 
 		txtEmail = new CampoTextoRedondo(10);
+		txtEmail.setFont(new Font("Arial", Font.BOLD, 12));
 		txtEmail.setBounds(49, 53, 128, 19);
 		contentPane.add(txtEmail);
 		txtEmail.setColumns(10);
@@ -183,6 +189,7 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_6);
 
 		txtRua = new CampoTextoRedondo(10);
+		txtRua.setFont(new Font("Arial", Font.BOLD, 12));
 		txtRua.setBounds(223, 53, 96, 19);
 		contentPane.add(txtRua);
 		txtRua.setColumns(10);
@@ -193,6 +200,7 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNumero);
 
 		txtNumero = new CampoTextoRedondo(10);
+		txtNumero.setFont(new Font("Arial", Font.BOLD, 12));
 		txtNumero.setBounds(256, 167, 33, 19);
 		contentPane.add(txtNumero);
 		txtNumero.setColumns(10);
@@ -203,6 +211,7 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_8);
 
 		txtComplemento = new CampoTextoRedondo(10);
+		txtComplemento.setFont(new Font("Arial", Font.BOLD, 12));
 		txtComplemento.setBounds(98, 85, 78, 19);
 		contentPane.add(txtComplemento);
 		txtComplemento.setColumns(10);
@@ -213,12 +222,13 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_9);
 
 		txtBairro = new CampoTextoRedondo(10);
+		txtBairro.setFont(new Font("Arial", Font.BOLD, 12));
 		txtBairro.setBounds(246, 85, 96, 19);
 		contentPane.add(txtBairro);
 		txtBairro.setColumns(10);
 
 		boxUf = new ComboBoxModerna();
-		boxUf.setFont(new Font("Arial", Font.PLAIN, 10));
+		boxUf.setFont(new Font("Arial", Font.BOLD, 12));
 		boxUf.setModel(new DefaultComboBoxModel(new String[] { "Acre (AC)", "Alagoas (AL)", "Amapá (AP)",
 				"Amazonas (AM)", "Bahia (BA)", "Ceará (CE)", "Distrito Federal (DF)", "Espírito Santo (ES)",
 				"Goiás (GO)", "Maranhão (MA)", "Mato Grosso (MT)", "Mato Grosso do Sul (MS)", "Minas Gerais (MG)",
@@ -239,9 +249,9 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_10);
 
 		boxSexo = new ComboBoxModerna();
-		boxSexo.setFont(new Font("Arial", Font.PLAIN, 10));
+		boxSexo.setFont(new Font("Arial", Font.BOLD, 12));
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] { "M", "F" }));
-		boxSexo.setBounds(197, 134, 41, 21);
+		boxSexo.setBounds(200, 138, 41, 21);
 		contentPane.add(boxSexo);
 
 		lblNewLabel_11 = new JLabel("CEP");
@@ -252,6 +262,7 @@ public class CadastroPaciente extends JDialog {
 		try {
 			MaskFormatter mascaraCep = new MaskFormatter("#####-###");
 			txtCep = new CampoTextoFormatadoRedondo(mascaraCep, 10);
+			txtCep.setFont(new Font("Arial", Font.BOLD, 12));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do CEP", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
@@ -265,6 +276,7 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_12);
 
 		txtCidade = new CampoTextoRedondo(10);
+		txtCidade.setFont(new Font("Arial", Font.BOLD, 12));
 		txtCidade.setBounds(57, 135, 96, 19);
 		contentPane.add(txtCidade);
 		txtCidade.setColumns(10);
@@ -277,6 +289,7 @@ public class CadastroPaciente extends JDialog {
 		try {
 		    MaskFormatter mascaraData = new MaskFormatter("##/##/####");
 		    txtNascimento = new CampoTextoFormatadoRedondo(mascaraData, 10);
+		    txtNascimento.setFont(new Font("Arial", Font.BOLD, 12));
 
 		    txtNascimento.setInputVerifier(new InputVerifier() {
 		        @Override
@@ -323,10 +336,11 @@ public class CadastroPaciente extends JDialog {
 		lblNewLabel_14.setBounds(10, 170, 78, 13);
 		contentPane.add(lblNewLabel_14);
 
-		txtEstadoCivil = new CampoTextoRedondo(10);
-		txtEstadoCivil.setBounds(84, 167, 119, 19);
-		contentPane.add(txtEstadoCivil);
-		txtEstadoCivil.setColumns(10);
+		boxEstadoCivil = new ComboBoxModerna();
+		boxEstadoCivil.setFont(new Font("Arial", Font.BOLD, 12));
+		boxEstadoCivil.setModel(new DefaultComboBoxModel(new String[] { "Solteiro", "Casado", "Viuvo", "Divorciado" }));
+		boxEstadoCivil.setBounds(96, 166, 117, 21);
+		contentPane.add(boxEstadoCivil);
 
 		lblNewLabel_15 = new JLabel("Nome da mãe");
 		lblNewLabel_15.setFont(new Font("Arial", Font.BOLD, 12));
@@ -339,11 +353,13 @@ public class CadastroPaciente extends JDialog {
 		contentPane.add(lblNewLabel_16);
 
 		txtNomeMae = new CampoTextoRedondo(10);
+		txtNomeMae.setFont(new Font("Arial", Font.BOLD, 12));
 		txtNomeMae.setBounds(98, 196, 148, 19);
 		contentPane.add(txtNomeMae);
 		txtNomeMae.setColumns(10);
 
 		txtNomePai = new CampoTextoRedondo(10);
+		txtNomePai.setFont(new Font("Arial", Font.BOLD, 12));
 		txtNomePai.setBounds(98, 223, 148, 19);
 		contentPane.add(txtNomePai);
 		txtNomePai.setColumns(10);
@@ -357,7 +373,6 @@ public class CadastroPaciente extends JDialog {
 		limiteCaracteres.adicionarLimiteCaracteres(txtComplemento, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtBairro, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtCidade, 100);
-		limiteCaracteres.adicionarLimiteCaracteres(txtEstadoCivil, 20);
 		limiteCaracteres.adicionarLimiteCaracteres(txtNomeMae, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtNomePai, 100);
 
@@ -383,7 +398,7 @@ public class CadastroPaciente extends JDialog {
 				final String uf = (String) boxUf.getSelectedItem();
 				final String nascimento = txtNascimento.getText();
 				final String sexo = (String) boxSexo.getSelectedItem();
-				final String estadoCivil = txtEstadoCivil.getText();
+				final String estadoCivil = (String) boxEstadoCivil.getSelectedItem();
 				final String nomePai = txtNomePai.getText();
 				final String nomeMae = txtNomeMae.getText();
 				if (nome.isEmpty()) {
@@ -429,10 +444,6 @@ public class CadastroPaciente extends JDialog {
 					JOptionPane.showMessageDialog(null, "O campo nascimento é obrigatório.", "Erro",
 							JOptionPane.ERROR_MESSAGE);
 					txtNascimento.requestFocus();
-				} else if (estadoCivil.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "O campo estado civil é obrigatório.", "Erro",
-							JOptionPane.ERROR_MESSAGE);
-					txtEstadoCivil.requestFocus();
 				} else if (nomeMae.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "O campo nome da mãe é obrigatório.", "Erro",
 							JOptionPane.ERROR_MESSAGE);
