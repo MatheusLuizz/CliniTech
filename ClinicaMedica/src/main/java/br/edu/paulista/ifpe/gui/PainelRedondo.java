@@ -23,7 +23,7 @@ public class PainelRedondo extends JPanel {
         init();
 	}
 	private void init() {
-        graficoCurvo.adicionarLegenda("Total Ganhos", new Color(0, 108, 247), new Color(12, 84, 175));
+        graficoCurvo.adicionarLegenda("Atendimentos", new Color(0, 108, 247), new Color(12, 84, 175));
 
         graficoCurvo.adicionarDados();
         graficoCurvo.start();

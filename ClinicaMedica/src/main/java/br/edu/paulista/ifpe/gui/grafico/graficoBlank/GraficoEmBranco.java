@@ -69,7 +69,7 @@ public class GraficoEmBranco extends JComponent {
 	public GraficoEmBranco() {
 		setBackground(Color.WHITE);
 		setOpaque(false);
-		setForeground(new Color(180, 180, 180));
+		setForeground(Color.BLACK);
 		setBorder(new EmptyBorder(35, 10, 10, 10));
 		init();
 	}
