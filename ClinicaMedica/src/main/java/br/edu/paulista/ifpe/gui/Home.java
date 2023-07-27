@@ -51,7 +51,7 @@ public class Home extends JFrame {
     private JButton btnConsultas;
     private JButton btnInicio;
     private PainelDegrade painelBusca;
-    private JPanel painelPaciente;
+    private JPanel painelPrincipal;
     private final JTextField txtBusca = new JTextField();
     private JLabel lblBuscar;
     private List<JTable> tabelasExibidas;
@@ -202,21 +202,20 @@ public class Home extends JFrame {
         lblBuscar.setVisible(false);
         txtBusca.setVisible(false);
 
-        painelPaciente = new JPanel();
-        painelPaciente.setBackground(new Color(245, 245, 245));
-        painelPaciente.setBounds(91, 67, 1459, 743);
-        contentPane.add(painelPaciente);
-        painelPaciente.setLayout(new CardLayout(0, 0));
+        painelPrincipal = new JPanel();
+        painelPrincipal.setBackground(new Color(245, 245, 245));
+        painelPrincipal.setBounds(91, 67, 1459, 865);
+        contentPane.add(painelPrincipal);
+        painelPrincipal.setLayout(new CardLayout(0, 0));
         
         txtBusca.setVisible(false);
 		lblBuscar.setVisible(false);
 		TelaInicio i = new TelaInicio();
-		//i.atualizar();
-		painelPaciente.removeAll();
-		painelPaciente.setLayout(new CardLayout(0, 0));
-		painelPaciente.add(i, BorderLayout.CENTER);
-		painelPaciente.revalidate();
-		painelPaciente.repaint();
+		painelPrincipal.removeAll();
+		painelPrincipal.setLayout(new CardLayout(0, 0));
+		painelPrincipal.add(i, BorderLayout.CENTER);
+		painelPrincipal.revalidate();
+		painelPrincipal.repaint();
         
         btnInicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -224,11 +223,11 @@ public class Home extends JFrame {
 				lblBuscar.setVisible(false);
 				TelaInicio i = new TelaInicio();
 				//i.atualizar();
-				painelPaciente.removeAll();
-				painelPaciente.setLayout(new CardLayout(0, 0));
-				painelPaciente.add(i, BorderLayout.CENTER);
-				painelPaciente.revalidate();
-				painelPaciente.repaint();
+				painelPrincipal.removeAll();
+				painelPrincipal.setLayout(new CardLayout(0, 0));
+				painelPrincipal.add(i, BorderLayout.CENTER);
+				painelPrincipal.revalidate();
+				painelPrincipal.repaint();
 			}
 		});
         
@@ -254,11 +253,11 @@ public class Home extends JFrame {
                     
                     lblBuscar.setVisible(true);
                     txtBusca.setVisible(true);
-                    painelPaciente.removeAll();
-                    painelPaciente.setLayout(new CardLayout(0, 0));
-                    painelPaciente.add(telaPaciente);
-                    painelPaciente.revalidate();
-                    painelPaciente.repaint();
+                    painelPrincipal.removeAll();
+                    painelPrincipal.setLayout(new CardLayout(0, 0));
+                    painelPrincipal.add(telaPaciente);
+                    painelPrincipal.revalidate();
+                    painelPrincipal.repaint();
 
                     tabelasExibidas = new ArrayList<JTable>();
                     tabelasExibidas.add(telaPaciente.getTabela());
@@ -290,11 +289,11 @@ public class Home extends JFrame {
                     
                     lblBuscar.setVisible(true);
                     txtBusca.setVisible(true);
-                    painelPaciente.removeAll();
-                    painelPaciente.setLayout(new CardLayout(0, 0));
-                    painelPaciente.add(telaMedico);
-                    painelPaciente.revalidate();
-                    painelPaciente.repaint();
+                    painelPrincipal.removeAll();
+                    painelPrincipal.setLayout(new CardLayout(0, 0));
+                    painelPrincipal.add(telaMedico);
+                    painelPrincipal.revalidate();
+                    painelPrincipal.repaint();
 
                     tabelasExibidas = new ArrayList<JTable>();
                     tabelasExibidas.add(telaMedico.getTabela());
@@ -326,11 +325,11 @@ public class Home extends JFrame {
                     
                     lblBuscar.setVisible(true);
                     txtBusca.setVisible(true);
-                    painelPaciente.removeAll();
-                    painelPaciente.setLayout(new CardLayout(0, 0));
-                    painelPaciente.add(telaRemedio);
-                    painelPaciente.revalidate();
-                    painelPaciente.repaint();
+                    painelPrincipal.removeAll();
+                    painelPrincipal.setLayout(new CardLayout(0, 0));
+                    painelPrincipal.add(telaRemedio);
+                    painelPrincipal.revalidate();
+                    painelPrincipal.repaint();
 
                     tabelasExibidas = new ArrayList<JTable>();
                     tabelasExibidas.add(telaRemedio.getTabela());
@@ -362,11 +361,11 @@ public class Home extends JFrame {
                     
                     lblBuscar.setVisible(true);
                     txtBusca.setVisible(true);
-                    painelPaciente.removeAll();
-                    painelPaciente.setLayout(new CardLayout(0, 0));
-                    painelPaciente.add(telaExame);
-                    painelPaciente.revalidate();
-                    painelPaciente.repaint();
+                    painelPrincipal.removeAll();
+                    painelPrincipal.setLayout(new CardLayout(0, 0));
+                    painelPrincipal.add(telaExame);
+                    painelPrincipal.revalidate();
+                    painelPrincipal.repaint();
 
                     tabelasExibidas = new ArrayList<JTable>();
                     tabelasExibidas.add(telaExame.getTabela());
@@ -381,11 +380,11 @@ public class Home extends JFrame {
         btnTema.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (btnTema.isSelected()) {
-                	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, painelPaciente, btnTema, tabelasExibidas);
+                	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, painelPrincipal, btnTema, tabelasExibidas);
                     lblBuscar.setForeground(new Color(255, 105, 180));
                     btnTema.setToolTipText("Tema claro");
                 } else {
-                	Temas.aplicarTemaPadrao(painelAtalhos, painelBusca, painelPaciente, btnTema, tabelasExibidas);
+                	Temas.aplicarTemaPadrao(painelAtalhos, painelBusca, painelPrincipal, btnTema, tabelasExibidas);
                 	lblBuscar.setForeground(Color.BLACK);
                     btnTema.setToolTipText("Tema escuro");
                 }
@@ -414,11 +413,11 @@ public class Home extends JFrame {
                     
                     lblBuscar.setVisible(true);
                     txtBusca.setVisible(true);
-                    painelPaciente.removeAll();
-                    painelPaciente.setLayout(new CardLayout(0, 0));
-                    painelPaciente.add(telaConsulta, BorderLayout.CENTER);
-                    painelPaciente.revalidate();
-                    painelPaciente.repaint();
+                    painelPrincipal.removeAll();
+                    painelPrincipal.setLayout(new CardLayout(0, 0));
+                    painelPrincipal.add(telaConsulta, BorderLayout.CENTER);
+                    painelPrincipal.revalidate();
+                    painelPrincipal.repaint();
 
                     tabelasExibidas = new ArrayList<JTable>();
                     tabelasExibidas.add(telaConsulta.getTabela());
@@ -463,7 +462,7 @@ public class Home extends JFrame {
         
         contentPane.add(painelAtalhos, "width 15%, height 100%");
         contentPane.add(painelBusca, "width 85%, height 65%, growx"); // Utilizamos "growx" para que ocupe todo o espaço horizontal disponível
-        contentPane.add(painelPaciente, "grow");
+        contentPane.add(painelPrincipal, "grow");
     }
     private void realizarBusca() {
         String textoBusca = txtBusca.getText();
@@ -491,11 +490,11 @@ public class Home extends JFrame {
         
         lblBuscar.setVisible(true);
         txtBusca.setVisible(true);
-        painelPaciente.removeAll();
-        painelPaciente.setLayout(new CardLayout(0, 0));
-        painelPaciente.add(dp, BorderLayout.CENTER);
-        painelPaciente.revalidate();
-        painelPaciente.repaint();
+        painelPrincipal.removeAll();
+        painelPrincipal.setLayout(new CardLayout(0, 0));
+        painelPrincipal.add(dp, BorderLayout.CENTER);
+        painelPrincipal.revalidate();
+        painelPrincipal.repaint();
 
         tabelasExibidas = new ArrayList<JTable>();
         tabelasExibidas.add(dp.getTabela());
