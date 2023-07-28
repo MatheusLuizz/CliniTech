@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.RowFilter;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -45,6 +46,7 @@ import net.miginfocom.swing.MigLayout;
 public class Home extends JFrame {
 
     private JPanel contentPane;
+    private JLabel lblNome;
     private PainelDegrade painelAtalhos;
     private JButton btnPaciente;
     private JButton btnMedico;
@@ -58,11 +60,12 @@ public class Home extends JFrame {
     private JButton btnRemedio;
     private JButton btnExame;
     private JToggleButton btnTema;
+    private String nomeAutenticado;
 	public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Home frame = new Home();
+                    Home frame = new Home("Sei lá");
                     frame.setVisible(true);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Não foi possível exibir a tela Home", "Erro",
@@ -73,7 +76,13 @@ public class Home extends JFrame {
         });
     }
 
-    public Home() {
+    public Home(String nomeAutenticado) {
+    	this.nomeAutenticado = nomeAutenticado;
+    	try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível atualizar o visual para seu sistema");
+        }
     	setTitle("Tela Home");
         setResizable(false);
         tabelasExibidas = new ArrayList<JTable>();
@@ -192,6 +201,11 @@ public class Home extends JFrame {
         lblBuscar.setFont(new Font("Arial", Font.PLAIN, 15));
         lblBuscar.setBounds(624, 26, 47, 23);
         painelBusca.add(lblBuscar);
+        
+        lblNome = new JLabel(nomeAutenticado);
+        lblNome.setFont(new Font("Arial", Font.PLAIN, 15));
+        lblNome.setBounds(1280, 26, 120, 23);
+        painelBusca.add(lblNome);
 
         btnTema = new JToggleButton("");
         btnTema.setToolTipText("Tema escuro");
