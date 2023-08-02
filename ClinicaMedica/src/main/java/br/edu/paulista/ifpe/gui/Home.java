@@ -34,8 +34,10 @@ import javax.swing.table.TableRowSorter;
 
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroExames;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.MarcarConsulta;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.MarcarExame;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaConsulta;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaExame;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaExameMarcado;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaMedico;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaPaciente;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaRemedio;
@@ -472,8 +474,39 @@ public class Home extends JFrame {
         });
         btnExameMarcado.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
-        	}
+        		 int opcao = JOptionPane.showOptionDialog(
+                         null,
+                         "Escolha uma opção:",
+                         "Exames marcados",
+                         JOptionPane.YES_NO_OPTION,
+                         JOptionPane.QUESTION_MESSAGE,
+                         null,
+                         new String[]{"Visualizar todos", "Marcar"},
+                         "Visualizar"
+                 );
+
+                 if (opcao == JOptionPane.YES_OPTION) {
+                 	txtBusca.setText("");
+                     TelaExameMarcado tem = new TelaExameMarcado();
+                     tem.atualizar();
+                     
+                     lblBuscar.setVisible(true);
+                     txtBusca.setVisible(true);
+                     painelPrincipal.removeAll();
+                     painelPrincipal.setLayout(new CardLayout(0, 0));
+                     painelPrincipal.add(tem, BorderLayout.CENTER);
+                     painelPrincipal.revalidate();
+                     painelPrincipal.repaint();
+
+                     tabelasExibidas = new ArrayList<JTable>();
+                     tabelasExibidas.add(tem.getTabela());
+                     Temas.atualizarEstiloTabelas(tabelasExibidas);
+                 } else if (opcao == JOptionPane.NO_OPTION) {
+                     MarcarExame me = new MarcarExame();
+                     me.setLocationRelativeTo(null);
+                     me.setVisible(true);
+                 }
+             }
         });
         btnLogout.addActionListener(new ActionListener() {
 			@Override
