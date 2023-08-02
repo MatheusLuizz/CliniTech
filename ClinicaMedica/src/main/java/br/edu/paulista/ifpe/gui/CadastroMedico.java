@@ -45,6 +45,8 @@ public class CadastroMedico extends JDialog {
 	private JLabel lblNewLabel_6;
 	private JButton btnUpload;
 	private byte[] fileData;
+	private JLabel lblNewLabel_7;
+	private JTextField txtSenha;
 	
 	public void setListener(CadastroMedicoListener listener) {
         this.listener = listener;
@@ -185,6 +187,16 @@ public class CadastroMedico extends JDialog {
         });
 		
 		contentPane.add(btnUpload);
+		
+		lblNewLabel_7 = new JLabel("senha");
+		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 14));
+		lblNewLabel_7.setBounds(188, 25, 51, 13);
+		contentPane.add(lblNewLabel_7);
+		
+		txtSenha = new CampoTextoRedondo(10);
+		txtSenha.setBounds(249, 22, 96, 19);
+		contentPane.add(txtSenha);
+		txtSenha.setColumns(10);
 
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -195,6 +207,7 @@ public class CadastroMedico extends JDialog {
 				final String rg = txtRg.getText();
 				final String telefone = txtTelefone.getText();
 				final String especialidade = txtEspecialidade.getText();
+				final String senha = txtSenha.getText();
 				
 				if (fileData == null) {
                     JOptionPane.showMessageDialog(null, "Selecione um arquivo antes de cadastrar.", "Erro",
@@ -225,9 +238,12 @@ public class CadastroMedico extends JDialog {
 					JOptionPane.showMessageDialog(null, "O campo Especialidade é obrigatório.", "Erro",
 							JOptionPane.ERROR_MESSAGE);
 					txtEspecialidade.requestFocus();
+				} else if (senha.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "O campo Senha é obrigatório.", "Erro",
+							JOptionPane.ERROR_MESSAGE);
 				} else {
 					InserirMedico i = new InserirMedico();
-					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade, fileData);
+					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade, fileData, senha);
 					if (listener != null) {
 		                listener.medicoCadastrado();
 		            }

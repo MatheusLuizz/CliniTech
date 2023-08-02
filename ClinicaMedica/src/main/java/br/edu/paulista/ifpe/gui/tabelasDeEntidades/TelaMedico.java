@@ -64,13 +64,11 @@ public class TelaMedico extends JPanel implements CadastroMedicoListener {
 			
 			@Override
 			public void onView(int linha) {
-				System.out.println("Visualizando linha: " + linha);
-				
+				JOptionPane.showMessageDialog(null, "Todos os dados já estão aqui!");
 			}
 			
 			@Override
 			public void onEdit(int linha) {
-				System.out.println("Editando linha: " + linha);
 			}
 			
 			@Override
@@ -110,7 +108,7 @@ public class TelaMedico extends JPanel implements CadastroMedicoListener {
 		
 		
 	}
-
+	@Override
 	public void medicoCadastrado() {
         atualizar();
     }
@@ -141,8 +139,10 @@ public class TelaMedico extends JPanel implements CadastroMedicoListener {
 	            painelAcao.setIdMedico(medico.getId());
 	            modelo.setValueAt(painelAcao, i, 6); // Defina o valor correto para a coluna de ações
 	        }
+	        modelo.fireTableDataChanged();
 	    } catch (Exception ex) {
 	        JOptionPane.showMessageDialog(null, "Erro ao tentar buscar um Médico");
 	    }
 	}
+	
 }

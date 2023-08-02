@@ -60,6 +60,8 @@ public class Home extends JFrame {
     private JButton btnRemedio;
     private JButton btnExame;
     private JToggleButton btnTema;
+    private JButton btnExameMarcado;
+    private JButton btnLogout;
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -135,6 +137,18 @@ public class Home extends JFrame {
         btnConsultas.setBackground(getBackground());
         btnConsultas.setBorderPainted(false);
         
+        btnExameMarcado = new JButton();
+        btnExameMarcado.setToolTipText("Exames marcados");
+        btnExameMarcado.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeMarcarExame.png")));
+        btnExameMarcado.setBackground(getBackground());
+        btnExameMarcado.setBorderPainted(false);
+        
+        btnLogout = new JButton();
+        btnLogout.setToolTipText("Logout");
+        btnLogout.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeLogout.png")));
+        btnLogout.setBackground(getBackground());
+        btnLogout.setBorderPainted(false);
+        
         contentPane.setLayout(null);
         GroupLayout gl_painelAtalhos = new GroupLayout(painelAtalhos);
         gl_painelAtalhos.setHorizontalGroup(
@@ -146,7 +160,9 @@ public class Home extends JFrame {
         				.addComponent(btnMedico, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(btnPaciente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(btnInicio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(btnConsultas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        				.addComponent(btnConsultas, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnExameMarcado, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnLogout, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         			.addContainerGap(20, Short.MAX_VALUE))
         );
         gl_painelAtalhos.setVerticalGroup(
@@ -164,8 +180,14 @@ public class Home extends JFrame {
         			.addComponent(btnExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
         			.addComponent(btnConsultas, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnExameMarcado, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addContainerGap(569, Short.MAX_VALUE))
-        );
+        		);
+        			
+        
         painelAtalhos.setLayout(gl_painelAtalhos);
 
         painelBusca = new PainelDegrade();
@@ -448,6 +470,19 @@ public class Home extends JFrame {
                 }
             }
         });
+        btnExameMarcado.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        	}
+        });
+        btnLogout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				TelaLogin tl = new TelaLogin();
+				tl.setVisible(true);
+			}
+		});
         
         btnInicio.setOpaque(false);
         btnInicio.setContentAreaFilled(false);
@@ -478,6 +513,13 @@ public class Home extends JFrame {
         btnConsultas.setContentAreaFilled(false);
         btnConsultas.setFocusPainted(false);
         
+        btnExameMarcado.setOpaque(false);
+        btnExameMarcado.setContentAreaFilled(false);
+        btnExameMarcado.setFocusPainted(false);
+        
+        btnLogout.setOpaque(false);
+        btnLogout.setContentAreaFilled(false);
+        btnLogout.setFocusPainted(false);
         
         contentPane.add(painelAtalhos, "width 15%, height 100%");
         contentPane.add(painelBusca, "width 85%, height 65%, growx"); // Utilizamos "growx" para que ocupe todo o espaço horizontal disponível

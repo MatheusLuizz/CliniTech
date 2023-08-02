@@ -7,10 +7,10 @@ import javax.swing.JOptionPane;
 import br.edu.paulista.ifpe.data.ConnectionBD;
 
 public class InserirMedico {
-	public void inserirDados(String crm, String nome, String cpf, String rg, String telefone, String especialidade, byte[] filedata) {
+	public void inserirDados(String crm, String nome, String cpf, String rg, String telefone, String especialidade, byte[] filedata, String senha) {
 		ConnectionBD conn = new ConnectionBD();
 		PreparedStatement st;
-		String query = "INSERT INTO medico (crm, nome, cpf, rg, telefone, especialidade, assinatura) VALUES (?,?,?,?,?,?,?);";
+		String query = "INSERT INTO medico (crm, nome, cpf, rg, telefone, especialidade, assinatura, senha) VALUES (?,?,?,?,?,?,?,?);";
 		try {
 			st = conn.abrir().prepareStatement(query);
 			st.setString(1, crm);
@@ -20,6 +20,7 @@ public class InserirMedico {
 			st.setString(5, telefone);
 			st.setString(6, especialidade);
 			st.setBytes(7, filedata);
+			st.setString(8, senha);
 
 			st.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");

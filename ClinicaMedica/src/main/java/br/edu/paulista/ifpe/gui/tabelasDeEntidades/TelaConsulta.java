@@ -4,10 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.LineBorder;
@@ -16,6 +21,7 @@ import javax.swing.table.TableModel;
 import br.edu.paulista.ifpe.data.ConsultasDAO;
 import br.edu.paulista.ifpe.model.entidades.Consulta;
 import br.edu.paulista.ifpe.model.tablemodel.ConsultasTableModel;
+import br.edu.paulista.ifpe.model.tablemodel.DetalhesPacienteTableModel;
 
 @SuppressWarnings("serial")
 public class TelaConsulta extends JTable {
@@ -44,6 +50,18 @@ public class TelaConsulta extends JTable {
 		scrollPane = new JScrollPane();
 		scrollPane.setPreferredSize(new Dimension(800, 500));
 		add(scrollPane, BorderLayout.CENTER);
+		JPanel painelAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton btnAcao = new JButton("Remarcar consulta");
+        painelAcoes.add(btnAcao);
+        add(painelAcoes, BorderLayout.NORTH);
+        btnAcao.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RemarcarConsulta rc = new RemarcarConsulta();
+				rc.setLocationRelativeTo(null);
+				rc.setVisible(true);
+			}
+		});
 
 		tabela = new JTable();
 		tabela.getTableHeader().setReorderingAllowed(false);
@@ -57,7 +75,7 @@ public class TelaConsulta extends JTable {
 			
 			@Override
 			public void onView(int linha) {
-				System.out.println("Visualizando linha: " + linha);
+				JOptionPane.showMessageDialog(null, "Todos os dados já estão aqui!");
 				
 			}
 			
