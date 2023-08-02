@@ -256,7 +256,7 @@ public class HomeMedico extends JFrame {
         btnTema.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (btnTema.isSelected()) {
-                	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, painelPrincipal, btnTema, tabelasExibidas);
+                	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, btnTema, tabelasExibidas);
                     lblBuscar.setForeground(new Color(255, 105, 180));
                     lblNome.setForeground(new Color(255, 105, 180));
                     btnTema.setToolTipText("Tema claro");

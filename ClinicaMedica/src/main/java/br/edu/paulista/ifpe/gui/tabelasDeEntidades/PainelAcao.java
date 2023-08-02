@@ -13,7 +13,6 @@ import br.edu.paulista.ifpe.core.BotaoAcao;
 @SuppressWarnings("serial")
 public class PainelAcao<T> extends JPanel {
     private BotaoAcao btnVisualizar;
-    private BotaoAcao btnEditar;
     private BotaoAcao btnExcluir;
     private Object objeto;
     private TableActionEvent evento;
@@ -34,10 +33,7 @@ public class PainelAcao<T> extends JPanel {
 		btnVisualizar.setIcon(new ImageIcon(PainelAcao.class.getResource("/br/edu/paulista/ifpe/model/images/view.png")));
 		
 		add(btnVisualizar);
-		btnEditar = new BotaoAcao();
-		btnEditar.setIcon(new ImageIcon(PainelAcao.class.getResource("/br/edu/paulista/ifpe/model/images/edit.png")));
 		
-		add(btnEditar);
 		btnExcluir = new BotaoAcao();
 		btnExcluir.setIcon(new ImageIcon(PainelAcao.class.getResource("/br/edu/paulista/ifpe/model/images/delete.png")));
 		
@@ -54,13 +50,6 @@ public class PainelAcao<T> extends JPanel {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 evento.onView(table.getEditingRow());
-            }
-        });
-
-        btnEditar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                evento.onEdit(table.getEditingRow());
             }
         });
 

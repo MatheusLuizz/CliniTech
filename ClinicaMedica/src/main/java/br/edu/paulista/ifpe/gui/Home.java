@@ -3,6 +3,7 @@ package br.edu.paulista.ifpe.gui;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -59,8 +60,7 @@ public class Home extends JFrame {
     private JButton btnRemedio;
     private JButton btnExame;
     private JToggleButton btnTema;
-    private String nomeAutenticado;
-	public static void main(String[] args) {
+    public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -76,7 +76,6 @@ public class Home extends JFrame {
     }
 
     public Home(String nomeAutenticado) {
-    	this.nomeAutenticado = nomeAutenticado;
     	try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -235,10 +234,17 @@ public class Home extends JFrame {
 				txtBusca.setVisible(false);
 				lblBuscar.setVisible(false);
 				TelaInicio i = new TelaInicio();
-				//i.atualizar();
-				painelPrincipal.removeAll();
+				Component[] components = i.getComponents();
+		        for (Component component : components) {
+		            if (component instanceof JTable) {
+		                tabelasExibidas.add((JTable) component);
+		            }
+		        }
+		        
+		        painelPrincipal.removeAll();
 				painelPrincipal.setLayout(new CardLayout(0, 0));
 				painelPrincipal.add(i, BorderLayout.CENTER);
+				
 				painelPrincipal.revalidate();
 				painelPrincipal.repaint();
 			}
@@ -393,7 +399,7 @@ public class Home extends JFrame {
         btnTema.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (btnTema.isSelected()) {
-                	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, painelPrincipal, btnTema, tabelasExibidas);
+                	Temas.aplicarTemaEscuro(painelAtalhos, painelBusca, btnTema, tabelasExibidas);
                     lblBuscar.setForeground(new Color(255, 105, 180));
                     btnTema.setToolTipText("Tema claro");
                 } else {

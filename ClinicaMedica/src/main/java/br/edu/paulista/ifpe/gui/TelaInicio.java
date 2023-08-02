@@ -1,39 +1,39 @@
 package br.edu.paulista.ifpe.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 
-import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.SwingConstants;
+
+import br.edu.paulista.ifpe.model.tablemodel.PacienteAmanhaGeralTableModel;
+import br.edu.paulista.ifpe.model.tablemodel.PacienteDiarioGeralTableModel;
+import br.edu.paulista.ifpe.model.temas.Temas;
 
 
 
 @SuppressWarnings("serial")
 public class TelaInicio extends JPanel {
-	private JPanel painelDashboard;
-	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JPanel tabelaAmanha;
-	private JTextField textField;
-	private JScrollPane scrollPane;
-	private JTable table;
+	private JPanel painelAmanha;
+	private JScrollPane scrollPane1;
+	private JTable tabelaAmanha;
 	private JScrollPane scrollPane_1;
-	private JPanel tabelaHoje;
+	private JPanel painelHoje;
 	private JLabel lblNewLabel_2;
-	private JTextField textField_1;
-	private JScrollPane scrollPane_2;
-	private JTable table_1;
+	private JScrollPane scrollPane;
+	private JTable tabelaHoje;
 	private JPanel grafico;
-
+	private PacienteDiarioGeralTableModel pacienteTableModel;
+	private PacienteAmanhaGeralTableModel paciente1TableModel;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -51,89 +51,53 @@ public class TelaInicio extends JPanel {
 	public TelaInicio() {
         setLayout(null);
 
-        tabelaAmanha = new JPanel();
-        tabelaAmanha.setBounds(597, 455, 555, 240);
-        tabelaAmanha.setLayout(null);
+        painelAmanha = new JPanel();
+        painelAmanha.setBounds(589, 426, 555, 258);
+        painelAmanha.setLayout(null);
 
-        lblNewLabel_1 = new JLabel("Pacientes Agendados");
-        lblNewLabel_1.setBounds(0, 6, 194, 24);
-        tabelaAmanha.add(lblNewLabel_1);
+        lblNewLabel_1 = new JLabel("Atendimentos de amanhã");
+        lblNewLabel_1.setBounds(0, 6, 207, 24);
+        painelAmanha.add(lblNewLabel_1);
         lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 17));
 
-        textField = new JTextField();
-        textField.setBounds(340, 5, 194, 32);
-        tabelaAmanha.add(textField);
-        textField.setColumns(10);
+        scrollPane1 = new JScrollPane();
+        scrollPane1.setBounds(10, 52, 535, 206);
+        painelAmanha.add(scrollPane1);
 
-        scrollPane = new JScrollPane();
-        scrollPane.setBounds(10, 66, 535, 174);
-        tabelaAmanha.add(scrollPane);
+        tabelaAmanha = new JTable();
+        paciente1TableModel = new PacienteAmanhaGeralTableModel();
+        tabelaAmanha.setModel(paciente1TableModel);
+        tabelaAmanha.getTableHeader().setReorderingAllowed(false);
+        paciente1TableModel.adicionarConsultaFromSQL(); 
+        scrollPane1.setViewportView(tabelaAmanha);
 
-        table = new JTable();
-        table.setModel(new DefaultTableModel(
-        	new Object[][] {
-        		{null, null, null},
-        		{null, null, null},
-        		{null, null, null},
-        		{null, null, null},
-        	},
-        	new String[] {
-        		"Nome", "Atendimento", "Hora"
-        	}
-        ));
-        scrollPane.setViewportView(table);
-
-        add(tabelaAmanha);
-
-        painelDashboard = new PainelDegrade();
-        painelDashboard.setBounds(10, 0, 1337, 50);
-        add(painelDashboard);
-        painelDashboard.setLayout(null);
-
-        lblNewLabel = new JLabel("Dashboard");
-        lblNewLabel.setForeground(new Color(255, 255, 255));
-        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        lblNewLabel.setBounds(10, 10, 118, 30);
-        painelDashboard.add(lblNewLabel);
+        add(painelAmanha);
         
-        tabelaHoje = new JPanel();
-        tabelaHoje.setBounds(10, 455, 555, 258);
-        add(tabelaHoje);
-        tabelaHoje.setLayout(null);
+        painelHoje = new JPanel();
+        painelHoje.setBounds(10, 426, 555, 258);
+        add(painelHoje);
+        painelHoje.setLayout(null);
         
-        lblNewLabel_2 = new JLabel("Proximos atendimentos");
+        lblNewLabel_2 = new JLabel("Atendimentos do dia");
         lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 17));
         lblNewLabel_2.setBounds(0, 1, 192, 41);
-        tabelaHoje.add(lblNewLabel_2);
+        painelHoje.add(lblNewLabel_2);
         
-        textField_1 = new JTextField();
-        textField_1.setBounds(349, 10, 196, 32);
-        tabelaHoje.add(textField_1);
-        textField_1.setColumns(10);
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(10, 52, 535, 206);
+        painelHoje.add(scrollPane);
         
-        scrollPane_2 = new JScrollPane();
-        scrollPane_2.setBounds(10, 52, 535, 206);
-        tabelaHoje.add(scrollPane_2);
-        
-        table_1 = new JTable();
-        table_1.setModel(new DefaultTableModel(
-        	new Object[][] {
-        		{null, null, null},
-        		{null, null, null},
-        		{null, null, null},
-        		{null, null, null},
-        		{null, null, null},
-        	},
-        	new String[] {
-        		"Nome", "Atendimento", "Hora"
-        	}
-        ));
-        scrollPane_2.setViewportView(table_1);
+        tabelaHoje = new JTable();
+        pacienteTableModel = new PacienteDiarioGeralTableModel();
+        tabelaHoje.setModel(pacienteTableModel);
+        tabelaHoje.getTableHeader().setReorderingAllowed(false);
+        pacienteTableModel.adicionarConsultaFromSQL();           
+        scrollPane.setViewportView(tabelaHoje);
         // Definir o tamanho preferido da tabela_1 para que ela preencha o espaço disponível no scrollPane_2
-        table_1.setPreferredSize(new Dimension(scrollPane_2.getWidth(), table_1.getPreferredSize().height));
+        tabelaHoje.setPreferredSize(new Dimension(scrollPane.getWidth(), tabelaHoje.getPreferredSize().height));
         
         grafico = new PainelRedondo();
-        grafico.setBounds(10, 60, 1168, 385);
+        grafico.setBounds(10, 10, 1168, 406);
         add(grafico);
     }
 }

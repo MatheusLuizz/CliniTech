@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,11 +28,12 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 import br.edu.paulista.ifpe.gui.PainelDegrade;
+import br.edu.paulista.ifpe.gui.TelaInicio;
 
 public class Temas {
     private static boolean modoEscuroAtivado = false;
 
-    public static void aplicarTemaEscuro(PainelDegrade painelAtalhos, PainelDegrade painelBusca, JPanel painelPaciente,
+    public static void aplicarTemaEscuro(PainelDegrade painelAtalhos, PainelDegrade painelBusca,
             JToggleButton btnTema, List<JTable> tabelasExibidas) {
         modoEscuroAtivado = true;
 
@@ -56,11 +58,7 @@ public class Temas {
         Color corFimPadraoBusca = new Color(220, 220, 220);
 
         Color corBordaPacienteEscuro = new Color(68, 71, 90);
-        painelPaciente.setBackground(corDeFundo);
         painelBusca.setBorder(BorderFactory.createLineBorder(corBorda));
-        painelPaciente.setBorder(BorderFactory.createLineBorder(corBorda));
-
-        painelPaciente.setBorder(new LineBorder(corBordaPacienteEscuro));
 
         // Aplicar transição de cores no painelAtalhos
         aplicarTransicaoCores(painelAtalhos, corInicioPadrao, corFimPadrao, corInicioAtalhosEscuro,
@@ -71,7 +69,7 @@ public class Temas {
                 corFimBuscaEscuro);
 
         atualizarEstiloTabelas(tabelasExibidas);
-        Component[] components = painelPaciente.getComponents();
+        /*Component[] components = painelPrincipal.getComponents();
         for (Component component : components) {
             if (component instanceof JComponent) {
                 JComponent jComponent = (JComponent) component;
@@ -79,7 +77,7 @@ public class Temas {
                 jComponent.setForeground(corTexto);
                 jComponent.setBorder(BorderFactory.createLineBorder(corBorda));
             }
-        }
+        } */
 
         // Chame o método para animar o botão tema
         animarBotaoTema(btnTema, true);
