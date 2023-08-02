@@ -28,16 +28,16 @@ public class Paciente {
 	private String exameMarcadoHora;
 	private String consultaData;
 	private String consultaHora;
-	private String historicoRemedioId;
+	private String historicoRemedio;
 	private String historicoObservacoes;
 	private String historicoProximosPassos;
 
-	public String getHistoricoRemedioId() {
-		return historicoRemedioId;
+	public String getHistoricoRemedio() {
+		return historicoRemedio;
 	}
 
-	public void setHistoricoRemedioId(String historicoRemedioId) {
-		this.historicoRemedioId = historicoRemedioId;
+	public void setHistoricoRemedio(String historicoRemedio) {
+		this.historicoRemedio = historicoRemedio;
 	}
 
 	public String getHistoricoObservacoes() {

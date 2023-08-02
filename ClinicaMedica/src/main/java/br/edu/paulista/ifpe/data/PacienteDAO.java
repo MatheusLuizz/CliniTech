@@ -61,4 +61,63 @@ public class PacienteDAO {
 	    }
 	    return false;
 	}
+	public Paciente buscarTodos(int idPaciente) throws Exception {
+
+	    String sql = "SELECT " +
+	                 "   p.id, " +
+	                 "   p.nome, " +
+	                 "   p.cpf, " +
+	                 "   p.telefone, " +
+	                 "   p.nascimento, " +
+	                 "   p.sexo, " +
+	                 "   p.estado_civil, " +
+	                 "   p.nome_mae, " +
+	                 "   p.cidade, " +
+	                 "   p.bairro, " +
+	                 "   h.observacoes, " +
+	                 "   h.proximos_passos, " +
+	                 "   r.nome AS nome_remedio " +
+	                 "FROM " +
+	                 "   paciente p " +
+	                 "INNER JOIN " +
+	                 "   historico h ON p.id = h.id_paciente " +
+	                 "INNER JOIN " +
+	                 "   historico_remedio hr ON h.id = hr.id_historico " +
+	                 "INNER JOIN " +
+	                 "   remedio r ON hr.id_remedio = r.id " +
+	                 "WHERE p.id = ? " + // Adicionar a cláusula WHERE para filtrar pelo ID do paciente
+	                 "ORDER BY " +
+	                 "   p.nome";
+
+	    ConnectionBD connectionBD = new ConnectionBD();
+	    Connection conn = connectionBD.abrir();
+
+	    PreparedStatement comando = conn.prepareStatement(sql);
+	    comando.setInt(1, idPaciente); // Definir o valor do ID do paciente no parâmetro da cláusula WHERE
+	    ResultSet resultado = comando.executeQuery();
+
+	    Paciente paciente = null;
+
+	    while (resultado.next()) {
+	        paciente = new Paciente();
+	        paciente.setId(resultado.getString("id"));
+	        paciente.setNome(resultado.getString("nome"));
+	        paciente.setCpf(resultado.getString("cpf"));
+	        paciente.setTelefone(resultado.getString("telefone"));
+	        paciente.setNascimento(resultado.getString("nascimento"));
+	        paciente.setSexo(resultado.getString("sexo"));
+	        paciente.setEstadoCivil(resultado.getString("estado_civil"));
+	        paciente.setNomeMae(resultado.getString("nome_mae"));
+	        paciente.setCidade(resultado.getString("cidade"));
+	        paciente.setBairro(resultado.getString("bairro"));
+	        paciente.setHistoricoObservacoes(resultado.getString("observacoes"));
+	        paciente.setHistoricoProximosPassos(resultado.getString("proximos_passos"));
+	        paciente.setHistoricoRemedio(resultado.getString("nome_remedio"));
+	    }
+
+	    resultado.close();
+	    comando.close();
+	    conn.close();
+	    return paciente;
+	}
 }

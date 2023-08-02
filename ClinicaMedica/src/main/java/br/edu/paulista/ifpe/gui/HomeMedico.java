@@ -31,7 +31,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.DetalhesPaciente;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaPaciente;
 import br.edu.paulista.ifpe.model.temas.Temas;
 import net.miginfocom.swing.MigLayout;
@@ -224,38 +223,21 @@ public class HomeMedico extends JFrame {
 
         btnPaciente.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                int opcao = JOptionPane.showOptionDialog(
-                        null,
-                        "Escolha uma opção:",
-                        "Pacientes",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        new String[]{"Visualizar todos", "Adicionar"},
-                        "Visualizar"
-                );
+        		txtBusca.setText("");
+                TelaPaciente telaPaciente = new TelaPaciente();
+                telaPaciente.atualizar();
+                
+                lblBuscar.setVisible(true);
+                txtBusca.setVisible(true);
+                painelPrincipal.removeAll();
+                painelPrincipal.setLayout(new CardLayout(0, 0));
+                painelPrincipal.add(telaPaciente);
+                painelPrincipal.revalidate();
+                painelPrincipal.repaint();
 
-                if (opcao == JOptionPane.YES_OPTION) {
-                	txtBusca.setText("");
-                    TelaPaciente telaPaciente = new TelaPaciente();
-                    telaPaciente.atualizar();
-                    
-                    lblBuscar.setVisible(true);
-                    txtBusca.setVisible(true);
-                    painelPrincipal.removeAll();
-                    painelPrincipal.setLayout(new CardLayout(0, 0));
-                    painelPrincipal.add(telaPaciente);
-                    painelPrincipal.revalidate();
-                    painelPrincipal.repaint();
-
-                    tabelasExibidas = new ArrayList<JTable>();
-                    tabelasExibidas.add(telaPaciente.getTabela());
-                    Temas.atualizarEstiloTabelas(tabelasExibidas);
-                } else if (opcao == JOptionPane.NO_OPTION) {
-                    CadastroPaciente cp = new CadastroPaciente();
-                    cp.setLocationRelativeTo(null);
-                    cp.setVisible(true);
-                }
+                tabelasExibidas = new ArrayList<JTable>();
+                tabelasExibidas.add(telaPaciente.getTabela());
+                Temas.atualizarEstiloTabelas(tabelasExibidas);
             }
         });
         btnReceita.addActionListener(new ActionListener() {
@@ -335,21 +317,5 @@ public class HomeMedico extends JFrame {
             sorter.setRowFilter(RowFilter.regexFilter(regex, 1)); // Assumindo que o nome está na primeira coluna (índice 0)
         }
     }
-    public void exibirDetalhesPaciente() {
-    	txtBusca.setText("");
-        DetalhesPaciente dp = new DetalhesPaciente();
-        dp.atualizar();
-        
-        lblBuscar.setVisible(true);
-        txtBusca.setVisible(true);
-        painelPrincipal.removeAll();
-        painelPrincipal.setLayout(new CardLayout(0, 0));
-        painelPrincipal.add(dp, BorderLayout.CENTER);
-        painelPrincipal.revalidate();
-        painelPrincipal.repaint();
-
-        tabelasExibidas = new ArrayList<JTable>();
-        tabelasExibidas.add(dp.getTabela());
-        Temas.atualizarEstiloTabelas(tabelasExibidas);
-    }
+    
 }

@@ -4,13 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -19,20 +16,18 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroPacienteListener;
-import br.edu.paulista.ifpe.data.MedicoDAO;
 import br.edu.paulista.ifpe.data.PacienteDAO;
-import br.edu.paulista.ifpe.gui.CadastroPaciente;
 import br.edu.paulista.ifpe.gui.Home;
-import br.edu.paulista.ifpe.model.entidades.Medico;
 import br.edu.paulista.ifpe.model.entidades.Paciente;
-import br.edu.paulista.ifpe.model.tablemodel.MedicTableModel;
+import br.edu.paulista.ifpe.model.tablemodel.DetalhesPacienteTableModel;
 import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
 
 @SuppressWarnings("serial")
 public class TelaPaciente extends JPanel implements CadastroPacienteListener {
     private JScrollPane scrollPane;
     protected JTable tabela;
-    private Home home; // Referência para a classe Home
+    private Home home;
+    private PacienteTableModel pacienteTableModel = new PacienteTableModel();
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
@@ -61,7 +56,7 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
         tabela = new JTable();
         tabela.getTableHeader().setReorderingAllowed(false);
         tabela.setBorder(new LineBorder(new Color(0, 0, 0)));
-        tabela.setModel(new PacienteTableModel());
+        tabela.setModel(pacienteTableModel);
         tabela.setFont(new Font("Arial", Font.PLAIN, 12));
         tabela.setRowHeight(40);
         scrollPane.setViewportView(tabela);
@@ -70,9 +65,31 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
 			
 			@Override
 			public void onView(int linha) {
-				System.out.println("Visualizando linha: " + linha);
-				
+				int selectedRow = tabela.getSelectedRow();
+			    if (selectedRow >= 0) {
+			        PacienteTableModel model = (PacienteTableModel) tabela.getModel();
+			        Paciente paciente = model.getPaciente(selectedRow); // Usar a linha selecionada em vez do selectedRow
+			        int id = Integer.parseInt(paciente.getId());
+			        try {
+			            int i = JOptionPane.showConfirmDialog(null, "Deseja ver detalhes do paciente selecionado?");
+			            if (i == JOptionPane.YES_OPTION) {
+			            	Paciente pacienteComDetalhes = dao.buscarTodos(id);
+			                DetalhesPacienteDialog detalhesDialog = new DetalhesPacienteDialog(pacienteComDetalhes);
+			                model.fireTableDataChanged();
+			                detalhesDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			                detalhesDialog.setLocationRelativeTo(null);
+			                detalhesDialog.setVisible(true);			                
+			            }
+			        } catch (Exception ex) {
+			            JOptionPane.showMessageDialog(null, "Erro ao exibir detalhes do Paciente", "Erro",
+			                    JOptionPane.ERROR_MESSAGE);
+			            ex.printStackTrace();
+			        }
+			    } else {
+			        JOptionPane.showMessageDialog(null, "Selecione um Paciente antes de visualizar.");
+			    }
 			}
+			    
 			
 			@Override
 			public void onEdit(int linha) {
@@ -135,9 +152,10 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
 
             modelo.adicionar(lista);
             for (int i = 0; i < modelo.getRowCount(); i++) {
-	            PainelAcao painelAcao = new PainelAcao();
+	            @SuppressWarnings("rawtypes")
+				PainelAcao painelAcao = new PainelAcao();
 	            Paciente paciente = lista.get(i);
-	            painelAcao.setIdMedico(paciente.getId());
+	            painelAcao.setIdPaciente(paciente.getId());
 	            modelo.setValueAt(painelAcao, i, 6); // Defina o valor correto para a coluna de ações
 	        }
 

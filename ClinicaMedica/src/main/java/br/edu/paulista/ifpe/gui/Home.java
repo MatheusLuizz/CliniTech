@@ -32,7 +32,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroExames;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.DetalhesPaciente;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.MarcarConsulta;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaConsulta;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaExame;
@@ -496,22 +495,5 @@ public class Home extends JFrame {
             String regex = "(?i)" + Pattern.quote(textoBusca);
             sorter.setRowFilter(RowFilter.regexFilter(regex, 1)); // Assumindo que o nome está na primeira coluna (índice 0)
         }
-    }
-    public void exibirDetalhesPaciente() {
-    	txtBusca.setText("");
-        DetalhesPaciente dp = new DetalhesPaciente();
-        dp.atualizar();
-        
-        lblBuscar.setVisible(true);
-        txtBusca.setVisible(true);
-        painelPrincipal.removeAll();
-        painelPrincipal.setLayout(new CardLayout(0, 0));
-        painelPrincipal.add(dp, BorderLayout.CENTER);
-        painelPrincipal.revalidate();
-        painelPrincipal.repaint();
-
-        tabelasExibidas = new ArrayList<JTable>();
-        tabelasExibidas.add(dp.getTabela());
-        Temas.atualizarEstiloTabelas(tabelasExibidas);
     }
 }

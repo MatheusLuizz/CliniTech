@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import br.edu.paulista.ifpe.data.ConnectionBD;
+import java.awt.Toolkit;
 
 
 @SuppressWarnings("serial")
