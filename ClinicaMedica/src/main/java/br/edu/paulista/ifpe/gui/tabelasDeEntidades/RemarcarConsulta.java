@@ -37,7 +37,7 @@ public class RemarcarConsulta extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao tentar remarcar consultas");
 		}
 	}
 

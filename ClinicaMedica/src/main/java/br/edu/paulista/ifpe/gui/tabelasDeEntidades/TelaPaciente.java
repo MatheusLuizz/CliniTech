@@ -83,7 +83,6 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
 			        } catch (Exception ex) {
 			            JOptionPane.showMessageDialog(null, "Erro ao exibir detalhes do Paciente", "Erro",
 			                    JOptionPane.ERROR_MESSAGE);
-			            ex.printStackTrace();
 			        }
 			    } else {
 			        JOptionPane.showMessageDialog(null, "Selecione um Paciente antes de visualizar.");
@@ -93,7 +92,6 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
 			
 			@Override
 			public void onEdit(int linha) {
-				System.out.println("Editando linha: " + linha);
 			}
 			
 			@Override
@@ -120,7 +118,6 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
 			        } catch (Exception ex) {
 			            JOptionPane.showMessageDialog(null, "Erro ao excluir o Paciente", "Erro",
 			                    JOptionPane.ERROR_MESSAGE);
-			            ex.printStackTrace();
 			            
 			        }
 			    } else {

@@ -59,13 +59,11 @@ public class TelaExameMarcado extends JTable {
 
 			@Override
 			public void onView(int linha) {
-				System.out.println("Visualizando linha: " + linha);
 
 			}
 
 			@Override
 			public void onEdit(int linha) {
-				System.out.println("Editando linha: " + linha);
 			}
 
 			@Override
@@ -92,7 +90,6 @@ public class TelaExameMarcado extends JTable {
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(null, "Erro ao excluir o exame", "Erro",
 								JOptionPane.ERROR_MESSAGE);
-						ex.printStackTrace();
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecione um exame antes de excluir.");

@@ -63,7 +63,7 @@ public class TelaReceita extends JDialog {
 					TelaReceita frame = new TelaReceita(124);
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Erro ao tentar gerar receita");
 				}
 			}
 		});

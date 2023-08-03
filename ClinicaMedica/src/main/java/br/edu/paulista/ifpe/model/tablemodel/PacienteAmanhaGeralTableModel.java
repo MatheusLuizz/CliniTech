@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 import br.edu.paulista.ifpe.data.ConnectionBD;
@@ -128,7 +129,7 @@ public class PacienteAmanhaGeralTableModel extends AbstractTableModel {
 				exameResultSet.close();
 				exameStatement.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados");
 			} finally {
 				connectionBD.fechar();
 			}
@@ -196,7 +197,7 @@ public class PacienteAmanhaGeralTableModel extends AbstractTableModel {
 				exameResultSet.close();
 				exameStatement.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados");
 			} finally {
 				connectionBD.fechar();
 			}
@@ -222,7 +223,7 @@ public class PacienteAmanhaGeralTableModel extends AbstractTableModel {
 				resultSet.close();
 				preparedStatement.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados");
 			} finally {
 				connectionBD.fechar();
 			}

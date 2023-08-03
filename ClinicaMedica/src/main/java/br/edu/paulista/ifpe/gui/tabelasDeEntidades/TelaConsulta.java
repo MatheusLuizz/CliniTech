@@ -74,13 +74,11 @@ public class TelaConsulta extends JTable {
 
 			@Override
 			public void onView(int linha) {
-				JOptionPane.showMessageDialog(null, "Todos os dados já estão aqui!");
 
 			}
 
 			@Override
 			public void onEdit(int linha) {
-				System.out.println("Editando linha: " + linha);
 			}
 
 			@Override

@@ -67,7 +67,7 @@ public class HomeMedico extends JFrame {
 					HomeMedico frame = new HomeMedico("Sei lá");
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Erro ao abrir a tela do médico");
 				}
 			}
 		});
@@ -90,7 +90,7 @@ public class HomeMedico extends JFrame {
 					idMedico = resultSet.getInt("id");
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Erro  ao consultar o banco de dados");
 			} finally {
 				connectionBD.fechar();
 			}

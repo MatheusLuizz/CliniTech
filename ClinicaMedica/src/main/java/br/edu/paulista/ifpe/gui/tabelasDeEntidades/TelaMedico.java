@@ -90,7 +90,6 @@ public class TelaMedico extends JPanel implements CadastroMedicoListener {
 					} catch (Exception ex) {
 						JOptionPane.showMessageDialog(null, "Erro ao excluir o médico", "Erro",
 								JOptionPane.ERROR_MESSAGE);
-						ex.printStackTrace();
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecione um médico antes de excluir.");

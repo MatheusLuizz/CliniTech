@@ -37,7 +37,7 @@ public class CadastroOperador extends JDialog {
 			dialog.setLocationRelativeTo(null);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao tentar cadastrar um operador");
 		}
 	}
 
@@ -111,7 +111,6 @@ public class CadastroOperador extends JDialog {
 							}
 						}
 					} catch (SQLException ex) {
-						ex.printStackTrace();
 						JOptionPane.showMessageDialog(null, "Erro ao cadastrar operador.", "Erro",
 								JOptionPane.ERROR_MESSAGE);
 					}

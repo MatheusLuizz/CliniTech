@@ -51,7 +51,6 @@ public class RemediosDAO {
 			return true;
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Erro ao excluir o remedio");
-			ex.printStackTrace();
 		}
 		return false;
 	}

@@ -47,7 +47,6 @@ public class TelaLogin extends JFrame {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Um erro crítico ocorreu, f no chat", "Erro",
 							JOptionPane.ERROR_MESSAGE);
-					e.printStackTrace();
 				}
 			}
 		});
@@ -109,7 +108,7 @@ public class TelaLogin extends JFrame {
 							}
 						}
 					} catch (SQLException ex) {
-						ex.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Erro ao consultar o banco de dados");
 					}
 
 					connectionBD.fechar();

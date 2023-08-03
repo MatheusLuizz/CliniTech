@@ -241,7 +241,6 @@ public class MarcarConsulta extends JDialog {
 			dispose();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(this, "Erro ao cadastrar a consulta.", "Erro", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 }

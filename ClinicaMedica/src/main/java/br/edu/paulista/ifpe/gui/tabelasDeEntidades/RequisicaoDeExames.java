@@ -43,7 +43,7 @@ public class RequisicaoDeExames extends JDialog {
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao tentar fazer a requisição de exames");
 		}
 	}
 

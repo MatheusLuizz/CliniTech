@@ -58,7 +58,6 @@ public class CadastroMedico extends JDialog {
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Um erro crítico ocorreu :(", "Erro", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 
@@ -263,7 +262,7 @@ public class CadastroMedico extends JDialog {
 			}
 			return bos.toByteArray();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Erro ao converter a imagem do banco de dados");
 			return null;
 		}
 	}

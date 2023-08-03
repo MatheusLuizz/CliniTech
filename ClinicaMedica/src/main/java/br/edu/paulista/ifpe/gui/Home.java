@@ -74,7 +74,6 @@ public class Home extends JFrame {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Não foi possível exibir a tela Home", "Erro",
 							JOptionPane.ERROR_MESSAGE);
-					e.printStackTrace();
 				}
 			}
 		});

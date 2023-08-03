@@ -91,7 +91,6 @@ public class TelaExame extends JTable implements CadastroExameListener {
 			        } catch (Exception ex) {
 			            JOptionPane.showMessageDialog(null, "Erro ao excluir o exame", "Erro",
 			                    JOptionPane.ERROR_MESSAGE);
-			            ex.printStackTrace();
 			        }
 			    } else {
 			        JOptionPane.showMessageDialog(null, "Selecione um exame antes de excluir.");

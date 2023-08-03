@@ -87,7 +87,6 @@ public class CadastroPaciente extends JDialog {
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Não foi possível exibir a tela de cadastro", "Erro",
 							JOptionPane.ERROR_MESSAGE);
-					e.printStackTrace();
 				}
 			}
 		});
