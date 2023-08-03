@@ -509,13 +509,22 @@ public class Home extends JFrame {
              }
         });
         btnLogout.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				TelaLogin tl = new TelaLogin();
-				tl.setVisible(true);
-			}
-		});
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Tem certeza que você deseja sair?",
+                        "Confirmar log out",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (result == JOptionPane.YES_OPTION) {
+                    dispose();
+                    TelaLogin tl = new TelaLogin();
+                    tl.setVisible(true);
+                }
+            }
+        });
         
         btnInicio.setOpaque(false);
         btnInicio.setContentAreaFilled(false);

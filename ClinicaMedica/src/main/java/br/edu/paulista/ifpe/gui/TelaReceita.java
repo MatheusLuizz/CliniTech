@@ -62,7 +62,7 @@ public class TelaReceita extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaReceita frame = new TelaReceita();
+					TelaReceita frame = new TelaReceita(124);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -81,7 +81,7 @@ public class TelaReceita extends JDialog {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public TelaReceita() {
+	public TelaReceita(int id) {
 		super();
 		setModal(true);
 		setType(Type.UTILITY);
@@ -139,7 +139,6 @@ public class TelaReceita extends JDialog {
                     setCamposVisiveis(i, false);
                 }
 
-                // Exibir os campos conforme a quantidade selecionada
                 for (int i = 1; i <= num; i++) {
                     setCamposVisiveis(i, true);
                 }    

@@ -7,15 +7,21 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
 
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
+import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.data.ConnectionBD;
+import br.edu.paulista.ifpe.gui.CampoTextoFormatadoRedondo;
 import br.edu.paulista.ifpe.gui.PainelDegrade;
 
 @SuppressWarnings("serial")
@@ -96,37 +102,91 @@ public class MarcarExame extends JDialog {
 		lblNewLabel_4.setBounds(10, 142, 91, 13);
 		contentPane.add(lblNewLabel_4);
 		
-		txtIdPaciente = new JTextField();
+		txtIdPaciente = new CampoTextoRedondo(10);
 		txtIdPaciente.setBounds(137, 8, 96, 19);
 		contentPane.add(txtIdPaciente);
 		txtIdPaciente.setColumns(10);
 		
-		txtIdMedico = new JTextField();
+		txtIdMedico = new CampoTextoRedondo(10);
 		txtIdMedico.setBounds(137, 43, 96, 19);
 		contentPane.add(txtIdMedico);
 		txtIdMedico.setColumns(10);
 		
-		txtIdExame = new JTextField();
+		txtIdExame = new CampoTextoRedondo(10);
 		txtIdExame.setBounds(137, 74, 96, 19);
 		contentPane.add(txtIdExame);
 		txtIdExame.setColumns(10);
 		
-		txtData = new JTextField();
+		try {
+		    MaskFormatter mascaraData = new MaskFormatter("##/##/####");
+		    txtData = new CampoTextoFormatadoRedondo(mascaraData, 10);
+		    txtData.setFont(new Font("Arial", Font.BOLD, 12));
+
+		    txtData.setInputVerifier(new InputVerifier() {
+		        @Override
+		        public boolean verify(JComponent input) {
+		            CampoTextoFormatadoRedondo campoTexto = (CampoTextoFormatadoRedondo) input;
+		            String text = campoTexto.getText();
+		            String[] parts = text.split("/");
+		            
+		            if (parts.length != 3) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. O correto é: DD/MM/AAAA",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            int day, month;
+		            try {
+		                day = Integer.parseInt(parts[0]);
+		                month = Integer.parseInt(parts[1]);
+		            } catch (NumberFormatException e) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. O correto é: DD/MM/AAAA",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            if (month < 1 || month > 12 || day < 1 || day > 31) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. Digite um mês de 01 a 12 e um dia de 01 a 31",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            return true;
+		        }
+		    });
+		} catch (ParseException e) {
+		    JOptionPane.showMessageDialog(null, "Erro na formatação da data de nascimento. O correto é: DD/MM/AAAA",
+		        "Erro", JOptionPane.ERROR_MESSAGE);
+		}
 		txtData.setBounds(73, 107, 96, 19);
 		contentPane.add(txtData);
 		txtData.setColumns(10);
 		
-		txtHora = new JTextField();
+		try {
+			MaskFormatter mascaraHora = new MaskFormatter("##:##");
+			txtHora = new CampoTextoFormatadoRedondo(mascaraHora, 10);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro na formatação do horário", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
 		txtHora.setBounds(73, 140, 96, 19);
 		contentPane.add(txtHora);
 		txtHora.setColumns(10);
+		
+		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
+		limiteCaracteres.adicionarLimiteCaracteres(txtIdExame, 7);
+		limiteCaracteres.adicionarLimiteCaracteres(txtIdPaciente, 7);
+		limiteCaracteres.adicionarLimiteCaracteres(txtIdMedico, 7);
+		
 		btnCadastro.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				final int idPaciente = Integer.parseInt(txtIdPaciente.getText());
-				final int idMedico = Integer.parseInt(txtIdMedico.getText());
-				final int idExame = Integer.parseInt(txtIdExame.getText());
-				final String data = txtData.getText();
+				String pacienteIdStr = txtIdPaciente.getText();
+			    String medicoIdStr = txtIdMedico.getText();
+			    String exameIdStr = txtIdExame.getText();
+			    int idPaciente, idMedico, idExame;
+			    String dataDigitada = txtData.getText();
+			    String[] partesData = dataDigitada.split("/");
+			    String dataSQL = partesData[2] + "-" + partesData[1] + "-" + partesData[0];
 				final String  hora = txtHora.getText();
 				
 				if (txtIdPaciente.getText().isEmpty()) {
@@ -135,7 +195,7 @@ public class MarcarExame extends JDialog {
 					
 				} else if (txtIdExame.getText().isEmpty()){
 					
-				} else if (data.isEmpty()){
+				} else if (txtData.getText().isEmpty()){
 					
 				} else if (hora.isEmpty()){
 					
@@ -144,6 +204,14 @@ public class MarcarExame extends JDialog {
 		            Connection connection = connectionBD.abrir();
 
 		            if (connection != null) {
+		            	try {
+					        idPaciente = Integer.parseInt(pacienteIdStr);
+					        idMedico = Integer.parseInt(medicoIdStr);
+					        idExame = Integer.parseInt(exameIdStr);
+					    } catch (NumberFormatException ex) {
+					        JOptionPane.showMessageDialog(null, "IDs de paciente, médicos e exames devem ser números válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+					        return;
+					    }
 		                try {
 		                    String insertQuery = "INSERT INTO exame_marcado (id_paciente, id_medico, id_exame, data, hora) VALUES (?, ?, ?, ?, ?)";
 
@@ -151,7 +219,7 @@ public class MarcarExame extends JDialog {
 		                    preparedStatement.setInt(1, idPaciente);
 		                    preparedStatement.setInt(2, idMedico);
 		                    preparedStatement.setInt(3, idExame);
-		                    preparedStatement.setString(4, data);
+		                    preparedStatement.setString(4, dataSQL);
 		                    preparedStatement.setString(5, hora);
 
 		                    int linhasInseridas = preparedStatement.executeUpdate();
@@ -162,10 +230,9 @@ public class MarcarExame extends JDialog {
 		                        JOptionPane.showMessageDialog(null, "Falha ao marcar o exame.");
 		                    }
 
-		                } catch (NumberFormatException ex) {
-		                    JOptionPane.showMessageDialog(null, "Os IDs devem ser números inteiros.");
 		                } catch (SQLException ex) {
 		                    JOptionPane.showMessageDialog(null, "Erro ao marcar o exame: ");
+		                    ex.printStackTrace();
 		                } finally {
 		                    connectionBD.fechar();
 		                }

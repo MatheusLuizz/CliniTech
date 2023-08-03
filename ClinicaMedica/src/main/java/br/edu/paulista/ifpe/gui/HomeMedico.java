@@ -7,6 +7,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -31,6 +35,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
+import br.edu.paulista.ifpe.data.ConnectionBD;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaPaciente;
 import br.edu.paulista.ifpe.model.temas.Temas;
 import net.miginfocom.swing.MigLayout;
@@ -68,9 +73,36 @@ public class HomeMedico extends JFrame {
 			}
 		});
 	}
+	
+	public int getIdMedico() {
+        int idMedico = -1;  // Valor padrão caso não seja encontrado
+
+        ConnectionBD connectionBD = new ConnectionBD();
+        Connection connection = connectionBD.abrir();
+
+        if (connection != null) {
+            try {
+                String query = "SELECT id FROM medico WHERE nome = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, nomeAutenticado);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    idMedico = resultSet.getInt("id");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                connectionBD.fechar();
+            }
+        }
+
+        return idMedico;
+    }
 
 	public HomeMedico(String nomeAutenticado) {
         this.nomeAutenticado = nomeAutenticado;
+        int idMedico = getIdMedico();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -242,7 +274,7 @@ public class HomeMedico extends JFrame {
         });
         btnReceita.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                	TelaReceita tr = new TelaReceita();
+                	TelaReceita tr = new TelaReceita(idMedico);
                 	tr.setLocationRelativeTo(null);
                 	tr.setVisible(true);
         	}

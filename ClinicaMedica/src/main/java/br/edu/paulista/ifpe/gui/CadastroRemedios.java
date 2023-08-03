@@ -86,8 +86,8 @@ public class CadastroRemedios extends JDialog {
 		contentPane.add(btnCadastro);
 		
 		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
-		limiteCaracteres.adicionarLimiteCaracteres(txtNome, 200);
-		limiteCaracteres.adicionarLimiteCaracteres(txtApresentacao, 64);
+		limiteCaracteres.adicionarLimiteCaracteres(txtNome, 255);
+		limiteCaracteres.adicionarLimiteCaracteres(txtApresentacao, 255);
 		
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

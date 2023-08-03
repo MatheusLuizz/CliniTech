@@ -6,14 +6,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 
+import javax.swing.InputVerifier;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
 
+import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.data.ConnectionBD;
+import br.edu.paulista.ifpe.gui.CampoTextoFormatadoRedondo;
 import br.edu.paulista.ifpe.gui.PainelDegrade;
 
 @SuppressWarnings("serial")
@@ -22,13 +28,13 @@ public class MarcarConsulta extends JDialog {
 	private PainelDegrade contentPane;
 	private JButton btnCadastro;
 	private JLabel lblNewLabel;
-	private CampoTextoRedondo txtNomePaciente;
+	private CampoTextoRedondo txtIdPaciente;
 	private JLabel lblNewLabel_1;
-	private CampoTextoRedondo txtNomeMedico;
+	private CampoTextoRedondo txtIdMedico;
 	private JLabel lblNewLabel_2;
-	private CampoTextoRedondo txtHorario;
+	private CampoTextoFormatadoRedondo txtHorario;
 	private JLabel lblNewLabel_3;
-	private CampoTextoRedondo txtConsulta;
+	private CampoTextoFormatadoRedondo txtData;
 	private MarcarConsultasListener listener;
 	public void setListener(MarcarConsultasListener listener) {
         this.listener = listener;
@@ -52,6 +58,7 @@ public class MarcarConsulta extends JDialog {
 
 	/**
 	 * Create the dialog.
+	 * @throws ParseException 
 	 */
 	public MarcarConsulta() {
 		super();
@@ -73,33 +80,38 @@ public class MarcarConsulta extends JDialog {
 		contentPane.add(btnCadastro);
 		btnCadastro.addActionListener(e -> cadastrarConsulta());
 
-		lblNewLabel = new JLabel("Nome do paciente");
+		lblNewLabel = new JLabel("Id do Paciente");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel.setBounds(10, 10, 120, 13);
 		contentPane.add(lblNewLabel);
 
-		txtNomePaciente = new CampoTextoRedondo(10);
-		txtNomePaciente.setBounds(153, 7, 160, 19);
-		contentPane.add(txtNomePaciente);
-		txtNomePaciente.setColumns(10);
+		txtIdPaciente = new CampoTextoRedondo(10);
+		txtIdPaciente.setBounds(129, 7, 160, 19);
+		contentPane.add(txtIdPaciente);
+		txtIdPaciente.setColumns(10);
 
-		lblNewLabel_1 = new JLabel("Nome do médico");
+		lblNewLabel_1 = new JLabel("Id do médico");
 		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel_1.setBounds(10, 39, 120, 13);
 		contentPane.add(lblNewLabel_1);
 
-		txtNomeMedico = new CampoTextoRedondo(10);
-		txtNomeMedico.setBounds(153, 36, 160, 19);
-		contentPane.add(txtNomeMedico);
-		txtNomeMedico.setColumns(10);
+		txtIdMedico = new CampoTextoRedondo(10);
+		txtIdMedico.setBounds(129, 36, 160, 19);
+		contentPane.add(txtIdMedico);
+		txtIdMedico.setColumns(10);
 
-		lblNewLabel_2 = new JLabel("Horário da consulta");
+		lblNewLabel_2 = new JLabel("Horário ");
 		lblNewLabel_2.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel_2.setBounds(10, 68, 128, 13);
 		contentPane.add(lblNewLabel_2);
 
-		txtHorario = new CampoTextoRedondo(10);
-		txtHorario.setBounds(153, 65, 160, 19);
+		try {
+			MaskFormatter mascaraHora = new MaskFormatter("##:##");
+			txtHorario = new CampoTextoFormatadoRedondo(mascaraHora, 10);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro na formatação do horário", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		txtHorario.setBounds(128, 65, 160, 19);
 		contentPane.add(txtHorario);
 		txtHorario.setColumns(10);
 
@@ -107,101 +119,130 @@ public class MarcarConsulta extends JDialog {
 		lblNewLabel_3.setFont(new Font("Arial", Font.BOLD, 13));
 		lblNewLabel_3.setBounds(10, 97, 120, 13);
 		contentPane.add(lblNewLabel_3);
+		
+		try {
+		    MaskFormatter mascaraData = new MaskFormatter("##/##/####");
+		    txtData = new CampoTextoFormatadoRedondo(mascaraData, 10);
+		    txtData.setFont(new Font("Arial", Font.BOLD, 12));
 
-		txtConsulta = new CampoTextoRedondo(10);
-		txtConsulta.setBounds(153, 94, 160, 19);
-		contentPane.add(txtConsulta);
-		txtConsulta.setColumns(10);
+		    txtData.setInputVerifier(new InputVerifier() {
+		        @Override
+		        public boolean verify(JComponent input) {
+		            CampoTextoFormatadoRedondo campoTexto = (CampoTextoFormatadoRedondo) input;
+		            String text = campoTexto.getText();
+		            String[] parts = text.split("/");
+		            
+		            if (parts.length != 3) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. O correto é: DD/MM/AAAA",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            int day, month;
+		            try {
+		                day = Integer.parseInt(parts[0]);
+		                month = Integer.parseInt(parts[1]);
+		            } catch (NumberFormatException e) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. O correto é: DD/MM/AAAA",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            if (month < 1 || month > 12 || day < 1 || day > 31) {
+		                JOptionPane.showMessageDialog(null, "Data inválida. Digite um mês de 01 a 12 e um dia de 01 a 31",
+		                    "Erro", JOptionPane.ERROR_MESSAGE);
+		                return false;
+		            }
+
+		            return true;
+		        }
+		    });
+		} catch (ParseException e) {
+		    JOptionPane.showMessageDialog(null, "Erro na formatação da data de nascimento. O correto é: DD/MM/AAAA",
+		        "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+
+		txtData.setBounds(128, 94, 160, 19);
+		contentPane.add(txtData);
+		txtData.setColumns(10);
 		connectionBD = new ConnectionBD();
+		
+		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
+		limiteCaracteres.adicionarLimiteCaracteres(txtIdMedico, 7);
+		limiteCaracteres.adicionarLimiteCaracteres(txtIdPaciente, 7);
+		
 	}
 
 	private void cadastrarConsulta() {
-		String nomePaciente = txtNomePaciente.getText();
-		String nomeMedico = txtNomeMedico.getText();
-		String horario = txtHorario.getText();
-		String dataConsulta = txtConsulta.getText();
+		String pacienteIdStr = txtIdPaciente.getText();
+	    String medicoIdStr = txtIdMedico.getText();
+	    int idPaciente, idMedico;
+	    String horario = txtHorario.getText();
+	    
+	    String dataDigitada = txtData.getText();
+	    String[] partesData = dataDigitada.split("/");
+	    String dataSQL = partesData[2] + "-" + partesData[1] + "-" + partesData[0];
+	    
+	    try {
+	        idPaciente = Integer.parseInt(pacienteIdStr);
+	        idMedico = Integer.parseInt(medicoIdStr);
+	    } catch (NumberFormatException ex) {
+	        JOptionPane.showMessageDialog(this, "IDs de paciente e médico devem ser números válidos.", "Erro", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
 
-		if (nomePaciente.isEmpty() || nomeMedico.isEmpty() || horario.isEmpty() || dataConsulta.isEmpty()) {
-			JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios", "Erro", JOptionPane.ERROR_MESSAGE);
-			return;
-		}
+	    if (txtIdPaciente.getText().isEmpty() || txtIdMedico.getText().isEmpty() || horario.isEmpty() || dataDigitada.isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "Todos os campos são obrigatórios", "Erro", JOptionPane.ERROR_MESSAGE);
+	        return;
+	    }
 
-		try {
-			Connection connection = connectionBD.abrir();
+	    try {
+	        Connection connection = connectionBD.abrir();
 
-			int idPaciente = obterIdPaciente(connection, nomePaciente);
-			int idMedico = obterIdMedico(connection, nomeMedico);
+	        String medicoExistsQuery = "SELECT id FROM medico WHERE id = ?";
+	        try (PreparedStatement existsStmt = connection.prepareStatement(medicoExistsQuery)) {
+	            existsStmt.setInt(1, idMedico);
+	            try (ResultSet rs = existsStmt.executeQuery()) {
+	                if (!rs.next()) {
+	                    JOptionPane.showMessageDialog(this, "O médico com o ID informado não existe.", "Erro", JOptionPane.ERROR_MESSAGE);
+	                    connectionBD.fechar();
+	                    return;
+	                }
+	            }
+	        }
 
-			if (idPaciente == -1) {
-				JOptionPane.showMessageDialog(this, "Paciente não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+	        String pacienteExistsQuery = "SELECT id FROM paciente WHERE id = ?";
+	        try (PreparedStatement existsStmt = connection.prepareStatement(pacienteExistsQuery)) {
+	            existsStmt.setInt(1, idPaciente);
+	            try (ResultSet rs = existsStmt.executeQuery()) {
+	                if (!rs.next()) {
+	                    JOptionPane.showMessageDialog(this, "O paciente com o ID informado não existe.", "Erro", JOptionPane.ERROR_MESSAGE);
+	                    connectionBD.fechar();
+	                    return;
+	                }
+	            }
+	        }
 
-			if (idMedico == -1) {
-				JOptionPane.showMessageDialog(this, "Médico não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+	        String insertQuery = "INSERT INTO consulta (id_paciente, id_medico, hora, data) VALUES (?, ?, ?, ?)";
+	        try (PreparedStatement insertStmt = connection.prepareStatement(insertQuery)) {
+	            insertStmt.setInt(1, idPaciente);
+	            insertStmt.setInt(2, idMedico);
+	            insertStmt.setString(3, horario);
+	            insertStmt.setString(4, dataSQL);
+	            insertStmt.executeUpdate();
+	        }
 
-			inserirConsulta(connection, idPaciente, idMedico, horario, dataConsulta);
+	        connectionBD.fechar();
 
-			connectionBD.fechar();
-
-			JOptionPane.showMessageDialog(this, "Consulta cadastrada com sucesso!", "Sucesso",
-					JOptionPane.INFORMATION_MESSAGE);
-			if (listener != null) {
-                listener.consultaCadastrada();
-            }
-			dispose();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, "Erro ao cadastrar a consulta.", "Erro", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
-	}
-
-	private int obterIdPaciente(Connection connection, String nomePaciente) throws SQLException {
-		String query = "SELECT id FROM paciente WHERE nome = ?";
-
-		try (PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setString(1, nomePaciente);
-
-			try (ResultSet rs = stmt.executeQuery()) {
-				if (rs.next()) {
-					return rs.getInt("id");
-				} else {
-					return -1;
-				}
-			}
-		}
-	}
-
-	private int obterIdMedico(Connection connection, String nomeMedico) throws SQLException {
-		String query = "SELECT id FROM medico WHERE nome = ?";
-
-		try (PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setString(1, nomeMedico);
-
-			try (ResultSet rs = stmt.executeQuery()) {
-				if (rs.next()) {
-					return rs.getInt("id");
-				} else {
-					return -1;
-				}
-			}
-		}
-	}
-
-	private void inserirConsulta(Connection connection, int idPaciente, int idMedico, String horario,
-			String dataConsulta) throws SQLException {
-		String query = "INSERT INTO consulta (id_paciente, id_medico, hora, data) VALUES (?, ?, ?, ?)";
-
-		try (PreparedStatement stmt = connection.prepareStatement(query)) {
-			stmt.setInt(1, idPaciente);
-			stmt.setInt(2, idMedico);
-			stmt.setString(3, horario);
-			stmt.setString(4, dataConsulta);
-
-			stmt.executeUpdate();
-
-		}
+	        JOptionPane.showMessageDialog(this, "Consulta cadastrada com sucesso!", "Sucesso",
+	                JOptionPane.INFORMATION_MESSAGE);
+	        if (listener != null) {
+	            listener.consultaCadastrada();
+	        }
+	        dispose();
+	    } catch (SQLException e) {
+	        JOptionPane.showMessageDialog(this, "Erro ao cadastrar a consulta.", "Erro", JOptionPane.ERROR_MESSAGE);
+	        e.printStackTrace();
+	    }
 	}
 }

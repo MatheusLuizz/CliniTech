@@ -102,7 +102,7 @@ public class TelaConsulta extends JTable {
 			                    model.fireTableDataChanged();
 			                }
 			            } else if (i == JOptionPane.NO_OPTION) {
-			                JOptionPane.showMessageDialog(null, "Você cancelou a consulta com sucesso");
+			                JOptionPane.showMessageDialog(null, "Você cancelou com sucesso");
 			            }
 
 			        } catch (Exception ex) {

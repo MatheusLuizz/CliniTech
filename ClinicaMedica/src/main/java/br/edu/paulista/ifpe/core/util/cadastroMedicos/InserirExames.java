@@ -20,7 +20,7 @@ public class InserirExames {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 					"Erro ao inserir os dados no banco de dados. Por favor, tente novamente.");
-			
+			e.printStackTrace();
 		} finally {
 			conn.fechar();
 		}

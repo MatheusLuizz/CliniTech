@@ -59,6 +59,7 @@ public class CadastroMedico extends JDialog {
 			dialog.setVisible(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Um erro crítico ocorreu :(", "Erro", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
 
@@ -155,11 +156,17 @@ public class CadastroMedico extends JDialog {
 		txtEspecialidade.setBounds(137, 163, 96, 19);
 		contentPane.add(txtEspecialidade);
 		txtEspecialidade.setColumns(10);
+		
+		txtSenha = new CampoTextoRedondo(10);
+		txtSenha.setBounds(249, 22, 96, 19);
+		contentPane.add(txtSenha);
+		txtSenha.setColumns(10);
 
 		// Definindo limite de caracteres nos campos de texto
 		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
 		limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtEspecialidade, 100);
+		limiteCaracteres.adicionarLimiteCaracteres(txtSenha, 45);
 
 		btnCadastro = new JButton("Cadastrar");
 		btnCadastro.setToolTipText("Finalizar cadastro");
@@ -192,11 +199,6 @@ public class CadastroMedico extends JDialog {
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_7.setBounds(188, 25, 51, 13);
 		contentPane.add(lblNewLabel_7);
-		
-		txtSenha = new CampoTextoRedondo(10);
-		txtSenha.setBounds(249, 22, 96, 19);
-		contentPane.add(txtSenha);
-		txtSenha.setColumns(10);
 
 		btnCadastro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
