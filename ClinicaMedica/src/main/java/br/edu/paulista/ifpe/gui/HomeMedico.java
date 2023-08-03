@@ -36,8 +36,11 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import br.edu.paulista.ifpe.data.ConnectionBD;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.RequisicaoDeExames;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaPaciente;
+import br.edu.paulista.ifpe.gui.componentesCustomizados.PainelDegrade;
+import br.edu.paulista.ifpe.gui.componentesCustomizados.TelaInicioMedico;
+import br.edu.paulista.ifpe.gui.dialogos.RequisicaoDeExames;
+import br.edu.paulista.ifpe.gui.dialogos.TelaReceita;
+import br.edu.paulista.ifpe.gui.tabelas.TelaPaciente;
 import br.edu.paulista.ifpe.model.temas.Temas;
 import net.miginfocom.swing.MigLayout;
 

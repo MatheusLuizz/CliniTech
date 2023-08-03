@@ -6,7 +6,7 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.PainelAcao;
+import br.edu.paulista.ifpe.gui.componentesCustomizados.PainelAcao;
 import br.edu.paulista.ifpe.model.entidades.Exame;
 
 @SuppressWarnings("serial")

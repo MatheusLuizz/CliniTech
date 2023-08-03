@@ -24,7 +24,7 @@ import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 
-import br.edu.paulista.ifpe.gui.PainelDegrade;
+import br.edu.paulista.ifpe.gui.componentesCustomizados.PainelDegrade;
 
 public class Temas {
 	private static boolean modoEscuroAtivado = false;

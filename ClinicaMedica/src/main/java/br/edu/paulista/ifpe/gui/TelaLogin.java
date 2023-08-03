@@ -22,7 +22,8 @@ import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 
 import br.edu.paulista.ifpe.data.ConnectionBD;
-import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CadastroOperador;
+import br.edu.paulista.ifpe.gui.componentesCustomizados.ComboBoxCustomizada;
+import br.edu.paulista.ifpe.gui.dialogos.CadastroOperador;
 
 @SuppressWarnings("serial")
 public class TelaLogin extends JFrame {
