@@ -43,6 +43,7 @@ public class CadastroOperador extends JDialog {
 	}
 
 	public CadastroOperador() {
+		setResizable(false);
 		setTitle("Cadastro de operador");
 		setLocationRelativeTo(null);
 		contentPane.setColors(new Color(0, 128, 255), new Color(50, 205, 50));
