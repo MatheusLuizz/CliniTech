@@ -4,13 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,7 +16,6 @@ import javax.swing.table.TableModel;
 
 import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroRemedioListener;
 import br.edu.paulista.ifpe.data.RemediosDAO;
-import br.edu.paulista.ifpe.gui.CadastroRemedios;
 import br.edu.paulista.ifpe.model.entidades.Remedio;
 import br.edu.paulista.ifpe.model.tablemodel.RemedioTableModel;
 
@@ -59,60 +54,12 @@ public class TelaRemedio extends JPanel implements CadastroRemedioListener {
 		tabela.setFont(new Font("Arial", Font.PLAIN, 12));
 		tabela.setRowHeight(40);
 		scrollPane.setViewportView(tabela);
-		//RemediosDAO dao = new RemediosDAO();
-		/*TableActionEvent evento = new TableActionEvent() {
-			
-			@Override
-			public void onView(int linha) {
-				System.out.println("Visualizando linha: " + linha);
-				
-			}
-			
-			@Override
-			public void onEdit(int linha) {
-				System.out.println("Editando linha: " + linha);
-			}
-			
-			@Override
-			public void onDelete(int linha) {
-			    int selectedRow = tabela.getSelectedRow();
-			    if (selectedRow >= 0) {
-			        RemedioTableModel model = (RemedioTableModel) tabela.getModel();
-			        Remedio remedio = model.getRemedio(selectedRow);
 
-			        try {
-			            int i = JOptionPane.showConfirmDialog(null, "Deseja excluir o remédio selecionado?");
-			            if (i == JOptionPane.YES_OPTION) {
-			                boolean exclusaoBemSucedida = dao.excluir(remedio);
-			                if (exclusaoBemSucedida) {
-			                	JOptionPane.showMessageDialog(null, "Você excluiu o remédio com sucesso");
-			                    model.removeRemedioAt(selectedRow);
-			                    // Atualizar a tabela
-			                    model.fireTableDataChanged();
-			                }
-			            } else if (i == JOptionPane.NO_OPTION) {
-			                JOptionPane.showMessageDialog(null, "Você cancelou a exclusão com sucesso");
-			            }
-
-			        } catch (Exception ex) {
-			            JOptionPane.showMessageDialog(null, "Erro ao excluir o remédio", "Erro",
-			                    JOptionPane.ERROR_MESSAGE);
-			            ex.printStackTrace();
-			        }
-			    } else {
-			        JOptionPane.showMessageDialog(null, "Selecione um remédio antes de excluir.");
-			    }
-			}
-	        
-	    }; */
-		//tabela.getColumnModel().getColumn(3).setCellRenderer(new TableActionCellRender());
-		//tabela.getColumnModel().getColumn(3).setCellEditor(new TabelaAcaoCellEditor(tabela, evento));
-		
-		
 	}
+
 	public void remedioCadastrado() {
-        atualizar();
-    }
+		atualizar();
+	}
 
 	public JTable getTabela() {
 		return tabela;

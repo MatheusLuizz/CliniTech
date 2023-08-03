@@ -51,13 +51,11 @@ public class TelaReceita extends JDialog {
 	private JTextField txtDosagem4;
 	private JTextField txtDosagem5;
 	private JButton btnGerar;
+	@SuppressWarnings("unused")
 	private int idMedico;
 	private GeradorReceitaMedica geradorReceita = new GeradorReceitaMedica();
 	private final JPanel panel = new JPanel();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -114,7 +112,7 @@ public class TelaReceita extends JDialog {
 		lblQuantidade.setBounds(21, 82, 169, 13);
 		contentPane.add(lblQuantidade);
 		
-		boxQuantidade = new ComboBoxModerna();
+		boxQuantidade = new ComboBoxCustomizada();
 		boxQuantidade.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
 		boxQuantidade.setSelectedIndex(0);
 		boxQuantidade.setFont(new Font("Arial", Font.BOLD, 12));
@@ -243,7 +241,6 @@ public class TelaReceita extends JDialog {
 		txtDosagem1.setColumns(10);
 		txtDosagem1.setName("txtDosagem1");
 
-		
 		txtDosagem2 = new CampoTextoRedondo(10);
 		txtDosagem2.setBounds(292, 59, 96, 19);
 		panel.add(txtDosagem2);
@@ -301,7 +298,6 @@ public class TelaReceita extends JDialog {
 		        String valorSelecionadoStr = (String) boxQuantidade.getSelectedItem();
 		        String paciente = txtPaciente.getText();
 		        int num = Integer.parseInt(valorSelecionadoStr);
-
 		        // Crie os arrays para armazenar os nomes e dosagens dos remédios
 		        String[] remedios = new String[num];
 		        String[] dosagens = new String[num];

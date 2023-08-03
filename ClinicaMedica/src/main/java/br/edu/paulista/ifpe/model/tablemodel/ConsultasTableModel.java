@@ -13,8 +13,8 @@ import br.edu.paulista.ifpe.model.entidades.Consulta;
 public class ConsultasTableModel extends AbstractTableModel {
 
 	private Vector<String> colunas;
-    private Vector<Vector<Object>> linhas;
-    private List<Consulta> consultas;
+	private Vector<Vector<Object>> linhas;
+	private List<Consulta> consultas;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public ConsultasTableModel() {
@@ -46,47 +46,42 @@ public class ConsultasTableModel extends AbstractTableModel {
 		String nomeColuna = (String) colunas.get(coluna);
 		return nomeColuna;
 	}
+
 	public Class<?> getColumnClass(int coluna) {
-        if (coluna == 5) { // Coluna de Ações
-            return PainelAcao.class;
-        }
-        return String.class;
-    }
+		if (coluna == 5) {
+			return PainelAcao.class;
+		}
+		return String.class;
+	}
 
 	public Object getValueAt(int linha, int coluna) {
-        if (coluna == 5) { // Coluna de Ações
-            return null; // Retorna null para a coluna de ações
-        }
-        // Retorne os valores das outras colunas da tabela
-        return linhas.get(linha).get(coluna);
-    }
+		if (coluna == 5) {
+			return null;
+		}
+		return linhas.get(linha).get(coluna);
+	}
 
 	public boolean isCellEditable(int row, int column) {
-        return column == 5; // Permite a edição somente na coluna de ações
-    }
+		return column == 5;
+	}
 
-	@SuppressWarnings({ })
+	@SuppressWarnings({})
 	public void adicionar(List<Consulta> lista) {
-		// Reinicializa os dados da tabela
 		linhas = new Vector<>();
-        consultas = new ArrayList<>(lista);
-		// Percorre a lista copiando os dados para a tabela
-        for (Consulta c : lista) {
+		consultas = new ArrayList<>(lista);
+		for (Consulta c : lista) {
 
-            // Cria uma linha da tabela
-            Vector<Object> linha = new Vector<>();
-            linha.add(c.getId());
-            linha.add(c.getNomePaciente());
-            linha.add(c.getNomeMedico());
-            linha.add(c.getData());
-            linha.add(c.getHorario());
-            
-            // A coluna de Ações não receberá dados do banco, por isso não é adicionado nada aqui
-            linhas.add(linha);
-        }
-        // Atualiza a tabela
-        fireTableDataChanged();
-    }
+			Vector<Object> linha = new Vector<>();
+			linha.add(c.getId());
+			linha.add(c.getNomePaciente());
+			linha.add(c.getNomeMedico());
+			linha.add(c.getData());
+			linha.add(c.getHorario());
+
+			linhas.add(linha);
+		}
+		fireTableDataChanged();
+	}
 
 	public void limpar() {
 		int rowCount = linhas.size();
@@ -95,29 +90,30 @@ public class ConsultasTableModel extends AbstractTableModel {
 			fireTableRowsDeleted(0, rowCount - 1);
 		}
 	}
+
 	public List<Consulta> getConsultas() {
-        return consultas;
-    }
+		return consultas;
+	}
+
 	public Consulta getConsulta(int row) {
-        // Obter o objeto Medico correspondente à linha selecionada (row)
-        if (row >= 0 && row < linhas.size()) {
-            Vector<Object> linha = linhas.get(row);
-            if (linha != null && linha.size() > 3) {
-                String idConsulta = (String) linha.get(0);
-                for (Consulta consulta : consultas) {
-                    if (consulta.getId().equals(idConsulta)) {
-                        return consulta;
-                    }
-                }
-            }
-        }
-        return null;
-    }
+		if (row >= 0 && row < linhas.size()) {
+			Vector<Object> linha = linhas.get(row);
+			if (linha != null && linha.size() > 3) {
+				String idConsulta = (String) linha.get(0);
+				for (Consulta consulta : consultas) {
+					if (consulta.getId().equals(idConsulta)) {
+						return consulta;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	public void removeConsultaAt(int row) {
-        // Remover o objeto Medico da lista de médicos
-        if (row >= 0 && row < linhas.size()) {
-            linhas.remove(row);
-            fireTableRowsDeleted(row, row); // Notifica a tabela da remoção da linha
-        }
-    }
+		if (row >= 0 && row < linhas.size()) {
+			linhas.remove(row);
+			fireTableRowsDeleted(row, row);
+		}
+	}
 }

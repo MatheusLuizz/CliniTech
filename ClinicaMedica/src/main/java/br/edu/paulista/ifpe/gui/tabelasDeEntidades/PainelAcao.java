@@ -12,54 +12,62 @@ import br.edu.paulista.ifpe.core.BotaoAcao;
 
 @SuppressWarnings("serial")
 public class PainelAcao<T> extends JPanel {
-    private BotaoAcao btnVisualizar;
-    private BotaoAcao btnExcluir;
-    private Object objeto;
-    private TableActionEvent evento;
-    private String idMedico;
+	private BotaoAcao btnVisualizar;
+	private BotaoAcao btnExcluir;
+	@SuppressWarnings("unused")
+	private Object objeto;
+	@SuppressWarnings("unused")
+	private TableActionEvent evento;
+	@SuppressWarnings("unused")
+	private String idMedico;
 
-    public void setIdMedico(String idMedico) {
-        this.idMedico = idMedico;
-    }
-    private String idPaciente;
-    public void setIdPaciente(String idPaciente) {
-    	this.idPaciente = idPaciente;
-    }
-	
+	public void setIdMedico(String idMedico) {
+		this.idMedico = idMedico;
+	}
+
+	@SuppressWarnings("unused")
+	private String idPaciente;
+
+	public void setIdPaciente(String idPaciente) {
+		this.idPaciente = idPaciente;
+	}
+
 	public PainelAcao() {
 		setBackground(new Color(255, 255, 255));
-		
+
 		btnVisualizar = new BotaoAcao();
-		btnVisualizar.setIcon(new ImageIcon(PainelAcao.class.getResource("/br/edu/paulista/ifpe/model/images/view.png")));
-		
+		btnVisualizar
+				.setIcon(new ImageIcon(PainelAcao.class.getResource("/br/edu/paulista/ifpe/model/images/view.png")));
+
 		add(btnVisualizar);
-		
+
 		btnExcluir = new BotaoAcao();
-		btnExcluir.setIcon(new ImageIcon(PainelAcao.class.getResource("/br/edu/paulista/ifpe/model/images/delete.png")));
-		
+		btnExcluir
+				.setIcon(new ImageIcon(PainelAcao.class.getResource("/br/edu/paulista/ifpe/model/images/delete.png")));
+
 		add(btnExcluir);
 	}
-	public JPanel getPanel () {
+
+	public JPanel getPanel() {
 		return this;
 	}
+
 	public void initEvent(JTable table, TableActionEvent evento, int linha) {
-        this.evento = evento;
-        
+		this.evento = evento;
 
-        btnVisualizar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                evento.onView(table.getEditingRow());
-            }
-        });
+		btnVisualizar.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				evento.onView(table.getEditingRow());
+			}
+		});
 
-        btnExcluir.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                evento.onDelete(table.getEditingRow());
-            }
-        });
-    }
+		btnExcluir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				evento.onDelete(table.getEditingRow());
+			}
+		});
+	}
 
-	
 }

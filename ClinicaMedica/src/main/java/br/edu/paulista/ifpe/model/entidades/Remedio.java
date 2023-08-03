@@ -4,7 +4,7 @@ public class Remedio {
 	private String nome;
 	private String apresentacao;
 	private String id;
-	
+
 	public String getId() {
 		return id;
 	}

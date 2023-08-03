@@ -39,24 +39,25 @@ public class MedicoDAO {
 
 		return lista;
 	}
+
 	public boolean excluir(Medico medico) {
-	    try {
-	        String sql = "DELETE FROM medico WHERE id = ?";
-	        ConnectionBD connectionBD = new ConnectionBD();
-	        Connection conn = connectionBD.abrir();
+		try {
+			String sql = "DELETE FROM medico WHERE id = ?";
+			ConnectionBD connectionBD = new ConnectionBD();
+			Connection conn = connectionBD.abrir();
 
-	        PreparedStatement comando = conn.prepareStatement(sql);
-	        comando.setString(1, medico.getId());
-	        comando.executeUpdate();
+			PreparedStatement comando = conn.prepareStatement(sql);
+			comando.setString(1, medico.getId());
+			comando.executeUpdate();
 
-	        comando.close();
-	        conn.close();
-	        return true;
-	    } catch (SQLIntegrityConstraintViolationException e) {
-	        JOptionPane.showMessageDialog(null, "Você não pode excluir um médico com consultas marcadas");
-	    } catch (Exception ex) {
-	    	JOptionPane.showMessageDialog(null, "Erro ao excluir o médico");
-	    }
-	    return false;
+			comando.close();
+			conn.close();
+			return true;
+		} catch (SQLIntegrityConstraintViolationException e) {
+			JOptionPane.showMessageDialog(null, "Você não pode excluir um médico com consultas marcadas");
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao excluir o médico");
+		}
+		return false;
 	}
 }

@@ -6,14 +6,13 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.edu.paulista.ifpe.data.PacienteDAO;
 import br.edu.paulista.ifpe.model.entidades.Paciente;
 
 @SuppressWarnings("serial")
 public class DetalhesPacienteTableModel extends AbstractTableModel {
 	private Vector<String> colunas;
-    private Vector<Vector<Object>> linhas;
-    private List<Paciente> pacientes;
+	private Vector<Vector<Object>> linhas;
+	private List<Paciente> pacientes;
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public DetalhesPacienteTableModel() {
@@ -51,41 +50,35 @@ public class DetalhesPacienteTableModel extends AbstractTableModel {
 		String nomeColuna = (String) colunas.get(coluna);
 		return nomeColuna;
 	}
+
 	@Override
 	public Class<?> getColumnClass(int coluna) {
-	    if (coluna == 11) { // Coluna "Próximos Passos"
-	        return String.class; // Define a classe da coluna como String para acomodar quebras de linha
-	    }
-	    return String.class;
+		if (coluna == 11) {
+			return String.class;
+		}
+		return String.class;
 	}
 
 	@Override
 	public Object getValueAt(int linha, int coluna) {
-	    
 
-	    if (coluna == 11) { // Coluna "Próximos Passos"
-	        Object valor = linhas.get(linha).get(coluna);
-	        if (valor != null) {
-	            return "<html>" + valor.toString().replaceAll("\\n", "<br/>") + "</html>"; // Utiliza <br/> para quebras de linha
-	        }
-	        return null;
-	    }
+		if (coluna == 11) { // Coluna "Próximos Passos"
+			Object valor = linhas.get(linha).get(coluna);
+			if (valor != null) {
+				return "<html>" + valor.toString().replaceAll("\\n", "<br/>") + "</html>";
+			}
+			return null;
+		}
 
-	    // Retorne os valores das outras colunas da tabela
-	    return linhas.get(linha).get(coluna);
+		return linhas.get(linha).get(coluna);
 	}
-
-    
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void adicionar(List<Paciente> lista) {
-		// Reinicializa os dados da tabela
 		linhas = new Vector<>();
-        pacientes = new ArrayList<>(lista);
-		// Percorre a lista copiando os dados para a tabela
+		pacientes = new ArrayList<>(lista);
 		for (Paciente p : lista) {
 
-			// Cria uma linha da tabela
 			Vector<Object> linha = new Vector();
 			linha.add(p.getId());
 			linha.add(p.getNome());
@@ -100,53 +93,48 @@ public class DetalhesPacienteTableModel extends AbstractTableModel {
 			linha.add(p.getHistoricoObservacoes());
 			linha.add(p.getHistoricoProximosPassos());
 			linha.add(p.getHistoricoRemedio());
-			// Adiciona a linha a tabela
 			linhas.add(linha);
 		}
-		// Atualiza a tabela
 		fireTableDataChanged();
 	}
-	public void adicionar1(Paciente paciente) {
-	    if (paciente != null) {
-	        // Procura se o paciente já existe na tabela
-	        int index = -1;
-	        for (int i = 0; i < linhas.size(); i++) {
-	            Vector<Object> linha = linhas.get(i);
-	            if (linha != null && linha.size() > 0) {
-	                String idPacienteTabela = (String) linha.get(0);
-	                if (idPacienteTabela.equals(paciente.getId())) {
-	                    index = i;
-	                    break;
-	                }
-	            }
-	        }
 
-	        if (index >= 0) {
-	            // Paciente já existe na tabela, então atualiza os dados
-	            Vector<Object> linha = linhas.get(index);
-	            linha.set(11, paciente.getHistoricoProximosPassos()); // Atualiza a coluna de "Próximos Passos"
-	        } else {
-	        Vector<Object> novaLinha = new Vector<>();
-	        novaLinha.add(paciente.getId());
-	        novaLinha.add(paciente.getNome());
-	        novaLinha.add(paciente.getCpf());
-	        novaLinha.add(paciente.getTelefone());
-	        novaLinha.add(paciente.getNascimento());
-	        novaLinha.add(paciente.getSexo());
-	        novaLinha.add(paciente.getEstadoCivil());
-	        novaLinha.add(paciente.getNomeMae());
-	        novaLinha.add(paciente.getCidade());
-	        novaLinha.add(paciente.getBairro());
-	        novaLinha.add(paciente.getHistoricoObservacoes());
-	        novaLinha.add(paciente.getHistoricoProximosPassos());
-	        novaLinha.add(paciente.getHistoricoRemedio());
-	        // Adiciona a nova linha à tabela
-	        linhas.add(novaLinha);
-	        }
-	        // Atualiza a tabela
-	        fireTableDataChanged();
-	    
-	    }
+	public void adicionar1(Paciente paciente) {
+		if (paciente != null) {
+			int index = -1;
+			for (int i = 0; i < linhas.size(); i++) {
+				Vector<Object> linha = linhas.get(i);
+				if (linha != null && linha.size() > 0) {
+					String idPacienteTabela = (String) linha.get(0);
+					if (idPacienteTabela.equals(paciente.getId())) {
+						index = i;
+						break;
+					}
+				}
+			}
+
+			if (index >= 0) {
+				Vector<Object> linha = linhas.get(index);
+				linha.set(11, paciente.getHistoricoProximosPassos());
+			} else {
+				Vector<Object> novaLinha = new Vector<>();
+				novaLinha.add(paciente.getId());
+				novaLinha.add(paciente.getNome());
+				novaLinha.add(paciente.getCpf());
+				novaLinha.add(paciente.getTelefone());
+				novaLinha.add(paciente.getNascimento());
+				novaLinha.add(paciente.getSexo());
+				novaLinha.add(paciente.getEstadoCivil());
+				novaLinha.add(paciente.getNomeMae());
+				novaLinha.add(paciente.getCidade());
+				novaLinha.add(paciente.getBairro());
+				novaLinha.add(paciente.getHistoricoObservacoes());
+				novaLinha.add(paciente.getHistoricoProximosPassos());
+				novaLinha.add(paciente.getHistoricoRemedio());
+				linhas.add(novaLinha);
+			}
+			fireTableDataChanged();
+
+		}
 	}
 
 	public void limpar() {
@@ -156,32 +144,35 @@ public class DetalhesPacienteTableModel extends AbstractTableModel {
 			fireTableRowsDeleted(0, rowCount - 1);
 		}
 	}
+
 	public List<Paciente> getPacientes() {
-        return pacientes;
-    }
-	public String getIdPaciente() {
-		return (String) getValueAt(0,0);
+		return pacientes;
 	}
-    public Paciente getPaciente(int row) {
-        // Obter o objeto Medico correspondente à linha selecionada (row)
-        if (row >= 0 && row < linhas.size()) {
-            Vector<Object> linha = linhas.get(row);
-            if (linha != null && linha.size() > 4) {
-                String idPaciente = (String) linha.get(0);
-                for (Paciente paciente : pacientes) {
-                    if (paciente.getId().equals(idPaciente)) {
-                        return paciente;
-                    }
-                }
-            }
-        }
-        return null;
-    }
-    public void removePacienteAt(int row) {
-        if (row >= 0 && row < linhas.size()) {
-            linhas.remove(row);
-            fireTableRowsDeleted(row, row); // Notifica a tabela da remoção da linha
-        }
-    }
+
+	public String getIdPaciente() {
+		return (String) getValueAt(0, 0);
+	}
+
+	public Paciente getPaciente(int row) {
+		if (row >= 0 && row < linhas.size()) {
+			Vector<Object> linha = linhas.get(row);
+			if (linha != null && linha.size() > 4) {
+				String idPaciente = (String) linha.get(0);
+				for (Paciente paciente : pacientes) {
+					if (paciente.getId().equals(idPaciente)) {
+						return paciente;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public void removePacienteAt(int row) {
+		if (row >= 0 && row < linhas.size()) {
+			linhas.remove(row);
+			fireTableRowsDeleted(row, row);
+		}
+	}
 
 }

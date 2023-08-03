@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import br.edu.paulista.ifpe.data.ConnectionBD;
 
 public class InserirPaciente {
-	@SuppressWarnings("static-access")
 	public void inserirDados(String nome, String cpf, String rg, String telefone, String email, String rua,
 			String numero, String complemento, String bairro, String cep, String cidade, String uf, String nascimento,
 			String sexo, String estadoCivil, String nomePai, String nomeMae) {

@@ -7,6 +7,7 @@ public class Exame {
 	private String data;
 	private String hora;
 	private String idExame;
+
 	public String getIdExame() {
 		return idExame;
 	}
@@ -56,6 +57,7 @@ public class Exame {
 	}
 
 	private String tipoExame;
+
 	public String getId() {
 		return id;
 	}

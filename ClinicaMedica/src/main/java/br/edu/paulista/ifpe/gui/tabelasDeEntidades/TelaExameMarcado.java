@@ -17,7 +17,6 @@ import br.edu.paulista.ifpe.data.ExameMarcadoDAO;
 import br.edu.paulista.ifpe.data.ExamesDAO;
 import br.edu.paulista.ifpe.model.entidades.Exame;
 import br.edu.paulista.ifpe.model.tablemodel.ExameMarcadoTableModel;
-import br.edu.paulista.ifpe.model.tablemodel.ExameTableModel;
 
 @SuppressWarnings("serial")
 public class TelaExameMarcado extends JTable {
@@ -39,6 +38,7 @@ public class TelaExameMarcado extends JTable {
 		});
 	}
 
+	@SuppressWarnings("unused")
 	public TelaExameMarcado() {
 		setBounds(100, 100, 800, 500);
 		setLayout(new BorderLayout());
@@ -56,50 +56,50 @@ public class TelaExameMarcado extends JTable {
 		scrollPane.setViewportView(tabela);
 		ExamesDAO dao = new ExamesDAO();
 		TableActionEvent evento = new TableActionEvent() {
-			
+
 			@Override
 			public void onView(int linha) {
 				System.out.println("Visualizando linha: " + linha);
-				
+
 			}
-			
+
 			@Override
 			public void onEdit(int linha) {
 				System.out.println("Editando linha: " + linha);
 			}
-			
+
 			@Override
 			public void onDelete(int linha) {
-			    int selectedRow = tabela.getSelectedRow();
-			    if (selectedRow >= 0) {
-			        ExameMarcadoTableModel model = (ExameMarcadoTableModel) tabela.getModel();
-			        Exame exame = model.getExame(selectedRow);
+				int selectedRow = tabela.getSelectedRow();
+				if (selectedRow >= 0) {
+					ExameMarcadoTableModel model = (ExameMarcadoTableModel) tabela.getModel();
+					Exame exame = model.getExame(selectedRow);
 
-			        try {
-			            int i = JOptionPane.showConfirmDialog(null, "Deseja excluir o exame selecionado?");
-			            if (i == JOptionPane.YES_OPTION) {
-			                boolean exclusaoBemSucedida = dao.excluir(exame);
-			                if (exclusaoBemSucedida) {
-			                	JOptionPane.showMessageDialog(null, "Você excluiu o exame com sucesso");
-			                    model.removeExameAt(selectedRow);
-			                    // Atualizar a tabela
-			                    model.fireTableDataChanged();
-			                }
-			            } else if (i == JOptionPane.NO_OPTION) {
-			                JOptionPane.showMessageDialog(null, "Você cancelou a exclusão com sucesso");
-			            }
+					try {
+						int i = JOptionPane.showConfirmDialog(null, "Deseja excluir o exame selecionado?");
+						if (i == JOptionPane.YES_OPTION) {
+							boolean exclusaoBemSucedida = dao.excluir(exame);
+							if (exclusaoBemSucedida) {
+								JOptionPane.showMessageDialog(null, "Você excluiu o exame com sucesso");
+								model.removeExameAt(selectedRow);
+								// Atualizar a tabela
+								model.fireTableDataChanged();
+							}
+						} else if (i == JOptionPane.NO_OPTION) {
+							JOptionPane.showMessageDialog(null, "Você cancelou a exclusão com sucesso");
+						}
 
-			        } catch (Exception ex) {
-			            JOptionPane.showMessageDialog(null, "Erro ao excluir o exame", "Erro",
-			                    JOptionPane.ERROR_MESSAGE);
-			            ex.printStackTrace();
-			        }
-			    } else {
-			        JOptionPane.showMessageDialog(null, "Selecione um exame antes de excluir.");
-			    }
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Erro ao excluir o exame", "Erro",
+								JOptionPane.ERROR_MESSAGE);
+						ex.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um exame antes de excluir.");
+				}
 			}
-	        
-	    };
+
+		};
 	}
 
 	public JTable getTabela() {

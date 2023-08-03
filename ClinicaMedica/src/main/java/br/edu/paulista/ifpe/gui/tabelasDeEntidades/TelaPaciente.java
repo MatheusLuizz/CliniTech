@@ -19,14 +19,14 @@ import br.edu.paulista.ifpe.core.util.cadastroMedicos.CadastroPacienteListener;
 import br.edu.paulista.ifpe.data.PacienteDAO;
 import br.edu.paulista.ifpe.gui.Home;
 import br.edu.paulista.ifpe.model.entidades.Paciente;
-import br.edu.paulista.ifpe.model.tablemodel.DetalhesPacienteTableModel;
 import br.edu.paulista.ifpe.model.tablemodel.PacienteTableModel;
 
 @SuppressWarnings("serial")
 public class TelaPaciente extends JPanel implements CadastroPacienteListener {
     private JScrollPane scrollPane;
     protected JTable tabela;
-    private Home home;
+    @SuppressWarnings("unused")
+	private Home home;
     private PacienteTableModel pacienteTableModel = new PacienteTableModel();
 
     public static void main(String[] args) {
@@ -44,7 +44,7 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
     }
 
     public TelaPaciente() {
-        this.home = null; // Inicializa a referência para a classe Home
+        this.home = null;
 
         setBounds(100, 100, 800, 500);
         setLayout(new BorderLayout());
@@ -68,7 +68,7 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
 				int selectedRow = tabela.getSelectedRow();
 			    if (selectedRow >= 0) {
 			        PacienteTableModel model = (PacienteTableModel) tabela.getModel();
-			        Paciente paciente = model.getPaciente(selectedRow); // Usar a linha selecionada em vez do selectedRow
+			        Paciente paciente = model.getPaciente(selectedRow);
 			        int id = Integer.parseInt(paciente.getId());
 			        try {
 			            int i = JOptionPane.showConfirmDialog(null, "Deseja ver detalhes do paciente selecionado?");
@@ -156,7 +156,7 @@ public class TelaPaciente extends JPanel implements CadastroPacienteListener {
 				PainelAcao painelAcao = new PainelAcao();
 	            Paciente paciente = lista.get(i);
 	            painelAcao.setIdPaciente(paciente.getId());
-	            modelo.setValueAt(painelAcao, i, 6); // Defina o valor correto para a coluna de ações
+	            modelo.setValueAt(painelAcao, i, 6);
 	        }
 
         } catch (Exception ex) {

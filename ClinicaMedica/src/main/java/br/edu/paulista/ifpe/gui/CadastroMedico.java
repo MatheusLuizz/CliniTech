@@ -12,7 +12,6 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -47,10 +46,10 @@ public class CadastroMedico extends JDialog {
 	private byte[] fileData;
 	private JLabel lblNewLabel_7;
 	private JTextField txtSenha;
-	
+
 	public void setListener(CadastroMedicoListener listener) {
-        this.listener = listener;
-    }
+		this.listener = listener;
+	}
 
 	public static void main(String[] args) {
 		try {
@@ -72,7 +71,7 @@ public class CadastroMedico extends JDialog {
 		setBounds(100, 100, 450, 300);
 		contentPane = new PainelDegrade();
 		contentPane.setColors(new Color(0, 128, 255), new Color(50, 205, 50));
-        contentPane.repaint();
+		contentPane.repaint();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -123,7 +122,7 @@ public class CadastroMedico extends JDialog {
 		contentPane.add(lblNewLabel_3);
 
 		try {
-			MaskFormatter mask = new MaskFormatter("########"); // Define a máscara para 7 ou 8 dígitos numéricos
+			MaskFormatter mask = new MaskFormatter("########");
 			txtRg = new CampoTextoFormatadoRedondo(mask, 10);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Erro na formatação do RG", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -156,13 +155,12 @@ public class CadastroMedico extends JDialog {
 		txtEspecialidade.setBounds(137, 163, 96, 19);
 		contentPane.add(txtEspecialidade);
 		txtEspecialidade.setColumns(10);
-		
+
 		txtSenha = new CampoTextoRedondo(10);
 		txtSenha.setBounds(249, 22, 96, 19);
 		contentPane.add(txtSenha);
 		txtSenha.setColumns(10);
 
-		// Definindo limite de caracteres nos campos de texto
 		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
 		limiteCaracteres.adicionarLimiteCaracteres(txtNome, 100);
 		limiteCaracteres.adicionarLimiteCaracteres(txtEspecialidade, 100);
@@ -173,28 +171,28 @@ public class CadastroMedico extends JDialog {
 		btnCadastro.setFont(new Font("Arial", Font.BOLD, 16));
 		btnCadastro.setBounds(165, 223, 120, 30);
 		contentPane.add(btnCadastro);
-		
+
 		lblNewLabel_6 = new JLabel("Assinatura Eletrênica");
 		lblNewLabel_6.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_6.setBounds(6, 196, 154, 13);
 		contentPane.add(lblNewLabel_6);
-		
+
 		btnUpload = new JButton("Upload");
 		btnUpload.setFont(new Font("Arial", Font.BOLD, 14));
 		btnUpload.setBounds(200, 192, 85, 21);
 		btnUpload.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int result = fileChooser.showOpenDialog(CadastroMedico.this);
-                if (result == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    fileData = readFileContent(selectedFile);
-                }
-            }
-        });
-		
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				int result = fileChooser.showOpenDialog(CadastroMedico.this);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					fileData = readFileContent(selectedFile);
+				}
+			}
+		});
+
 		contentPane.add(btnUpload);
-		
+
 		lblNewLabel_7 = new JLabel("senha");
 		lblNewLabel_7.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel_7.setBounds(188, 25, 51, 13);
@@ -210,12 +208,12 @@ public class CadastroMedico extends JDialog {
 				final String telefone = txtTelefone.getText();
 				final String especialidade = txtEspecialidade.getText();
 				final String senha = txtSenha.getText();
-				
+
 				if (fileData == null) {
-                    JOptionPane.showMessageDialog(null, "Selecione um arquivo antes de cadastrar.", "Erro",
-                            JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+					JOptionPane.showMessageDialog(null, "Selecione um arquivo antes de cadastrar.", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+					return;
+				}
 
 				if (crm.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "O campo CRM é obrigatório.", "Erro",
@@ -247,26 +245,26 @@ public class CadastroMedico extends JDialog {
 					InserirMedico i = new InserirMedico();
 					i.inserirDados(crm, nome, cpf, rg, telefone, especialidade, fileData, senha);
 					if (listener != null) {
-		                listener.medicoCadastrado();
-		            }
+						listener.medicoCadastrado();
+					}
 					dispose();
 				}
 			}
 		});
 	}
-	private byte[] readFileContent(File file) {
-	    try (FileInputStream fis = new FileInputStream(file);
-	         ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
 
-	        byte[] buffer = new byte[1024];
-	        int bytesRead;
-	        while ((bytesRead = fis.read(buffer)) != -1) {
-	            bos.write(buffer, 0, bytesRead);
-	        }
-	        return bos.toByteArray();
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
+	private byte[] readFileContent(File file) {
+		try (FileInputStream fis = new FileInputStream(file); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+
+			byte[] buffer = new byte[1024];
+			int bytesRead;
+			while ((bytesRead = fis.read(buffer)) != -1) {
+				bos.write(buffer, 0, bytesRead);
+			}
+			return bos.toByteArray();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

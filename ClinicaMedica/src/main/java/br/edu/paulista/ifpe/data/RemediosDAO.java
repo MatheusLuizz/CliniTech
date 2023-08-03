@@ -35,23 +35,24 @@ public class RemediosDAO {
 
 		return lista;
 	}
+
 	public boolean excluir(Remedio remedio) {
-	    try {
-	        String sql = "DELETE FROM remedio WHERE id = ?";
-	        ConnectionBD connectionBD = new ConnectionBD();
-	        Connection conn = connectionBD.abrir();
+		try {
+			String sql = "DELETE FROM remedio WHERE id = ?";
+			ConnectionBD connectionBD = new ConnectionBD();
+			Connection conn = connectionBD.abrir();
 
-	        PreparedStatement comando = conn.prepareStatement(sql);
-	        comando.setString(1, remedio.getId());
-	        comando.executeUpdate();
+			PreparedStatement comando = conn.prepareStatement(sql);
+			comando.setString(1, remedio.getId());
+			comando.executeUpdate();
 
-	        comando.close();
-	        conn.close();
-	        return true;
-	    } catch (Exception ex) {
-	    	JOptionPane.showMessageDialog(null, "Erro ao excluir o remedio");
-	    	ex.printStackTrace();
-	    }
-	    return false;
+			comando.close();
+			conn.close();
+			return true;
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao excluir o remedio");
+			ex.printStackTrace();
+		}
+		return false;
 	}
 }

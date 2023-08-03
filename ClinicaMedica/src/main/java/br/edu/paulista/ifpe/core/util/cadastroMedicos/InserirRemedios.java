@@ -15,14 +15,14 @@ public class InserirRemedios {
 			st = conn.abrir().prepareStatement(query);
 			st.setString(1, nome);
 			st.setString(2, apresentacao);
-			
+
 			st.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
 					"Erro ao inserir os dados no banco de dados. Por favor, tente novamente.");
 			e.printStackTrace();
-			
+
 		} finally {
 			conn.fechar();
 		}

@@ -14,226 +14,212 @@ import br.edu.paulista.ifpe.data.ConnectionBD;
 
 @SuppressWarnings("serial")
 public class PacienteDiarioGeralTableModel extends AbstractTableModel {
-    private Vector<String> colunas;
-    private Vector<Vector<Object>> linhas;
+	private Vector<String> colunas;
+	private Vector<Vector<Object>> linhas;
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public PacienteDiarioGeralTableModel() {
-        colunas = new Vector();
-        colunas.add("Nome");
-        colunas.add("Atendimento");
-        colunas.add("Médico");
-        colunas.add("Hora");
-        linhas = new Vector<>();
-    }
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public PacienteDiarioGeralTableModel() {
+		colunas = new Vector();
+		colunas.add("Nome");
+		colunas.add("Atendimento");
+		colunas.add("Médico");
+		colunas.add("Hora");
+		linhas = new Vector<>();
+	}
 
-    public int getRowCount() {
-        int totalLinhas = linhas.size();
-        return totalLinhas;
-    }
+	public int getRowCount() {
+		int totalLinhas = linhas.size();
+		return totalLinhas;
+	}
 
-    public int getColumnCount() {
-        int totalColunas = colunas.size();
-        return totalColunas;
-    }
+	public int getColumnCount() {
+		int totalColunas = colunas.size();
+		return totalColunas;
+	}
 
-    public String getColumnName(int coluna) {
-        String nomeColuna = colunas.get(coluna);
-        return nomeColuna;
-    }
+	public String getColumnName(int coluna) {
+		String nomeColuna = colunas.get(coluna);
+		return nomeColuna;
+	}
 
-    @Override
-    public Object getValueAt(int linha, int coluna) {
-        return linhas.get(linha).get(coluna);
-    }
+	@Override
+	public Object getValueAt(int linha, int coluna) {
+		return linhas.get(linha).get(coluna);
+	}
 
-    @SuppressWarnings({ })
-    public void adicionarConsulta(String nomePaciente, String tipoAtendimento, String nomeMedico, String horaAtendimento) {
-        Vector<Object> novaLinha = new Vector<>();
-        novaLinha.add(nomePaciente);
-        novaLinha.add(tipoAtendimento);
-        novaLinha.add(nomeMedico);
-        novaLinha.add(horaAtendimento);
-        linhas.add(novaLinha);
+	@SuppressWarnings({})
+	public void adicionarConsulta(String nomePaciente, String tipoAtendimento, String nomeMedico,
+			String horaAtendimento) {
+		Vector<Object> novaLinha = new Vector<>();
+		novaLinha.add(nomePaciente);
+		novaLinha.add(tipoAtendimento);
+		novaLinha.add(nomeMedico);
+		novaLinha.add(horaAtendimento);
+		linhas.add(novaLinha);
 
-        fireTableRowsInserted(linhas.size() - 1, linhas.size() - 1);
-    }
+		fireTableRowsInserted(linhas.size() - 1, linhas.size() - 1);
+	}
 
-    public void limpar() {
-        int rowCount = linhas.size();
-        if (rowCount > 0) {
-            linhas.clear();
-            fireTableRowsDeleted(0, rowCount - 1);
-        }
-    }
-    public void adicionarConsultaFromSQL() {
-        // Abra a conexão com o banco de dados
-        ConnectionBD connectionBD = new ConnectionBD();
-        Connection connection = connectionBD.abrir();
+	public void limpar() {
+		int rowCount = linhas.size();
+		if (rowCount > 0) {
+			linhas.clear();
+			fireTableRowsDeleted(0, rowCount - 1);
+		}
+	}
 
-        if (connection != null) {
-            try {
-                // Obtém a data do sistema para filtrar a consulta
-                Date dataAtual = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String dataFormatada = sdf.format(dataAtual);
+	@SuppressWarnings("unused")
+	public void adicionarConsultaFromSQL() {
+		ConnectionBD connectionBD = new ConnectionBD();
+		Connection connection = connectionBD.abrir();
 
-                // Consulta SQL para obter os dados desejados das consultas
-                String consultaQuery = "SELECT p.nome AS nome_paciente, 'Consulta' AS atendimento, m.nome AS nome_medico, c.hora " +
-                                       "FROM consulta c " +
-                                       "INNER JOIN paciente p ON c.id_paciente = p.id " +
-                                       "INNER JOIN medico m ON c.id_medico = m.id " +
-                                       "WHERE c.data = ?";
-                
-                PreparedStatement consultaStatement = connection.prepareStatement(consultaQuery);
-                consultaStatement.setString(1, dataFormatada);
-                ResultSet consultaResultSet = consultaStatement.executeQuery();
+		if (connection != null) {
+			try {
+				Date dataAtual = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String dataFormatada = sdf.format(dataAtual);
 
-                // Adiciona os resultados das consultas à tabela
-                while (consultaResultSet.next()) {
-                    String nomePaciente = consultaResultSet.getString("nome_paciente");
-                    String tipoAtendimento = consultaResultSet.getString("atendimento");
-                    String nomeMedico = consultaResultSet.getString("nome_medico");
-                    String horaAtendimento = consultaResultSet.getString("hora");
+				String consultaQuery = "SELECT p.nome AS nome_paciente, 'Consulta' AS atendimento, m.nome AS nome_medico, c.hora "
+						+ "FROM consulta c " + "INNER JOIN paciente p ON c.id_paciente = p.id "
+						+ "INNER JOIN medico m ON c.id_medico = m.id " + "WHERE c.data = ?";
 
-                    adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaAtendimento);
-                }
+				PreparedStatement consultaStatement = connection.prepareStatement(consultaQuery);
+				consultaStatement.setString(1, dataFormatada);
+				ResultSet consultaResultSet = consultaStatement.executeQuery();
 
-                consultaResultSet.close();
-                consultaStatement.close();
+				while (consultaResultSet.next()) {
+					String nomePaciente = consultaResultSet.getString("nome_paciente");
+					String tipoAtendimento = consultaResultSet.getString("atendimento");
+					String nomeMedico = consultaResultSet.getString("nome_medico");
+					String horaAtendimento = consultaResultSet.getString("hora");
 
-                // Consulta SQL para obter os dados desejados dos exames marcados
-                String exameQuery = "SELECT p.nome AS nome_paciente, em.id_exame, m.nome AS nome_medico, em.data, em.hora " +
-                                    "FROM exame_marcado em " +
-                                    "INNER JOIN paciente p ON em.id_paciente = p.id " +
-                                    "INNER JOIN medico m ON em.id_medico = m.id " +
-                                    "WHERE em.data = ?";
-                
-                PreparedStatement exameStatement = connection.prepareStatement(exameQuery);
-                exameStatement.setString(1, dataFormatada);
-                ResultSet exameResultSet = exameStatement.executeQuery();
+					adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaAtendimento);
+				}
 
-                // Adiciona os resultados dos exames marcados à tabela
-                while (exameResultSet.next()) {
-                    String nomePaciente = exameResultSet.getString("nome_paciente");
-                    String idExame = exameResultSet.getString("id_exame");
-                    String nomeMedico = exameResultSet.getString("nome_medico");
-                    String dataExame = exameResultSet.getString("data");
-                    String horaExame = exameResultSet.getString("hora");
+				consultaResultSet.close();
+				consultaStatement.close();
 
-                    String nomeExame = obterNomeExamePorId(idExame);
-                    String tipoAtendimento = nomeExame;
+				String exameQuery = "SELECT p.nome AS nome_paciente, em.id_exame, m.nome AS nome_medico, em.data, em.hora "
+						+ "FROM exame_marcado em " + "INNER JOIN paciente p ON em.id_paciente = p.id "
+						+ "INNER JOIN medico m ON em.id_medico = m.id " + "WHERE em.data = ?";
 
-                    adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaExame);
-                }
+				PreparedStatement exameStatement = connection.prepareStatement(exameQuery);
+				exameStatement.setString(1, dataFormatada);
+				ResultSet exameResultSet = exameStatement.executeQuery();
 
-                exameResultSet.close();
-                exameStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                connectionBD.fechar();
-            }
-        }
-    }
-    public void adicionarConsultasEExamesPorMedico(int idMedico) {
-        // Abra a conexão com o banco de dados
-        ConnectionBD connectionBD = new ConnectionBD();
-        Connection connection = connectionBD.abrir();
+				while (exameResultSet.next()) {
+					String nomePaciente = exameResultSet.getString("nome_paciente");
+					String idExame = exameResultSet.getString("id_exame");
+					String nomeMedico = exameResultSet.getString("nome_medico");
+					String dataExame = exameResultSet.getString("data");
+					String horaExame = exameResultSet.getString("hora");
 
-        if (connection != null) {
-            try {
-                // Obtém a data do sistema para filtrar a consulta
-                Date dataAtual = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                String dataFormatada = sdf.format(dataAtual);
+					String nomeExame = obterNomeExamePorId(idExame);
+					String tipoAtendimento = nomeExame;
 
-                // Consulta SQL para obter os dados desejados das consultas realizadas pelo médico
-                String consultaQuery = "SELECT p.nome AS nome_paciente, 'Consulta' AS atendimento, m.nome AS nome_medico, c.hora " +
-                                       "FROM consulta c " +
-                                       "INNER JOIN paciente p ON c.id_paciente = p.id " +
-                                       "INNER JOIN medico m ON c.id_medico = m.id " +
-                                       "WHERE c.data = ? AND m.id = ?";
-                
-                PreparedStatement consultaStatement = connection.prepareStatement(consultaQuery);
-                consultaStatement.setString(1, dataFormatada);
-                consultaStatement.setInt(2, idMedico);
-                ResultSet consultaResultSet = consultaStatement.executeQuery();
+					adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaExame);
+				}
 
-                // Adiciona os resultados das consultas à tabela
-                while (consultaResultSet.next()) {
-                    String nomePaciente = consultaResultSet.getString("nome_paciente");
-                    String tipoAtendimento = consultaResultSet.getString("atendimento");
-                    String nomeMedico = consultaResultSet.getString("nome_medico");
-                    String horaAtendimento = consultaResultSet.getString("hora");
+				exameResultSet.close();
+				exameStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				connectionBD.fechar();
+			}
+		}
+	}
 
-                    adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaAtendimento);
-                }
+	@SuppressWarnings("unused")
+	public void adicionarConsultasEExamesPorMedico(int idMedico) {
+		ConnectionBD connectionBD = new ConnectionBD();
+		Connection connection = connectionBD.abrir();
 
-                consultaResultSet.close();
-                consultaStatement.close();
+		if (connection != null) {
+			try {
+				Date dataAtual = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String dataFormatada = sdf.format(dataAtual);
 
-                // Consulta SQL para obter os dados desejados dos exames marcados realizados pelo médico
-                String exameQuery = "SELECT p.nome AS nome_paciente, em.id_exame, m.nome AS nome_medico, em.data, em.hora " +
-                                    "FROM exame_marcado em " +
-                                    "INNER JOIN paciente p ON em.id_paciente = p.id " +
-                                    "INNER JOIN medico m ON em.id_medico = m.id " +
-                                    "WHERE em.data = ? AND m.id = ?";
-                
-                PreparedStatement exameStatement = connection.prepareStatement(exameQuery);
-                exameStatement.setString(1, dataFormatada);
-                exameStatement.setInt(2, idMedico);
-                ResultSet exameResultSet = exameStatement.executeQuery();
+				String consultaQuery = "SELECT p.nome AS nome_paciente, 'Consulta' AS atendimento, m.nome AS nome_medico, c.hora "
+						+ "FROM consulta c " + "INNER JOIN paciente p ON c.id_paciente = p.id "
+						+ "INNER JOIN medico m ON c.id_medico = m.id " + "WHERE c.data = ? AND m.id = ?";
 
-                // Adiciona os resultados dos exames marcados à tabela
-                while (exameResultSet.next()) {
-                    String nomePaciente = exameResultSet.getString("nome_paciente");
-                    String idExame = exameResultSet.getString("id_exame");
-                    String nomeMedico = exameResultSet.getString("nome_medico");
-                    String dataExame = exameResultSet.getString("data");
-                    String horaExame = exameResultSet.getString("hora");
+				PreparedStatement consultaStatement = connection.prepareStatement(consultaQuery);
+				consultaStatement.setString(1, dataFormatada);
+				consultaStatement.setInt(2, idMedico);
+				ResultSet consultaResultSet = consultaStatement.executeQuery();
 
-                    String nomeExame = obterNomeExamePorId(idExame);
-                    String tipoAtendimento = nomeExame;
+				while (consultaResultSet.next()) {
+					String nomePaciente = consultaResultSet.getString("nome_paciente");
+					String tipoAtendimento = consultaResultSet.getString("atendimento");
+					String nomeMedico = consultaResultSet.getString("nome_medico");
+					String horaAtendimento = consultaResultSet.getString("hora");
 
-                    adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaExame);
-                }
+					adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaAtendimento);
+				}
 
-                exameResultSet.close();
-                exameStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                connectionBD.fechar();
-            }
-        }
-    }
-    private String obterNomeExamePorId(String idExame) {
-        ConnectionBD connectionBD = new ConnectionBD();
-        Connection connection = connectionBD.abrir();
-        String nomeExame = "";
+				consultaResultSet.close();
+				consultaStatement.close();
 
-        if (connection != null) {
-            try {
-                String query = "SELECT tipo_exame FROM exame WHERE id = ?";
-                PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, idExame);
-                ResultSet resultSet = preparedStatement.executeQuery();
+				String exameQuery = "SELECT p.nome AS nome_paciente, em.id_exame, m.nome AS nome_medico, em.data, em.hora "
+						+ "FROM exame_marcado em " + "INNER JOIN paciente p ON em.id_paciente = p.id "
+						+ "INNER JOIN medico m ON em.id_medico = m.id " + "WHERE em.data = ? AND m.id = ?";
 
-                if (resultSet.next()) {
-                    nomeExame = resultSet.getString("tipo_exame");
-                }
+				PreparedStatement exameStatement = connection.prepareStatement(exameQuery);
+				exameStatement.setString(1, dataFormatada);
+				exameStatement.setInt(2, idMedico);
+				ResultSet exameResultSet = exameStatement.executeQuery();
 
-                resultSet.close();
-                preparedStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                connectionBD.fechar();
-            }
-        }
+				while (exameResultSet.next()) {
+					String nomePaciente = exameResultSet.getString("nome_paciente");
+					String idExame = exameResultSet.getString("id_exame");
+					String nomeMedico = exameResultSet.getString("nome_medico");
+					String dataExame = exameResultSet.getString("data");
+					String horaExame = exameResultSet.getString("hora");
 
-        return nomeExame;
-    }
+					String nomeExame = obterNomeExamePorId(idExame);
+					String tipoAtendimento = nomeExame;
+
+					adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaExame);
+				}
+
+				exameResultSet.close();
+				exameStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				connectionBD.fechar();
+			}
+		}
+	}
+
+	private String obterNomeExamePorId(String idExame) {
+		ConnectionBD connectionBD = new ConnectionBD();
+		Connection connection = connectionBD.abrir();
+		String nomeExame = "";
+
+		if (connection != null) {
+			try {
+				String query = "SELECT tipo_exame FROM exame WHERE id = ?";
+				PreparedStatement preparedStatement = connection.prepareStatement(query);
+				preparedStatement.setString(1, idExame);
+				ResultSet resultSet = preparedStatement.executeQuery();
+
+				if (resultSet.next()) {
+					nomeExame = resultSet.getString("tipo_exame");
+				}
+
+				resultSet.close();
+				preparedStatement.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				connectionBD.fechar();
+			}
+		}
+
+		return nomeExame;
+	}
 
 }

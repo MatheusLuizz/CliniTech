@@ -42,22 +42,23 @@ public class ExameMarcadoDAO {
 		conn.close();
 		return lista;
 	}
+
 	public boolean excluir(Exame exame) {
-	    try {
-	        String sql = "DELETE FROM exame_marcado WHERE id = ?";
-	        ConnectionBD connectionBD = new ConnectionBD();
-	        Connection conn = connectionBD.abrir();
+		try {
+			String sql = "DELETE FROM exame_marcado WHERE id = ?";
+			ConnectionBD connectionBD = new ConnectionBD();
+			Connection conn = connectionBD.abrir();
 
-	        PreparedStatement comando = conn.prepareStatement(sql);
-	        comando.setString(1, exame.getId());
-	        comando.executeUpdate();
+			PreparedStatement comando = conn.prepareStatement(sql);
+			comando.setString(1, exame.getId());
+			comando.executeUpdate();
 
-	        comando.close();
-	        conn.close();
-	        return true;
-	    } catch (Exception ex) {
-	    	JOptionPane.showMessageDialog(null, "Erro ao excluir o exame");
-	    }
-	    return false;
+			comando.close();
+			conn.close();
+			return true;
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao excluir o exame");
+		}
+		return false;
 	}
 }

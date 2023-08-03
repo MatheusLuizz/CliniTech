@@ -14,7 +14,7 @@ public class InserirExames {
 		try {
 			st = conn.abrir().prepareStatement(query);
 			st.setString(1, nome);
-			
+
 			st.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Dados inseridos com sucesso!");
 		} catch (Exception e) {

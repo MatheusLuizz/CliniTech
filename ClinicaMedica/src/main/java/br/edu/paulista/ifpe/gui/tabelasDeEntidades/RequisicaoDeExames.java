@@ -55,92 +55,94 @@ public class RequisicaoDeExames extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
-		
+
 		lblNewLabel = new JLabel("Exames solicitados");
 		lblNewLabel.setBounds(10, 23, 91, 25);
 		contentPane.add(lblNewLabel);
-		
+
 		txtExames = new CampoTextoRedondo(10);
 		txtExames.setBounds(111, 23, 117, 25);
 		contentPane.add(txtExames);
 		txtExames.setColumns(10);
-		
+
 		lblNewLabel_1 = new JLabel("Nome do paciente");
 		lblNewLabel_1.setBounds(10, 72, 91, 13);
 		contentPane.add(lblNewLabel_1);
-		
+
 		txtPaciente = new CampoTextoRedondo(10);
 		txtPaciente.setBounds(111, 63, 117, 25);
 		contentPane.add(txtPaciente);
 		txtPaciente.setColumns(10);
-		
+
 		btnGerar = new JButton("Gerar requisição");
 		btnGerar.setBounds(143, 178, 107, 21);
 		contentPane.add(btnGerar);
 		btnGerar.addActionListener(e -> gerarRequisicaoPDF());
-		
+
 		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
 		limiteCaracteres.adicionarLimiteCaracteres(txtExames, 255);
 		limiteCaracteres.adicionarLimiteCaracteres(txtPaciente, 100);
-		
+
 	}
+
 	private void gerarRequisicaoPDF() {
-	    String examesSolicitados = txtExames.getText();
-	    String nomePaciente = txtPaciente.getText();
-	    Date dataRequisicao = new Date();
-	    String medicoResponsavel = "";
+		String examesSolicitados = txtExames.getText();
+		String nomePaciente = txtPaciente.getText();
+		Date dataRequisicao = new Date();
+		String medicoResponsavel = "";
 
-	    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-	    try {
-            ConnectionBD con = new ConnectionBD();
-            String query = "SELECT nome, assinatura FROM medico WHERE id = ?";
-            try (Connection connection = con.abrir();
-                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+		try {
+			ConnectionBD con = new ConnectionBD();
+			String query = "SELECT nome, assinatura FROM medico WHERE id = ?";
+			try (Connection connection = con.abrir();
+					PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-                preparedStatement.setInt(1, idMedico);
-                ResultSet resultSet = preparedStatement.executeQuery();
+				preparedStatement.setInt(1, idMedico);
+				ResultSet resultSet = preparedStatement.executeQuery();
 
-                if (resultSet.next()) {
-                    medicoResponsavel = resultSet.getString("nome");
-                    byte[] assinaturaBytes = resultSet.getBytes("assinatura");
+				if (resultSet.next()) {
+					medicoResponsavel = resultSet.getString("nome");
+					byte[] assinaturaBytes = resultSet.getBytes("assinatura");
 
-                    Document document = new Document();
-        	        PdfWriter.getInstance(document, new FileOutputStream(getNomeArquivo()));
-        	        document.open();
+					Document document = new Document();
+					PdfWriter.getInstance(document, new FileOutputStream(getNomeArquivo()));
+					document.open();
 
-        	        Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
-        	        Paragraph title = new Paragraph("Requisição de Exames", titleFont);
-        	        title.setAlignment(Element.ALIGN_CENTER);
-        	        document.add(title);
+					Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18, Font.BOLD);
+					Paragraph title = new Paragraph("Requisição de Exames", titleFont);
+					title.setAlignment(Element.ALIGN_CENTER);
+					document.add(title);
 
-        	        @SuppressWarnings("unused")
+					@SuppressWarnings("unused")
 					Font normalFont = new Font(Font.FontFamily.TIMES_ROMAN, 12);
-        	        Paragraph content = new Paragraph();
-        	        content.add("Paciente: " + nomePaciente + "\n");
-        	        content.add("Data da Requisição: " + dateFormat.format(dataRequisicao) + "\n");
-        	        content.add("Exames Solicitados: " + examesSolicitados + "\n");
-        	        content.add("Médico Responsável: " + medicoResponsavel + "\n");
-        	        document.add(content);
-                    if (assinaturaBytes != null && assinaturaBytes.length > 0) {
-                        Image assinaturaImage = Image.getInstance(assinaturaBytes);
-                        assinaturaImage.setAlignment(Element.ALIGN_CENTER);
-                        assinaturaImage.scaleToFit(150, 75); // Ajuste as dimensões conforme necessário
-                        document.add(assinaturaImage);
-                    }
+					Paragraph content = new Paragraph();
+					content.add("Paciente: " + nomePaciente + "\n");
+					content.add("Data da Requisição: " + dateFormat.format(dataRequisicao) + "\n");
+					content.add("Exames Solicitados: " + examesSolicitados + "\n");
+					content.add("Médico Responsável: " + medicoResponsavel + "\n");
+					document.add(content);
+					if (assinaturaBytes != null && assinaturaBytes.length > 0) {
+						Image assinaturaImage = Image.getInstance(assinaturaBytes);
+						assinaturaImage.setAlignment(Element.ALIGN_CENTER);
+						assinaturaImage.scaleToFit(150, 75);
+						document.add(assinaturaImage);
+					}
 
-                    document.close();
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Requisição gerada com sucesso!");
-            dispose();
-        } catch (Exception e) {
-        	JOptionPane.showMessageDialog(null, "Houve um erro ao gerar a requisição!");
-        }
-    }
+					document.close();
+				}
+			}
+			JOptionPane.showMessageDialog(null, "Requisição gerada com sucesso!");
+			dispose();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Houve um erro ao gerar a requisição!");
+		}
+	}
+
 	private String getNomeArquivo() {
-	    SimpleDateFormat formatoData = new SimpleDateFormat("yyyyMMdd_HHmmss");
-	    String dataAtual = formatoData.format(new Date());
-	    return "RequisicaoDeExame_" + dataAtual + ".pdf";
+		SimpleDateFormat formatoData = new SimpleDateFormat("yyyyMMdd_HHmmss");
+		String dataAtual = formatoData.format(new Date());
+		return "RequisicaoDeExame_" + dataAtual + ".pdf";
 	}
 }

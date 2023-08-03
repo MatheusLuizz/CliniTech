@@ -21,7 +21,6 @@ import javax.swing.table.TableModel;
 import br.edu.paulista.ifpe.data.ConsultasDAO;
 import br.edu.paulista.ifpe.model.entidades.Consulta;
 import br.edu.paulista.ifpe.model.tablemodel.ConsultasTableModel;
-import br.edu.paulista.ifpe.model.tablemodel.DetalhesPacienteTableModel;
 
 @SuppressWarnings("serial")
 public class TelaConsulta extends JTable {
@@ -51,10 +50,10 @@ public class TelaConsulta extends JTable {
 		scrollPane.setPreferredSize(new Dimension(800, 500));
 		add(scrollPane, BorderLayout.CENTER);
 		JPanel painelAcoes = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JButton btnAcao = new JButton("Remarcar consulta");
-        painelAcoes.add(btnAcao);
-        add(painelAcoes, BorderLayout.NORTH);
-        btnAcao.addActionListener(new ActionListener() {
+		JButton btnAcao = new JButton("Remarcar consulta");
+		painelAcoes.add(btnAcao);
+		add(painelAcoes, BorderLayout.NORTH);
+		btnAcao.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				RemarcarConsulta rc = new RemarcarConsulta();
@@ -72,53 +71,52 @@ public class TelaConsulta extends JTable {
 		scrollPane.setViewportView(tabela);
 		ConsultasDAO dao = new ConsultasDAO();
 		TableActionEvent evento = new TableActionEvent() {
-			
+
 			@Override
 			public void onView(int linha) {
 				JOptionPane.showMessageDialog(null, "Todos os dados já estão aqui!");
-				
+
 			}
-			
+
 			@Override
 			public void onEdit(int linha) {
 				System.out.println("Editando linha: " + linha);
 			}
-			
+
 			@Override
 			public void onDelete(int linha) {
-			    int selectedRow = tabela.getSelectedRow();
-			    if (selectedRow >= 0) {
-			        ConsultasTableModel model = (ConsultasTableModel) tabela.getModel();
-			        Consulta consulta = model.getConsulta(selectedRow);
+				int selectedRow = tabela.getSelectedRow();
+				if (selectedRow >= 0) {
+					ConsultasTableModel model = (ConsultasTableModel) tabela.getModel();
+					Consulta consulta = model.getConsulta(selectedRow);
 
-			        try {
-			            int i = JOptionPane.showConfirmDialog(null, "Deseja excluir a consulta selecionada?");
-			            if (i == JOptionPane.YES_OPTION) {
-			                boolean exclusaoBemSucedida = dao.excluir(consulta);
-			                if (exclusaoBemSucedida) {
-			                	JOptionPane.showMessageDialog(null, "Você excluiu a consulta com sucesso");
-			                    model.removeConsultaAt(selectedRow);
-			                    // Atualizar a tabela
-			                    model.fireTableDataChanged();
-			                }
-			            } else if (i == JOptionPane.NO_OPTION) {
-			                JOptionPane.showMessageDialog(null, "Você cancelou com sucesso");
-			            }
+					try {
+						int i = JOptionPane.showConfirmDialog(null, "Deseja excluir a consulta selecionada?");
+						if (i == JOptionPane.YES_OPTION) {
+							boolean exclusaoBemSucedida = dao.excluir(consulta);
+							if (exclusaoBemSucedida) {
+								JOptionPane.showMessageDialog(null, "Você excluiu a consulta com sucesso");
+								model.removeConsultaAt(selectedRow);
+								// Atualizar a tabela
+								model.fireTableDataChanged();
+							}
+						} else if (i == JOptionPane.NO_OPTION) {
+							JOptionPane.showMessageDialog(null, "Você cancelou com sucesso");
+						}
 
-			        } catch (Exception ex) {
-			            JOptionPane.showMessageDialog(null, "Erro ao cancelar a consulta", "Erro",
-			                    JOptionPane.ERROR_MESSAGE);
-			        }
-			    } else {
-			        JOptionPane.showMessageDialog(null, "Selecione uma consulta antes de excluir.");
-			    }
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Erro ao cancelar a consulta", "Erro",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione uma consulta antes de excluir.");
+				}
 			}
-	        
-	    };
+
+		};
 		tabela.getColumnModel().getColumn(5).setCellRenderer(new TableActionCellRender());
 		tabela.getColumnModel().getColumn(5).setCellEditor(new TabelaAcaoCellEditor(tabela, evento));
-		
-		
+
 	}
 
 	public JTable getTabela() {
@@ -144,7 +142,8 @@ public class TelaConsulta extends JTable {
 			JOptionPane.showMessageDialog(null, "Erro ao tentar buscar as consultas");
 		}
 	}
+
 	public void consultaCadastrada() {
-		atualizar();		
+		atualizar();
 	}
 }

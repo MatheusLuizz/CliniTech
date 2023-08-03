@@ -12,11 +12,9 @@ import br.edu.paulista.ifpe.model.entidades.Consulta;
 
 public class ConsultasDAO {
 	public List<Consulta> buscar(Consulta c) throws Exception {
-		String sql = "SELECT c.id, p.nome as nome_paciente, m.nome as nome_medico, c.data, c.hora " +
-                "FROM consulta c " +
-                "JOIN paciente p ON c.id_paciente = p.id " +
-                "JOIN medico m ON c.id_medico = m.id " +
-                "ORDER BY c.data DESC, c.hora, p.nome, m.nome";
+		String sql = "SELECT c.id, p.nome as nome_paciente, m.nome as nome_medico, c.data, c.hora " + "FROM consulta c "
+				+ "JOIN paciente p ON c.id_paciente = p.id " + "JOIN medico m ON c.id_medico = m.id "
+				+ "ORDER BY c.data DESC, c.hora, p.nome, m.nome";
 		ConnectionBD connectionBD = new ConnectionBD();
 		Connection conn = connectionBD.abrir();
 
@@ -40,22 +38,23 @@ public class ConsultasDAO {
 		conn.close();
 		return lista;
 	}
+
 	public boolean excluir(Consulta consulta) {
-	    try {
-	        String sql = "DELETE FROM consulta WHERE id = ?";
-	        ConnectionBD connectionBD = new ConnectionBD();
-	        Connection conn = connectionBD.abrir();
+		try {
+			String sql = "DELETE FROM consulta WHERE id = ?";
+			ConnectionBD connectionBD = new ConnectionBD();
+			Connection conn = connectionBD.abrir();
 
-	        PreparedStatement comando = conn.prepareStatement(sql);
-	        comando.setString(1, consulta.getId());
-	        comando.executeUpdate();
+			PreparedStatement comando = conn.prepareStatement(sql);
+			comando.setString(1, consulta.getId());
+			comando.executeUpdate();
 
-	        comando.close();
-	        conn.close();
-	        return true;
-	    } catch (Exception ex) {
-	    	JOptionPane.showMessageDialog(null, "Erro ao excluir a consulta");
-	    }
-	    return false;
+			comando.close();
+			conn.close();
+			return true;
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Erro ao excluir a consulta");
+		}
+		return false;
 	}
 }
