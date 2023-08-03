@@ -74,7 +74,7 @@ public class TelaConsulta extends JTable {
 
 			@Override
 			public void onView(int linha) {
-
+				JOptionPane.showMessageDialog(null, "Todos os dados estão na tabela");
 			}
 
 			@Override

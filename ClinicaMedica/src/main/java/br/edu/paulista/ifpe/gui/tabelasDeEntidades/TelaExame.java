@@ -58,13 +58,12 @@ public class TelaExame extends JTable implements CadastroExameListener {
 			
 			@Override
 			public void onView(int linha) {
-				System.out.println("Visualizando linha: " + linha);
+				JOptionPane.showMessageDialog(null, "Todos os dados já estão na tabela");
 				
 			}
 			
 			@Override
 			public void onEdit(int linha) {
-				System.out.println("Editando linha: " + linha);
 			}
 			
 			@Override

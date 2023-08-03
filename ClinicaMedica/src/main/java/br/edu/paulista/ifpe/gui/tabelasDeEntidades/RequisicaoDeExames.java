@@ -48,6 +48,7 @@ public class RequisicaoDeExames extends JDialog {
 	}
 
 	public RequisicaoDeExames(int idMedico) {
+		setTitle("Gerar requisição de exames");
 		this.idMedico = idMedico;
 		setBounds(100, 100, 450, 300);
 		contentPane = new PainelDegrade();
@@ -57,20 +58,22 @@ public class RequisicaoDeExames extends JDialog {
 		contentPane.setLayout(null);
 
 		lblNewLabel = new JLabel("Exames solicitados");
-		lblNewLabel.setBounds(10, 23, 91, 25);
+		lblNewLabel.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+		lblNewLabel.setBounds(10, 23, 124, 25);
 		contentPane.add(lblNewLabel);
 
 		txtExames = new CampoTextoRedondo(10);
-		txtExames.setBounds(111, 23, 117, 25);
+		txtExames.setBounds(133, 23, 117, 25);
 		contentPane.add(txtExames);
 		txtExames.setColumns(10);
 
 		lblNewLabel_1 = new JLabel("Nome do paciente");
-		lblNewLabel_1.setBounds(10, 72, 91, 13);
+		lblNewLabel_1.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 12));
+		lblNewLabel_1.setBounds(10, 72, 124, 13);
 		contentPane.add(lblNewLabel_1);
 
 		txtPaciente = new CampoTextoRedondo(10);
-		txtPaciente.setBounds(111, 63, 117, 25);
+		txtPaciente.setBounds(133, 66, 117, 25);
 		contentPane.add(txtPaciente);
 		txtPaciente.setColumns(10);
 
