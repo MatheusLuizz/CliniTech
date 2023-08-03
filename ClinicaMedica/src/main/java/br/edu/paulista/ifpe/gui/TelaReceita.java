@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import br.edu.paulista.ifpe.core.GeradorReceitaMedica;
+import br.edu.paulista.ifpe.core.LimiteCaracteres;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.CampoTextoRedondo;
 
 @SuppressWarnings("serial")
@@ -26,8 +27,6 @@ public class TelaReceita extends JDialog {
 	private PainelDegrade contentPane;
 	private JLabel lblNewLabel;
 	private JTextField txtPaciente;
-	private JLabel lblNewLabel_1;
-	private JTextField txtMedico;
 	private JLabel r1;
 	private JTextField txtRemedio1;
 	private JLabel r2;
@@ -52,6 +51,7 @@ public class TelaReceita extends JDialog {
 	private JTextField txtDosagem4;
 	private JTextField txtDosagem5;
 	private JButton btnGerar;
+	private int idMedico;
 	private GeradorReceitaMedica geradorReceita = new GeradorReceitaMedica();
 	private final JPanel panel = new JPanel();
 
@@ -81,8 +81,9 @@ public class TelaReceita extends JDialog {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public TelaReceita(int id) {
+	public TelaReceita(int idMedico) {
 		super();
+		this.idMedico = idMedico;
 		setModal(true);
 		setType(Type.UTILITY);
 		setTitle("Gerar receita");
@@ -99,36 +100,25 @@ public class TelaReceita extends JDialog {
 		
 		lblNewLabel = new JLabel("Nome do paciente");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel.setBounds(10, 14, 102, 13);
+		lblNewLabel.setBounds(10, 42, 102, 13);
 		contentPane.add(lblNewLabel);
 		
 		txtPaciente = new CampoTextoRedondo(10);
 		txtPaciente.setFont(new Font("Arial", Font.BOLD, 12));
-		txtPaciente.setBounds(124, 10, 114, 19);
+		txtPaciente.setBounds(122, 38, 114, 19);
 		contentPane.add(txtPaciente);
 		txtPaciente.setColumns(10);
 		
-		lblNewLabel_1 = new JLabel("ID do medico");
-		lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 12));
-		lblNewLabel_1.setBounds(10, 46, 77, 13);
-		contentPane.add(lblNewLabel_1);
-		
-		txtMedico = new CampoTextoRedondo(10);
-		txtMedico.setFont(new Font("Arial", Font.BOLD, 12));
-		txtMedico.setBounds(124, 39, 114, 19);
-		contentPane.add(txtMedico);
-		txtMedico.setColumns(10);
-		
 		lblQuantidade = new JLabel("Qt. medicacoes");
 		lblQuantidade.setFont(new Font("Arial", Font.BOLD, 12));
-		lblQuantidade.setBounds(10, 88, 169, 13);
+		lblQuantidade.setBounds(21, 82, 169, 13);
 		contentPane.add(lblQuantidade);
 		
 		boxQuantidade = new ComboBoxModerna();
 		boxQuantidade.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
 		boxQuantidade.setSelectedIndex(0);
 		boxQuantidade.setFont(new Font("Arial", Font.BOLD, 12));
-		boxQuantidade.setBounds(111, 84, 127, 21);
+		boxQuantidade.setBounds(111, 78, 127, 21);
 		contentPane.add(boxQuantidade);
 		boxQuantidade.addActionListener(new ActionListener() {
             @Override
@@ -147,7 +137,7 @@ public class TelaReceita extends JDialog {
 		
 		btnGerar = new JButton("Gerar receita");
 		btnGerar.setFont(new Font("Arial", Font.BOLD, 12));
-		btnGerar.setBounds(342, 56, 120, 21);
+		btnGerar.setBounds(305, 26, 120, 21);
 		contentPane.add(btnGerar);
 		panel.setBounds(10, 92, 468, 161);
 		panel.setOpaque(false);
@@ -290,12 +280,25 @@ public class TelaReceita extends JDialog {
 		r4.setVisible(false);
 		r3.setVisible(false);
 		r2.setVisible(false);
+		
+		LimiteCaracteres limiteCaracteres = new LimiteCaracteres();
+		limiteCaracteres.adicionarLimiteCaracteres(txtPaciente, 100);
+		limiteCaracteres.adicionarLimiteCaracteres(txtDosagem1, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtDosagem2, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtDosagem3, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtDosagem4, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtDosagem5, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtRemedio1, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtRemedio2, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtRemedio3, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtRemedio4, 50);
+		limiteCaracteres.adicionarLimiteCaracteres(txtRemedio5, 50);
+		
 		btnGerar.addActionListener(new ActionListener() {
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
 		        // Obtém a quantidade selecionada no JComboBox
 		        String valorSelecionadoStr = (String) boxQuantidade.getSelectedItem();
-		        int idMedico = Integer.parseInt(txtMedico.getText());
 		        String paciente = txtPaciente.getText();
 		        int num = Integer.parseInt(valorSelecionadoStr);
 

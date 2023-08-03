@@ -140,6 +140,81 @@ public class PacienteAmanhaGeralTableModel extends AbstractTableModel {
             }
         }
     }
+    public void adicionarConsultasEExamesPorMedico(int idMedico) {
+        // Abra a conexão com o banco de dados
+        ConnectionBD connectionBD = new ConnectionBD();
+        Connection connection = connectionBD.abrir();
+
+        if (connection != null) {
+            try {
+                
+                Calendar calendar = new GregorianCalendar();
+                calendar.add(Calendar.DAY_OF_YEAR, 1); // Adiciona 1 dia
+                Date dataAmanha = calendar.getTime();
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String dataAmanhaFormatada = sdf.format(dataAmanha);
+
+                // Consulta SQL para obter os dados desejados das consultas realizadas pelo médico
+                String consultaQuery = "SELECT p.nome AS nome_paciente, 'Consulta' AS atendimento, m.nome AS nome_medico, c.hora " +
+                                       "FROM consulta c " +
+                                       "INNER JOIN paciente p ON c.id_paciente = p.id " +
+                                       "INNER JOIN medico m ON c.id_medico = m.id " +
+                                       "WHERE c.data = ? AND m.id = ?";
+                
+                PreparedStatement consultaStatement = connection.prepareStatement(consultaQuery);
+                consultaStatement.setString(1, dataAmanhaFormatada);
+                consultaStatement.setInt(2, idMedico);
+                ResultSet consultaResultSet = consultaStatement.executeQuery();
+
+                // Adiciona os resultados das consultas à tabela
+                while (consultaResultSet.next()) {
+                    String nomePaciente = consultaResultSet.getString("nome_paciente");
+                    String tipoAtendimento = consultaResultSet.getString("atendimento");
+                    String nomeMedico = consultaResultSet.getString("nome_medico");
+                    String horaAtendimento = consultaResultSet.getString("hora");
+
+                    adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaAtendimento);
+                }
+
+                consultaResultSet.close();
+                consultaStatement.close();
+
+                // Consulta SQL para obter os dados desejados dos exames marcados realizados pelo médico
+                String exameQuery = "SELECT p.nome AS nome_paciente, em.id_exame, m.nome AS nome_medico, em.data, em.hora " +
+                                    "FROM exame_marcado em " +
+                                    "INNER JOIN paciente p ON em.id_paciente = p.id " +
+                                    "INNER JOIN medico m ON em.id_medico = m.id " +
+                                    "WHERE em.data = ? AND m.id = ?";
+                
+                PreparedStatement exameStatement = connection.prepareStatement(exameQuery);
+                exameStatement.setString(1, dataAmanhaFormatada);
+                exameStatement.setInt(2, idMedico);
+                ResultSet exameResultSet = exameStatement.executeQuery();
+
+                // Adiciona os resultados dos exames marcados à tabela
+                while (exameResultSet.next()) {
+                    String nomePaciente = exameResultSet.getString("nome_paciente");
+                    String idExame = exameResultSet.getString("id_exame");
+                    String nomeMedico = exameResultSet.getString("nome_medico");
+                    String dataExame = exameResultSet.getString("data");
+                    String horaExame = exameResultSet.getString("hora");
+
+                    String nomeExame = obterNomeExamePorId(idExame);
+                    String tipoAtendimento = nomeExame;
+
+                    adicionarConsulta(nomePaciente, tipoAtendimento, nomeMedico, horaExame);
+                }
+
+                exameResultSet.close();
+                exameStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                connectionBD.fechar();
+            }
+        }
+    }
     private String obterNomeExamePorId(String idExame) {
         ConnectionBD connectionBD = new ConnectionBD();
         Connection connection = connectionBD.abrir();

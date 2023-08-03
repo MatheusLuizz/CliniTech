@@ -36,6 +36,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import br.edu.paulista.ifpe.data.ConnectionBD;
+import br.edu.paulista.ifpe.gui.tabelasDeEntidades.RequisicaoDeExames;
 import br.edu.paulista.ifpe.gui.tabelasDeEntidades.TelaPaciente;
 import br.edu.paulista.ifpe.model.temas.Temas;
 import net.miginfocom.swing.MigLayout;
@@ -60,6 +61,7 @@ public class HomeMedico extends JFrame {
 	private JToggleButton btnTema;
 	@SuppressWarnings("unused")
 	private String nomeAutenticado;
+	private JButton btnLogout;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -149,6 +151,13 @@ public class HomeMedico extends JFrame {
         btnInicio.setBackground(getBackground());
         btnInicio.setBorderPainted(false);
         
+        btnLogout = new JButton();
+        btnLogout.setToolTipText("Sair");
+        btnLogout.setIcon(new ImageIcon(Home.class.getResource("/br/edu/paulista/ifpe/model/images/iconeLogout.png")));
+        btnLogout.setForeground(new Color(13,73,151));
+        btnLogout.setBackground(getForeground());
+        btnLogout.setBorderPainted(false);
+        
         contentPane.setLayout(null);
         GroupLayout gl_painelAtalhos = new GroupLayout(painelAtalhos);
         gl_painelAtalhos.setHorizontalGroup(
@@ -158,7 +167,8 @@ public class HomeMedico extends JFrame {
         				.addComponent(btnRequisicaoExame, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(btnReceita, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         				.addComponent(btnPaciente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        				.addComponent(btnInicio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        				.addComponent(btnInicio, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        				.addComponent(btnLogout, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         			.addContainerGap(20, Short.MAX_VALUE))
         );
         gl_painelAtalhos.setVerticalGroup(
@@ -172,6 +182,8 @@ public class HomeMedico extends JFrame {
         			.addComponent(btnReceita, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(btnRequisicaoExame, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(btnLogout, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addContainerGap(569, Short.MAX_VALUE))
         );
@@ -231,7 +243,7 @@ public class HomeMedico extends JFrame {
         
         txtBusca.setVisible(false);
 		lblBuscar.setVisible(false);
-		TelaInicio i = new TelaInicio();
+		TelaInicioMedico i = new TelaInicioMedico(idMedico);
 		painelPrincipal.removeAll();
 		painelPrincipal.setLayout(new CardLayout(0, 0));
 		painelPrincipal.add(i, BorderLayout.CENTER);
@@ -242,7 +254,7 @@ public class HomeMedico extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				txtBusca.setVisible(false);
 				lblBuscar.setVisible(false);
-				TelaInicio i = new TelaInicio();
+				TelaInicioMedico i = new TelaInicioMedico(idMedico);
 				painelPrincipal.removeAll();
 				painelPrincipal.setLayout(new CardLayout(0, 0));
 				painelPrincipal.add(i, BorderLayout.CENTER);
@@ -281,7 +293,9 @@ public class HomeMedico extends JFrame {
         });
         btnRequisicaoExame.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-                
+                RequisicaoDeExames re = new RequisicaoDeExames(idMedico);
+                re.setLocationRelativeTo(null);
+                re.setVisible(true);
             }
         });
         
@@ -303,6 +317,23 @@ public class HomeMedico extends JFrame {
                 
             }
         });
+        btnLogout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Tem certeza que você deseja sair?",
+                        "Confirmar log out",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (result == JOptionPane.YES_OPTION) {
+                    dispose();
+                    TelaLogin tl = new TelaLogin();
+                    tl.setVisible(true);
+                }
+            }
+        });
         
         btnInicio.setOpaque(false);
         btnInicio.setContentAreaFilled(false);
@@ -320,6 +351,9 @@ public class HomeMedico extends JFrame {
         btnRequisicaoExame.setContentAreaFilled(false);
         btnRequisicaoExame.setFocusPainted(false);
 
+        btnLogout.setOpaque(false);
+        btnLogout.setContentAreaFilled(false);
+        btnLogout.setFocusPainted(false);
 
         btnTema.setOpaque(false);
         btnTema.setContentAreaFilled(false);

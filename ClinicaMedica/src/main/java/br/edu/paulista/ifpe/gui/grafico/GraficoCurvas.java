@@ -158,14 +158,26 @@ public class GraficoCurvas extends JPanel {
 
 	public void adicionarDados() {
 		adicionarCurva();
-		// List<ModeloGrafico> dadosLucro = consultarDadosLucro();
-		// List<ModeloGrafico> dadosDespesas = consultarDadosDespesas();
-
-		// modelo.addAll(dadosGanhos);
-		// modelo.addAll(dadosLucro);
-		// modelo.addAll(dadosDespesas);
 	}
+	public void adicionarMedico(int id) {
+		adicionarCurvaMedico(id);
+	}
+	public void adicionarCurvaMedico(int idMedico) {
+	    String sql = "SELECT ano, mes, quantidade_exames_marcados, quantidade_consultas, "
+	            + "quantidade_exames_marcados + quantidade_consultas AS total_geral " + "FROM " + "( " + "    SELECT "
+	            + "        EXTRACT(YEAR FROM data) AS ano, " + "        EXTRACT(MONTH FROM data) AS mes, "
+	            + "        COUNT(CASE WHEN tabela = 'exame_marcado' THEN 1 END) AS quantidade_exames_marcados, "
+	            + "        COUNT(CASE WHEN tabela = 'consulta' THEN 1 END) AS quantidade_consultas " + "    FROM "
+	            + "        ( " + "            SELECT data, 'exame_marcado' AS tabela FROM exame_marcado "
+	            + "            WHERE id_medico = " + idMedico + " "
+	            + "            UNION ALL " + "            SELECT data, 'consulta' AS tabela FROM consulta "
+	            + "            WHERE id_medico = " + idMedico + " "
+	            + "        ) AS todas_as_tabelas " + "    GROUP BY " + "        EXTRACT(YEAR FROM data), "
+	            + "        EXTRACT(MONTH FROM data) " + ") AS resultados_por_mes " + "WHERE " + "    ano = 2023 "
+	            + "ORDER BY " + "    mes";
 
+	    adicionarCurvaNoGrafico(sql, "Atendimentos");
+	}
 	private void adicionarCurva() {
 		// Implementar a consulta SQL para recuperar os dados de ganhos da clínica
 		String sql = "SELECT ano, mes, quantidade_exames_marcados, quantidade_consultas, "
