@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
@@ -131,8 +132,10 @@ public class RequisicaoDeExames extends JDialog {
                     document.close();
                 }
             }
+            JOptionPane.showMessageDialog(null, "Requisição gerada com sucesso!");
+            dispose();
         } catch (Exception e) {
-            e.printStackTrace();
+        	JOptionPane.showMessageDialog(null, "Houve um erro ao gerar a requisição!");
         }
     }
 	private String getNomeArquivo() {

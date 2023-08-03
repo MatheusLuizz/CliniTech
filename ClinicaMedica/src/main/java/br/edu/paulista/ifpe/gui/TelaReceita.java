@@ -331,6 +331,7 @@ public class TelaReceita extends JDialog {
 		        } else {
 		            JOptionPane.showMessageDialog(null, "Falha ao gerar a receita médica.");
 		        }
+		        dispose();
 		    }
 		});
 	}

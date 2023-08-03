@@ -330,6 +330,7 @@ public class HomeMedico extends JFrame {
                 if (result == JOptionPane.YES_OPTION) {
                     dispose();
                     TelaLogin tl = new TelaLogin();
+                    tl.setLocationRelativeTo(null);
                     tl.setVisible(true);
                 }
             }
